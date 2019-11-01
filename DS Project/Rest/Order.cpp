@@ -44,3 +44,9 @@ ORD_STATUS Order::getStatus() const
 	return status;
 }
 
+double Order::GetReceipt()
+{
+	totalMoney = Dishes * Price;
+	return totalMoney;
+}
+

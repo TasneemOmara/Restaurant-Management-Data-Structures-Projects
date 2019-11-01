@@ -12,6 +12,7 @@ protected:
 	int Dishes;	//The number of dishes in that order 
 	                
 	double totalMoney;	//Total order money
+	double Price;   //the total price for one dish
 
 	int ArrTime, ServTime, FinishTime;	//arrival, service start, and finish times
 	
@@ -33,6 +34,7 @@ public:
 
 	void setStatus(ORD_STATUS s);
 	ORD_STATUS getStatus() const;
+	double GetReceipt();
 	
 	//
 	// TODO: Add More Member Functions As Needed
