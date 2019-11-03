@@ -66,3 +66,28 @@ bool cook::ToDone(int Arr_done[])
 	}
 	return false;
 }
+
+//set Max cooks number
+
+void cook::set_max_cooks_num(int n)
+{
+	max_cooks_num=n;
+}
+
+//should he take a break or not 
+
+bool cook::break_time()
+{	
+	if (dishes_served>=dishes_before_break)
+	{
+		return true;
+	}
+	return false;
+}
+
+//setting served dishes after assigning a new order to the cook
+//it should be made ONLY after assignment 
+void cook::set_dishes_served()
+{
+	dishes_served=dishes_served+cooking.GetDishes();
+}
