@@ -11,7 +11,7 @@ Order::~Order()
 {
 }
 
-int Order::GetID()
+int Order::GetID() const 
 {
 	return ID;
 }
@@ -44,14 +44,43 @@ ORD_STATUS Order::getStatus() const
 	return status;
 }
 
-double Order::GetReceipt()
+double Order::GetReceipt() const
 {
-	totalMoney = Dishes * Price;
+	totalMoney = Dishes * Price + extra_money;
 	return totalMoney;
 }
 
-int Order::get_SV()
+int Order::get_SV() const
 {
 	return ServTime;
 }
+
+void Order::set_SV(int SV) 
+{
+	ServTime=SV;
+}
+
+int Order::get_AV() const
+{
+	return ArrTime;
+}
+
+void Order::set_AV() 
+{
+	ArrTime=AV;
+}
+
+int Order::get_FT() const
+{
+	return FinishTime;
+}
+
+void Order::set_FT(int FT)
+{
+	FinishTime=FT;
+}
+
+
+
+
 
