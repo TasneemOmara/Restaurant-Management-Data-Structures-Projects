@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\Defs.h"
+#include "Defs.h"
 #include "Order.h"
 
 class Cook
@@ -23,10 +23,9 @@ public:
 	void setID(int);
 	void setType(ORD_TYPE);
 	void setOrderCooking(Order O);
-	void getOrderCooking() const;
-	void setMacxooksNum(int max);
-	void global_time();
-	bool ToDone(int Arr[]);
-	void set_max_cooks_num(int n);
+	Order getOrderCooking() const;
+	void setMaxCooksNum(int max);
+	void global_time(int i);
+	bool ToDone(Cook Arr[]);
 	bool break_time();
 };
