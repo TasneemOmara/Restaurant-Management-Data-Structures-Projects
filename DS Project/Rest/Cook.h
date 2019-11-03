@@ -12,6 +12,8 @@ class Cook
 	Order cooking;                //the dish he cooks now
 	int max_cooks_num;            //the maximum number of cooks for a specific type
 	int cook_ID;                  //cook number ID to be stored in service and done arrays
+	int current_time=0;           //universal time stamp
+	
 
 public:
 	Cook();
@@ -19,6 +21,9 @@ public:
 	int GetID() const;
 	ORD_TYPE GetType() const;
 	void setID(int);
-	void setType(ORD_TYPE) ;
+	void setType(ORD_TYPE);
+	void setOrderCooking(Order O);
+	void setMacxooksNum(int max);
+	void inc_global_time();
 
 };
