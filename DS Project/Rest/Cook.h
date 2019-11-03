@@ -12,7 +12,7 @@ class Cook
 	Order cooking;                //the order he cooks now
 	int max_cooks_num;            //the maximum number of cooks for a specific type
 	int current_time;             //universal time stamp
-	int served_dishes_bfr_break;  // the number of dishes served after break
+	int breakTime;  // the number of dishes served after break
 	
 
 public:
@@ -27,5 +27,6 @@ public:
 	void setMacxooksNum(int max);
 	void global_time();
 	bool ToDone(int Arr[]);
+	void set_max_cooks_num(int n);
 
 };
