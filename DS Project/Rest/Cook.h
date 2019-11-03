@@ -5,6 +5,7 @@
 
 class Cook
 {
+private:
 	int ID;
 	ORD_TYPE type;	              //for each order type there is a corresponding type (VIP, Normal, Vegan)
 	int speed;		              //dishes it can prepare in one clock tick (in one timestep)
@@ -16,7 +17,7 @@ class Cook
 	
 
 public:
-	Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val);
+	Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val, int current_time);
 	virtual ~Cook();
 	int GetID() const;
 	ORD_TYPE GetType() const;

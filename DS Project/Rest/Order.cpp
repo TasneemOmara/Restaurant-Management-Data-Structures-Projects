@@ -93,5 +93,8 @@ bool Order::to_be_promoted(int extra)
 	return false;	
 }
 
-
+void Order::set_price(int n)
+{
+    Price=n;
+}
 
