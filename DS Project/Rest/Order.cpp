@@ -81,6 +81,18 @@ void Order::set_FT(int FT)
 }
 
 
+//this function is used to promote a normal order
+bool Order::to_be_promoted(int extra)
+{
+	if (type==TYPE_NRM)
+	{
+		type=TYPE_VIP;
+		extra_money=extra;
+		return true;
+	}
+	return false;
+	
+}
 
 
 

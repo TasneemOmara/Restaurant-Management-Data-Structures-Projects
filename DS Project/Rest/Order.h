@@ -32,6 +32,7 @@ public:
 	void set_AV();
 	int get_FT() const;
 	void set_FT(int FT);
+	bool to_be_promoted(int extra);
 
 	
 	//
