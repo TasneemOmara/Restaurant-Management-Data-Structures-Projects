@@ -90,8 +90,7 @@ bool Order::to_be_promoted(int extra)
 		extra_money=extra;
 		return true;
 	}
-	return false;
-	
+	return false;	
 }
 
 

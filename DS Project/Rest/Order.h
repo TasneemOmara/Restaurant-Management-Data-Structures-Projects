@@ -32,11 +32,7 @@ public:
 	void set_AV();
 	int get_FT() const;
 	void set_FT(int FT);
+	void get_WT() const;
 	bool to_be_promoted(int extra);
-
-	
-	//
-	// TODO: Add More Member Functions As Needed
-	//
 
 };
