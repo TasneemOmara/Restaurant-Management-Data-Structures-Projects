@@ -51,14 +51,14 @@ void Cook::setMaxCooksNum(int max)
 	max_cooks_num=max;
 }
 
-void cook::global_time(int i)
+void Cook::global_time(int i)
 {
 	current_time=i;
 }
 
 //moving the assigned order from in service to done 
 
-bool cook::ToDone(int Arr_done[])
+bool Cook::ToDone(Cook Arr_done[])
 {
 	if (current_time==cooking.get_SV()+(cooking.GetDishes()/speed))
 	{
@@ -68,16 +68,10 @@ bool cook::ToDone(int Arr_done[])
 	return false;
 }
 
-//set Max cooks number
-
-void cook::set_max_cooks_num(int n)
-{
-	max_cooks_num=n;
-}
 
 //should he take a break or not 
 
-bool cook::break_time()
+bool Cook::break_time()
 {	
 	if (dishes_served>=dishes_before_break)
 	{
