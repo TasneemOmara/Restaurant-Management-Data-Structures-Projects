@@ -1,11 +1,11 @@
 #pragma once
 #include<iostream>
 
-#include<SFML/Graphics/Drawable.hpp>
-#include<SFML/Graphics/Transformable.hpp>
-#include<SFML/Graphics.hpp>
+#include<SFML\Graphics\Drawable.hpp>
+#include<SFML\Graphics\Transformable.hpp>
+#include<SFML\Graphics.hpp>
 
-#include"../../Defs.h"
+#include"..\..\Defs.h"
 
 
 class StartingScreen : public sf::Drawable, public sf::Transformable {

@@ -1,9 +1,9 @@
 #pragma once
 #include<iostream>
 
-#include<SFML/Graphics/Drawable.hpp>
-#include<SFML/Graphics/Transformable.hpp>
-#include<SFML/Graphics.hpp>
+#include<SFML\Graphics\Drawable.hpp>
+#include<SFML\Graphics\Transformable.hpp>
+#include<SFML\Graphics.hpp>
 
 
 class TextArea : public sf::Drawable, public sf::Transformable {
