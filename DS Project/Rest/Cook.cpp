@@ -38,9 +38,10 @@ void Cook::setType(ORD_TYPE t)
 void Cook::setOrderCooking(Order O)
 {
 	cooking=O;
+	dishes_served=dishes_served+cooking.GetDishes();
 }
 
-Order Cook::getOrderCooking(Order O) const
+Order Cook::getOrderCooking() const
 {
 	return cooking;
 }
@@ -83,11 +84,4 @@ bool cook::break_time()
 		return true;
 	}
 	return false;
-}
-
-//setting served dishes after assigning a new order to the cook
-//it should be made ONLY after assignment 
-void cook::set_dishes_served()
-{
-	dishes_served=dishes_served+cooking.GetDishes();
 }

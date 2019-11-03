@@ -23,11 +23,10 @@ public:
 	void setID(int);
 	void setType(ORD_TYPE);
 	void setOrderCooking(Order O);
-	void getOrderCooking(Order O);
+	void getOrderCooking() const;
 	void setMacxooksNum(int max);
 	void global_time();
 	bool ToDone(int Arr[]);
 	void set_max_cooks_num(int n);
 	bool break_time();
-	void set_dishes_served();
 };
