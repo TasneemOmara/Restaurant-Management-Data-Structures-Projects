@@ -1,7 +1,7 @@
 #include "Cook.h"
 
 
-Cook::Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val, int cook_ID_val): ID{id_val}, type{type_val}, speed{speed_val}, dishes_before_break{dishes_before_break_val}, cook_ID{cook_ID_val}
+Cook::Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val): ID{id_val}, type{type_val}, speed{speed_val}, dishes_before_break{dishes_before_break_val}
 {
 }
 
@@ -33,9 +33,16 @@ void Cook::setType(ORD_TYPE t)
 	type = t;
 }
 
+//setting and getting the order assigned to the cook
+
 void Cook::setOrderCooking(Order O)
 {
 	cooking=O;
+}
+
+Order Cook::getOrderCooking(Order O) const
+{
+	return cooking;
 }
 
 void Cook::setMaxCooksNum(int max)
@@ -43,7 +50,19 @@ void Cook::setMaxCooksNum(int max)
 	max_cooks_num=max;
 }
 
-void cook::inc_global_time()
+void cook::global_time(int i)
 {
-	current_time+=1;
+	current_time=i;
+}
+
+//moving the assigned order from in service to done 
+
+bool cook::ToDone(int Arr_done[])
+{
+	if (current_time==cooking.get_SV()+(cooking.GetDishes()/speed))
+	{
+		Arr_done[ID]=*this;
+		return true;
+	}
+	return false;
 }

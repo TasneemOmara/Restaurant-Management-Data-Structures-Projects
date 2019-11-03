@@ -9,10 +9,10 @@ class Cook
 	ORD_TYPE type;	              //for each order type there is a corresponding type (VIP, Normal, Vegan)
 	int speed;		              //dishes it can prepare in one clock tick (in one timestep)
 	int dishes_before_break;      //dishes he make before the cooks takes break
-	Order cooking;                //the dish he cooks now
+	Order cooking;                //the order he cooks now
 	int max_cooks_num;            //the maximum number of cooks for a specific type
-	int cook_ID;                  //cook number ID to be stored in service and done arrays
-	int current_time=0;           //universal time stamp
+	int current_time;             //universal time stamp
+	int served_dishes_bfr_break;  // the number of dishes served after break
 	
 
 public:
@@ -23,7 +23,9 @@ public:
 	void setID(int);
 	void setType(ORD_TYPE);
 	void setOrderCooking(Order O);
+	void getOrderCooking(Order O);
 	void setMacxooksNum(int max);
-	void inc_global_time();
+	void global_time();
+	bool ToDone(int Arr[]);
 
 };

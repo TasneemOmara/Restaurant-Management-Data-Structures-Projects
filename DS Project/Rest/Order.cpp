@@ -50,3 +50,8 @@ double Order::GetReceipt()
 	return totalMoney;
 }
 
+int Order::get_SV()
+{
+	return ServTime;
+}
+
