@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\Defs.h"
+#include "Defs.h"
 
 class Order
 {
@@ -16,7 +16,7 @@ protected:
 	int extra_money;                    //money for promtion if exist (normal orders only )
 
 public:
-	Order(int ID, ORD_TYPE r_Type);
+	Order(int ID=0, ORD_TYPE r_Type=TYPE_TEMP);
 	virtual ~Order();
 
 	int GetID() const;
@@ -25,11 +25,11 @@ public:
 	int GetDishes() const;
 	void setStatus(ORD_STATUS s);
 	ORD_STATUS getStatus() const;
-	double GetReceipt() const;
+	double GetReceipt();
 	int get_SV() const;
 	void set_SV(int SV);
 	int get_AV() const;
-	void set_AV();
+	void set_AV(int AV);
 	int get_FT() const;
 	void set_FT(int FT);
 	void get_WT() const;

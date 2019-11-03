@@ -44,7 +44,7 @@ ORD_STATUS Order::getStatus() const
 	return status;
 }
 
-double Order::GetReceipt() const
+double Order::GetReceipt()
 {
 	totalMoney = Dishes * Price + extra_money;
 	return totalMoney;
@@ -65,7 +65,7 @@ int Order::get_AV() const
 	return ArrTime;
 }
 
-void Order::set_AV() 
+void Order::set_AV(int AV) 
 {
 	ArrTime=AV;
 }
