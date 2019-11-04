@@ -9,9 +9,8 @@ template <typename T>
 class LinkedList
 {
 private:
-	Node<T> *Head;	//Pointer to the head of the list
-	//You can add tail pointer too (depending on your problem)
-	int count;	//Number of nodes in the list
+	Node<T> *Head;	               //Pointer to the head of the list
+	int count;	                   //Number of nodes in the list
 public:
 
 
@@ -26,11 +25,9 @@ public:
 	{
 		DeleteAll();
 	}
-	////////////////////////////////////////////////////////////////////////
-	/*
-	* Function: PrintList.
-	* prints the values of all nodes in a linked list.
-	*/
+
+	//Function: PrintList.
+	//prints the values of all nodes in a linked list.
 	void PrintList()	const
 	{
 		cout<<"\nList has "<<count<<" nodes";
@@ -45,6 +42,7 @@ public:
 		}
 		cout << "*\n";
 	}
+
 	////////////////////////////////////////////////////////////////////////
 	/*
 	* Function: InsertBeg.
@@ -61,11 +59,9 @@ public:
 		count++;
 
 	}
-	////////////////////////////////////////////////////////////////////////
-	/*
-	* Function: DeleteAll.
-	* Deletes all nodes of the list.
-	*/
+
+	//Function: DeleteAll.
+	//Deletes all nodes of the list.
 	void DeleteAll()
 	{
 		Node<T> *P = Head;
@@ -78,14 +74,7 @@ public:
 		count = 0;
 	}
 
-
-
-	////////////////     Requirements   ///////////////////
-	//
-	// Implement the following member functions
-
-
-	//[1]InsertEnd
+	//InsertEnd
 	//inserts a new node at end if the list
 	void InsertEnd(const T &data){
 
@@ -107,7 +96,7 @@ public:
 
 	}
 
-	//[2]Find
+	//Find
 	//searches for a given value in the list, returns true if found; false otherwise.
 	bool Find(int Key){
 		Node<T> *p = Head;
@@ -122,22 +111,8 @@ public:
 		return false;
 	}
 
-	//[3]CountOccurance
-	//returns how many times a certain value appeared in the list
-	int CountOccurance(const T &value){
-		int occs = 0;
-		Node<T> *p= Head;
-		while(p){
-			if(p->getItem() == value){
-				occs++;
-			}
-			p = p->getNext();
-		}
-		cout<<"\nElement "<<value<< " was found "<<occs<<" times"<<endl;
-		return occs;
-	}
 
-	//[4] DeleteFirst
+	//DeleteFirst
 	//Deletes the first node in the list
 	void DeleteFirst(){
 		cout<<"\nDeleting the first element"<<endl;
@@ -151,7 +126,7 @@ public:
 	}
 
 
-	//[5] DeleteLast
+	//DeleteLast
 	//Deletes the last node in the list
 	void DeleteLast(){
 		cout<<"\nDeleting the last element"<<endl;
@@ -177,7 +152,7 @@ public:
 		}
 	}
 
-	//[6] DeleteNode
+	//DeleteNode
 	//deletes the first node with the given value (if found) and returns true
 	//if not found, returns false
 	//Note: List is not sorted
@@ -207,7 +182,7 @@ public:
 		return false;
 	}
 
-	//[7] DeleteNodes
+	//DeleteNodes
 	//deletes ALL node with the given value (if found) and returns true
 	//if not found, returns false
 	//Note: List is not sorted
@@ -236,48 +211,13 @@ public:
 		return flag;
 	}
 
-
-	//[8]Merge
-	//Merges the current list to another list L by making the last Node in the current list
-	//point to the first Node in list L
+	//getting head and count
 	Node<T>* getHead() const{
 		return Head;
 	}
 
 	int getCount(){
 		return count;
-	}
-
-	void Merge(const LinkedList& L){
-		Node<T> *p = Head;
-		if(Head == nullptr){
-			Head = L->getHead();
-			return;
-		}
-		while(p->getNext()){
-			p = p->getNext();
-		}
-		p->setNext(L->getHead());
-		count = count + L->getCount();
-		return;
-	}
-
-	//[9] Reverse
-	//Reverses the linked list (without allocating any new Nodes)
-	void Reverse(){
-		cout<<"\nReversing the list"<<endl;
-		if(Head == nullptr){return;}
-		Node<T>* p = Head;
-		Node<T>* nextP = Head->getNext();
-		Head->setNext(nullptr);
-		while(nextP){
-			Node<T>* temp = nextP->getNext();
-			nextP->setNext(p);
-			p = nextP;
-			nextP = temp;
-		}
-		Head = p;
-		return;
 	}
 
 	void Print_kth_data(int k){

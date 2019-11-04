@@ -103,4 +103,9 @@ bool Order::operator == (int rhs_id)
 	return this->GetID()==rhs_id;
 }
 
+ostream& operator<<(ostream& out, const Order& d)
+{
+	cout << "The order's ID is " << d.GetID() << " It's type is" << d.GetType() << " It's size is " << d.GetDishes() << "\nIt's status is " << d.getStatus() << endl;
+	return out;
+}
 
