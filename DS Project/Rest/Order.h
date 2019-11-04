@@ -34,5 +34,6 @@ public:
 	void set_FT(int FT);
 	bool to_be_promoted(int extra);
     void set_price(int n);
+	bool operator == (Order & rhs);
 
 };
