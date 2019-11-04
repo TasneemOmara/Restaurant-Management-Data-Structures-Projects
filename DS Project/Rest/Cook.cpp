@@ -79,3 +79,19 @@ bool Cook::break_time()
 	}
 	return false;
 }
+
+int Cook::getSpeed() const
+{
+	return speed;
+}
+
+bool Order::operator == (int rhs_id)
+{
+	return this->GetID()==rhs_id;
+}
+
+ostream& operator<<(ostream& out, const Cook& d)
+{
+	cout << "The cook's ID is " << d.GetID() << "he cooks type " << d.GetType() << " his speed is" << d.getSpeed() << "he cooks the order " << d.getOrderCooking() << endl;
+	return out;
+}
