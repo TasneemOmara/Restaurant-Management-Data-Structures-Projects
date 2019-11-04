@@ -98,8 +98,9 @@ void Order::set_price(int n)
     Price=n;
 }
 
-bool Order::operator == (Order & rhs)
+bool Order::operator == (int rhs_id)
 {
-	return this->GetID()==rhs.GetID();
+	return this->GetID()==rhs_id;
 }
+
 
