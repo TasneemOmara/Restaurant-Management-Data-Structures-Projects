@@ -8,10 +8,12 @@ class Node
 private :
 	T item; // A data item
 	Node<T>* next; // Pointer to next node
+	int priority; //if not zero, it's a prority queue
+
 public :
 	Node();
-	Node( const T & r_Item);	//passing by const ref.
-	Node( const T & r_Item, Node<T>* nextNodePtr);
+	Node( const T & r_Item, int p=0);	//passing by const ref.
+	Node( const T & r_Item, Node<T>* nextNodePtr, int p =0);
 	void setItem( const T & r_Item);
 	void setNext(Node<T>* nextNodePtr);
 	T getItem() const ;
@@ -20,23 +22,26 @@ public :
 
 
 template < typename T>
-Node<T>::Node() 
+Node<T>::Node()
 {
 	next = nullptr;
 } 
 
 template < typename T>
-Node<T>::Node( const T& r_Item)
+Node<T>::Node( const T& r_Item, int p)
 {
 	item = r_Item;
 	next = nullptr;
+	priority=p;
 } 
 
 template < typename T>
-Node<T>::Node( const T& r_Item, Node<T>* nextNodePtr)
+Node<T>::Node( const T& r_Item, Node<T>* nextNodePtr, int p)
 {
 	item = r_Item;
 	next = nextNodePtr;
+	priority=p;
+	
 }
 template < typename T>
 void Node<T>::setItem( const T& r_Item)
