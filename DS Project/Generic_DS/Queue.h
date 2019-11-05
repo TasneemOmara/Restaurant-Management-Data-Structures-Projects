@@ -58,6 +58,8 @@ public :
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;
 	T* toArray(int& count);	//returns array of T (array if items)
+	Queue(const Queue<T> & LQ);
+	static void PrintQueue(Queue<T> Q);
 	~Queue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -209,5 +211,38 @@ T* Queue<T>::toArray(int& count)
 	}
 	return Arr;
 }
+
+template <typename T>
+Queue<T>::Queue(const Queue<T> & LQ)
+{	
+	frontPtr = backPtr = nullptr;
+	Node<T>* NodePtr = LQ.frontPtr;	//start at the front node in LQ
+
+	while (NodePtr)
+	{   
+        //int pr= NodePtr->get();
+		enqueue(NodePtr->getItem(), NodePtr->get());	//get data of each node and enqueue it in this queue 
+		if (NodePtr!=LQ.backPtr)
+		{
+			NodePtr = NodePtr->getNext();
+		}
+		else
+		{
+			break;
+		}
+	}	
+}
+
+
+template <typename T>
+void Queue<T>::PrintQueue(Queue<T> Q) 
+{
+	T K;
+	cout<<"\nQueue contents: ";
+	while(Q.dequeue(K))
+		cout << K << " ";
+	cout<<endl;
+}
+
 
 #endif
