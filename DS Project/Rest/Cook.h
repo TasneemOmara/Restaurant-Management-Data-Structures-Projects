@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Defs.h"
+#include "./Defs.h"
 #include "Order.h"
 
 class Cook
@@ -29,8 +29,4 @@ public:
 	void global_time(int i);
 	bool ToDone(Cook Arr[]);
 	bool break_time();
-	int getSpeed() const;
-	bool operator == (int rhs_id);
-	friend ostream& operator<<(ostream& out, const Cook& d);
-
 };

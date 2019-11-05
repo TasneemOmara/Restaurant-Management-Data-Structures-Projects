@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Defs.h"
+#include "./Defs.h"
 #include <iostream>
 using namespace std;
 
@@ -37,6 +37,11 @@ public:
 	bool to_be_promoted(int extra);
     void set_price(int n);
 	bool operator == (int rhs_id);
-	friend ostream& operator<<(ostream& out, const Order& d);
+	
+friend ostream& operator<<(ostream& out, const Order& d)
+{
+	cout << "The order's ID is " << d.GetID() << " It's type is" << d.GetType() << " It's size is " << d.GetDishes() << "\nIt's status is " << d.getStatus() << endl;
+	return out;
+}
 
 };

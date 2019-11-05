@@ -18,6 +18,8 @@ public :
 	void setNext(Node<T>* nextNodePtr);
 	T getItem() const ;
 	Node<T>* getNext() const ;
+	int getPriority() const;
+	void setPriority(int p);
 }; // end Node
 
 
@@ -66,5 +68,16 @@ Node<T>* Node<T>::getNext() const
 {
 	return next;
 } 
+
+template < typename T>
+int Node<T>::getPriority() const
+{
+	return priority;
+}
+template < typename T>
+void Node<T>::setPriority(int p)
+{
+	priority=p;
+}
 
 #endif

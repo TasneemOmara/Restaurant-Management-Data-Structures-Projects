@@ -211,7 +211,7 @@ public:
 		return flag;
 	}
 
-	//getting head and count
+	//getting head and count 
 	Node<T>* getHead() const{
 		return Head;
 	}
