@@ -58,8 +58,10 @@ public :
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;
 	T* toArray(int& count);	//returns array of T (array if items)
-	Queue(const Queue<T> & LQ);
-	static void PrintQueue(Queue<T> Q);
+	Queue(const Queue<T> & LQ); //copy constructor
+	static void PrintQueue(Queue<T> Q); 
+	int GetCooksID(Queue<T> Q); //for GUI
+
 	~Queue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -243,6 +245,9 @@ void Queue<T>::PrintQueue(Queue<T> Q)
 		cout << K << " ";
 	cout<<endl;
 }
+
+template <typename T>
+int Queue<T>::GetCooksID(Queue<T> Q);
 
 
 #endif
