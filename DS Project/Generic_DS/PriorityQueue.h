@@ -21,7 +21,7 @@ public :
 	bool peekFront(T& frntEntry)  const;
 	T* toArray(int& count);	//returns array of T (array if items)
     PriorityQueue(const PriorityQueue<T> & LQ);
-    static void PrintQueue(PriorityQueue<T> Q);
+    int UpdatePriorities();
 	~PriorityQueue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,6 @@ Output: True if the operation is successful; otherwise false.
 template <typename T>
 bool PriorityQueue<T>::enqueue(const T& newEntry, int pri)
 {
-	cout << "start " << endl;
 	cout << frontPtr << endl;
 	cout  << backPtr << endl;
 	Node<T>* newNodePtr = new Node<T>(newEntry, pri);
@@ -78,23 +77,20 @@ bool PriorityQueue<T>::enqueue(const T& newEntry, int pri)
     {   
         frontPtr = newNodePtr; // The queue is empty
         backPtr=frontPtr;
-		cout << "1 " << endl;
     }
     else if (frontPtr==backPtr)
     {
-		cout << "2 " << endl;
+		
         if (frontPtr->getPriority()>=pri)
         {
             frontPtr->setNext(newNodePtr);
             backPtr=newNodePtr;
-			cout << "3 " << endl;
         }
         else
         {
 			Node<T>*p=frontPtr;
             newNodePtr->setNext(p);
             frontPtr=newNodePtr;
-			cout << "4 " << endl;
         }
     }
 	else
@@ -278,15 +274,21 @@ PriorityQueue<T>::PriorityQueue(const PriorityQueue<T> & LQ)
 }
 
 template <typename T>
-void PriorityQueue<T>::PrintQueue(PriorityQueue<T> Q) 
+int PriorityQueue<T>::UpdatePriorities()
 {
-	T K;
-	cout<<"\nQueue contents: ";
-	while(Q.dequeue(K))
-		cout << K << " ";
-	cout<<endl;
-}
+	if(!frontPtr)
+		return 0;
 
+	Node<T>* p = frontPtr;
+	while(p!=backPtr)
+	{	
+		T item p->getItem();
+		int pri = Weight_function(T);
+		p->setPriority(pri)
+		p = p->getNext();
+	}
+
+}
 
 
 

@@ -60,7 +60,6 @@ public :
 	T* toArray(int& count);	//returns array of T (array if items)
 	Queue(const Queue<T> & LQ); //copy constructor
 	static void PrintQueue(Queue<T> Q); 
-	int GetCooksID(Queue<T> Q); //for GUI
 
 	~Queue();
 };
@@ -222,8 +221,8 @@ Queue<T>::Queue(const Queue<T> & LQ)
 
 	while (NodePtr)
 	{   
-        //int pr= NodePtr->get();
-		enqueue(NodePtr->getItem(), NodePtr->get());	//get data of each node and enqueue it in this queue 
+        
+		enqueue(NodePtr->getItem());	//get data of each node and enqueue it in this queue 
 		if (NodePtr!=LQ.backPtr)
 		{
 			NodePtr = NodePtr->getNext();
@@ -245,9 +244,6 @@ void Queue<T>::PrintQueue(Queue<T> Q)
 		cout << K << " ";
 	cout<<endl;
 }
-
-template <typename T>
-int Queue<T>::GetCooksID(Queue<T> Q);
 
 
 #endif
