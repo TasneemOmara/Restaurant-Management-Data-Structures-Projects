@@ -13,3 +13,13 @@ void ArrivalEvent::Execute(Restaurant* pRest)
 	// Then adds it to normal, vegan, or VIP order lists that you will create in phase1
 
 }
+
+void ArrivalEvent::setDishes(int size)
+{
+	OrdDishes = size;
+}
+
+void ArrivalEvent::setMoney(double money)
+{
+	OrdMoney = money;
+}
