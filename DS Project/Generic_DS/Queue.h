@@ -223,7 +223,7 @@ Queue<T>::Queue(const Queue<T> & LQ)
 	while (NodePtr)
 	{   
         //int pr= NodePtr->get();
-		enqueue(NodePtr->getItem(), NodePtr->get());	//get data of each node and enqueue it in this queue 
+		enqueue(NodePtr->getItem());	//get data of each node and enqueue it in this queue 
 		if (NodePtr!=LQ.backPtr)
 		{
 			NodePtr = NodePtr->getNext();
