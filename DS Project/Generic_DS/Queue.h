@@ -219,7 +219,7 @@ Queue<T>::Queue(const Queue<T> & LQ)
 	frontPtr = backPtr = nullptr;
 	Node<T>* NodePtr = LQ.frontPtr;	//start at the front node in LQ
 
-	while (NodePtr!=LQ.backPtr)
+	while (NodePtr)
 	{   
 		enqueue(NodePtr->getItem());	//get data of each node and enqueue it in this queue 
 		if (NodePtr!=LQ.backPtr)
