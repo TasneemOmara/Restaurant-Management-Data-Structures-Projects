@@ -10,6 +10,9 @@ using namespace std;
 Restaurant::Restaurant()
 {
 	pGUI = NULL;
+
+	Inservice= new Cook[Cooks_num];
+	Done= new Cook[Cooks_num];
 }
 
 void Restaurant::RunSimulation()

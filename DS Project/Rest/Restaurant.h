@@ -3,8 +3,11 @@
 #include "..\Defs.h"
 #include "..\GUI\GUI.h"
 #include "..\Generic_DS\Queue.h"
+#include "..\Generic_DS\PriorityQueue.h"
+#include "..\Generic_DS\LinkedList.h"
 #include "..\Events\Event.h"
-
+#include "Order.h"
+#include "Cook.h"
 
 // it is the maestro of the project
 class Restaurant  
@@ -12,12 +15,18 @@ class Restaurant
 private:
 	GUI *pGUI;
 	Queue<Event*> EventsQueue;	//Queue of all events that will be loaded from file
-
-	
-	//
-	// TODO: Add More Data Members As Needed
-	//
-
+	Queue<Cook> VI_Cooks;
+	Queue<Cook> Vegan_Cooks;
+	Queue<Cook> Normal_Cooks;
+	Queue<Cook> VI_Cooks_break;
+	Queue<Cook> Vegan_Cooks_break;
+	Queue<Cook> Normal_Cooks_break;
+	PriorityQueue<Order> VI_Orders;
+	Queue<Order> Vegan_Orders;
+	LinkedList<Order> Normal_Orders;
+	int Cooks_num; 
+	Cook* Inservice;
+	Cook* Done;
 
 public:
 	
