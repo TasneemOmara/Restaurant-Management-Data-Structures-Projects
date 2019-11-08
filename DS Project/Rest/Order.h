@@ -18,7 +18,7 @@ protected:
 	int extra_money;                    //money for promtion if exist (normal orders only )
 
 public:
-	Order(int ID=0, ORD_TYPE r_Type=TYPE_TEMP);
+	Order(int ID, ORD_TYPE r_Type);
 	virtual ~Order();
 
 	int GetID() const;
