@@ -11,8 +11,8 @@ Restaurant::Restaurant()
 {
 	pGUI = NULL;
 
-	Inservice[Cooks_num];
-	Done[Cooks_num];
+	Inservice = new Cook[Cooks_num];
+	Done= new Cook[Cooks_num];
 }
 
 void Restaurant::RunSimulation()
