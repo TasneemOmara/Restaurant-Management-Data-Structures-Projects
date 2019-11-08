@@ -2,6 +2,8 @@
 #include <cmath>
 #include "Order.h"
 
+
+
 int Weight_function(Order VI){
     int AV=VI.get_AV();
     int money=VI.GetReceipt();

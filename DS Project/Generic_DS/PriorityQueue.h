@@ -21,7 +21,6 @@ public :
 	bool peekFront(T& frntEntry)  const;
 	T* toArray(int& count);	//returns array of T (array if items)
     PriorityQueue(const PriorityQueue<T> & LQ);
-    int UpdatePriorities();
 	~PriorityQueue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -204,8 +203,8 @@ bool PriorityQueue<T>:: peekFront(T& frntEntry) const
 template <typename T>
 PriorityQueue<T>::~PriorityQueue()
 {
-    //T temp;
-	//while(dequeue(temp));
+    T temp;
+	while(dequeue(temp));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -273,22 +272,6 @@ PriorityQueue<T>::PriorityQueue(const PriorityQueue<T> & LQ)
 	}	
 }
 
-template <typename T>
-int PriorityQueue<T>::UpdatePriorities()
-{
-	if(!frontPtr)
-		return 0;
-
-	Node<T>* p = frontPtr;
-	while(p!=backPtr)
-	{	
-		T item p->getItem();
-		int pri = Weight_function(T);
-		p->setPriority(pri)
-		p = p->getNext();
-	}
-
-}
 
 
 
