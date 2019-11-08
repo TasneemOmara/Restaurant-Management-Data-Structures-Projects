@@ -7,7 +7,8 @@
 #include "../Generic_DS/LinkedList.h"
 #include "../Rest/Cook.h"
 #include "../Rest/Order.h"
-#include "../Rest/Restaurant.h"
+
+class Restaurant;
 
 
 //The base class for all possible events in the system (abstract class)
