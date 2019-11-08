@@ -1,11 +1,11 @@
 #pragma once
 
-#include "..\Defs.h"
-#include "..\GUI\GUI.h"
-#include "..\Generic_DS\Queue.h"
-#include "..\Generic_DS\PriorityQueue.h"
-#include "..\Generic_DS\LinkedList.h"
-#include "..\Events\Event.h"
+#include "../Defs.h"
+#include "../GUI/GUI.h"
+#include "../Generic_DS/Queue.h"
+#include "../Generic_DS/PriorityQueue.h"
+#include "../Generic_DS/LinkedList.h"
+#include "../Events/Event.h"
 #include "Order.h"
 #include "Cook.h"
 
@@ -37,9 +37,14 @@ public:
 	void RunSimulation();
 
 	void FillDrawingList();
-
-	//
-	// TODO: Add More Member Functions As Needed
-	//
+	Queue<Cook>& get_VI_cooks_queue() const;
+	Queue<Cook>& get_Vegan_cooks_queue() const;
+	Queue<Cook>& get_Normal_cooks_queue() const;
+	Queue<Cook>& get_VI_cooks_break_queue() const;
+	Queue<Cook>& get_Vegan_cooks_break_queue() const;
+	Queue<Cook>& get_Normal_cooks_break_queue() const;
+	PriorityQueue<Order>& get_VI_orders_queue() const;
+	Queue<Order>& get_Vegan_orders_queue() const;
+	LinkedList<Order>& get_Normal_orders_list() const;
 
 };
