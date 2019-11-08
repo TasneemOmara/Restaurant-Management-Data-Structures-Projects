@@ -64,7 +64,7 @@ void Restaurant::main_loop()
 	for (size_t i = 0; i < Cooks_num; i++)
 	{
 		Inservice[i].global_time(mouse_click);
-		Inservice[i].ToDone();
+		Inservice[i].ToDone(Done);
 		(Done[i].getAssignedOrder()).set_FT(mouse_click);
 	}
 	Order v;
