@@ -105,7 +105,11 @@ void Order::set_price(int n)
 
 int Order::VI_Priority()
 {
-	return exp(1/ArrTime)+ 5*(Price+Dishes);
+	if (type==TYPE_VIP)                //set priority only if the order is VIP
+	{
+		return exp(1/ArrTime)+ 5*(Price+Dishes);
+	}
+	return 0;
 }
 
 bool Order::operator == (int rhs_id)
