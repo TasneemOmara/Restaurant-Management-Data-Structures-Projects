@@ -1,10 +1,12 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include "ArrivalEvent.h"
-#include "Event.h"
-#include "Queue.h"
-#include "CancellationEvent.h"
+#include "../Events/ArrivalEvent.h"
+#include "../Events/Event.h"
+#include "../Generic_DS/Queue.h"
+#include "../Events/CancellationEvent.h"
+#include "../Defs.h"
+
 using namespace std;
 ///class Restaurant;
 
@@ -12,7 +14,7 @@ void Read_File1(int Arr[12])//, char** Events, int** Event_Data )//,Queue<Event*
 {
 	ifstream myfile;
 	// replace "dir" with the directory of the file you want to read and make sure the address has no spaces in it and to put the address inside quotation marks
-	myfile.open("D:/Zewail/mext.txt");
+	myfile.open("mext.txt");
 	//initiating and array that includes speeds, number, breaks for different cooks types and timesteps for promotion and number of events
 	// Arr[12] = {SN, SG, SV, N, G, V, BM, BN, BG, BV, AutoS, M};
 	/*
@@ -79,7 +81,7 @@ void Read_File2(char** Events, int** Event_Data, int M)
 {
 	ifstream myfile;
 	// replace "dir" with the directory of the file you want to read and make sure the address has no spaces in it and to put the address inside quotation marks
-	myfile.open("D:/Zewail/mext.txt");
+	myfile.open("mext.txt");
 	int x;
 	for (int i = 0; i < 12; i++)
 	{
