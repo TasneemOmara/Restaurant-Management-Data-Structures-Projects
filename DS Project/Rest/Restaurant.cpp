@@ -7,12 +7,12 @@ using namespace std;
 #include "../Events/ArrivalEvent.h"
 
 
-Restaurant::Restaurant()
+Restaurant::Restaurant(int Cooks_num_val)
 {
 	pGUI = NULL;
 
-	Inservice = new Cook[Cooks_num];
-	Done= new Cook[Cooks_num];
+	Inservice[Cooks_num_val];
+	Done[Cooks_num_val];
 }
 
 void Restaurant::RunSimulation()
