@@ -32,7 +32,7 @@ private:
 
 public:
 	
-	Restaurant();
+	Restaurant(int Cooks_num_val);
 	~Restaurant();
 	
 	void ExecuteEvents(int TimeStep);	//executes all events at current timestep
