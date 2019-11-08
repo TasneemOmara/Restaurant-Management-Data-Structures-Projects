@@ -39,6 +39,9 @@ public:
 	void RunSimulation();
 
 	void FillDrawingList();
+
+	void main_loop();
+
 	Queue<Cook> get_VI_cooks_queue() const;
 	Queue<Cook> get_Vegan_cooks_queue() const;
 	Queue<Cook> get_Normal_cooks_queue() const;

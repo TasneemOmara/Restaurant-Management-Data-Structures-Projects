@@ -24,7 +24,7 @@ public:
 	ORD_TYPE GetType() const;
 	void setID(int);
 	void setType(ORD_TYPE);
-	void AssignOrder(Order O);
+	void AssignOrder(Order &O);
 	Order getAssignedOrder() const;
 	void setMaxCooksNum(int max);
 	void global_time(int i);

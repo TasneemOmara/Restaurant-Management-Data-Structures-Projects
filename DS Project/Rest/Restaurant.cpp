@@ -56,6 +56,27 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 
 }
 
+
+void Restaurant::main_loop()
+{
+	int mouse_click;
+	ExecuteEvents(mouse_click);
+	for (size_t i = 0; i < Cooks_num; i++)
+	{
+		Inservice[i].global_time(mouse_click);
+		Inservice[i].ToDone();
+		(Done[i].getAssignedOrder()).set_FT(mouse_click);
+	}
+	Order v;
+	Vegan_Orders.dequeue(v);
+	Cook c;
+	VI_Cooks.dequeue(c);
+	c.AssignOrder(v);
+	(c.getAssignedOrder()).set_SV(mouse_click);
+	Inservice[c.GetID()]=c;
+
+}
+
 Queue<Cook> Restaurant::get_VI_cooks_queue() const
 {
 	return VI_Cooks;

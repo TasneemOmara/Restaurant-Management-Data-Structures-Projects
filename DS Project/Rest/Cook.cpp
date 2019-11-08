@@ -36,7 +36,7 @@ void Cook::setType(ORD_TYPE t)
 
 //setting and getting the order assigned to the cook
 
-void Cook::AssignOrder(Order O)
+void Cook::AssignOrder(Order &O)
 {
 	cooking=O;
 	dishes_served=dishes_served+cooking.GetDishes();
