@@ -1,20 +1,18 @@
+#pragma once
 #include <iostream>
 #include <fstream>
-#include "..\Defs.h"
-#include "..\Events\ArrivalEvent.h"
-#include "..\Events\Event.h"
-#include "..\Generic_DS\Queue.h"
-#include "..\Events\CancellationEvent.h"
+#include "ArrivalEvent.h"
+#include "Event.h"
+#include "Queue.h"
+#include "CancellationEvent.h"
 using namespace std;
+//class Restaurant;
 
-
-
-void Read_File(int Arr[12], Queue<Event*> Q)
+void Read_File1(int Arr[12])//, char** Events, int** Event_Data )//,Queue<Event*> Q)
 {
 	ifstream myfile;
 	// replace "dir" with the directory of the file you want to read and make sure the address has no spaces in it and to put the address inside quotation marks
-	// directory i used was "D:/Zewail/mext.txt"
-	myfile.open("dir");
+	myfile.open("D:/Zewail/mext.txt");
 	//initiating and array that includes speeds, number, breaks for different cooks types and timesteps for promotion and number of events
 	// Arr[12] = {SN, SG, SV, N, G, V, BM, BN, BG, BV, AutoS, M};
 	/*
@@ -70,10 +68,24 @@ void Read_File(int Arr[12], Queue<Event*> Q)
 	}
 	*/
 	//old starts here
-	char** Events;
-	int** Event_Data;
-	Events = new char* [M];
-	Event_Data = new int* [M];
+	//char** Events;
+	//int** Event_Data;
+	//Events = new char* [M];
+	//Event_Data = new int* [M]
+	myfile.close();
+}
+
+void Read_File2(char** Events, int** Event_Data, int M)
+{
+	ifstream myfile;
+	// replace "dir" with the directory of the file you want to read and make sure the address has no spaces in it and to put the address inside quotation marks
+	myfile.open("D:/Zewail/mext.txt");
+	int x;
+	for (int i = 0; i < 12; i++)
+	{
+		myfile >> x;
+	}
+
 	for (int i = 0; i < M; i++)
 	{
 		char Event_Type;
@@ -111,14 +123,30 @@ void Read_File(int Arr[12], Queue<Event*> Q)
 	}
 
 	myfile.close();
-	int R;
+	/*
+	char R;
+	char T;
+	ORD_TYPE TY;
 	for (int i = 0; i < M; i++)
 	{
 		R = Events[i][0];
 		if (R == 'R')
 		{
-			ORD_TYPE TY;
-			TY = ORD_TYPE(Events[i][1]);
+			T = Events[i][1];
+			switch (T)
+			{
+			case 'N':
+				TY = ORD_TYPE::TYPE_NRM;
+				break;
+			case 'F':
+				TY = ORD_TYPE::TYPE_VEG;
+				break;
+			case 'V':
+				TY = ORD_TYPE::TYPE_VIP;
+				break;
+
+			}
+			//TY = ORD_TYPE(Events[i][1]);
 			ArrivalEvent* A = new ArrivalEvent(Event_Data[i][0], Event_Data[i][1], TY);
 			A->setDishes(Event_Data[i][2]);
 			A->setMoney(Event_Data[i][3]);
@@ -132,5 +160,49 @@ void Read_File(int Arr[12], Queue<Event*> Q)
 			break;
 		}
 	}
+	*/
+}
 
+void Enqueuer(Event** Array, char** Events, int** Event_Data, int M)
+{
+
+	char R;
+	char T;
+	ORD_TYPE TY;
+	for (int i = 0; i < M; i++)
+	{
+		R = Events[i][0];
+		if (R == 'R')
+		{
+			T = Events[i][1];
+			switch (T)
+			{
+			case 'N':
+				TY = TYPE_NRM;
+				break;
+			case 'F':
+				TY = TYPE_VEG;
+				break;
+			case 'V':
+				TY = TYPE_VIP;
+				break;
+
+			}
+			//TY = ORD_TYPE(Events[i][1]);
+			ArrivalEvent* A = new ArrivalEvent(Event_Data[i][0], Event_Data[i][1], TY);
+			Array[i] = A;
+			A->setDishes(Event_Data[i][2]);
+			A->setMoney(Event_Data[i][3]);
+			//EventsQueue.enqueue(A);
+			break;
+		}
+		else if (R == 'X')
+		{
+
+			CancellationEvent* E = new CancellationEvent(Event_Data[i][0], Event_Data[i][1]);
+			Array[i] = E;
+			//EventsQueue.enqueue(E);
+			break;
+		}
+	}
 }
