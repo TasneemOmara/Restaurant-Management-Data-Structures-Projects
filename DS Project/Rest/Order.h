@@ -1,7 +1,8 @@
 #pragma once
 
-#include "./Defs.h"
+#include "../Defs.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 class Order
@@ -18,6 +19,7 @@ protected:
 	int extra_money;                    //money for promtion if exist (normal orders only )
 
 public:
+	Order();
 	Order(int ID, ORD_TYPE r_Type, int Dishes_val, double price_val, int ArrTime_val);
 	~Order();
 	int GetID() const;
@@ -35,6 +37,7 @@ public:
 	void set_FT(int FT);
 	bool to_be_promoted(int extra);
     void set_price(int n);
+	int VI_Priority();
 	bool operator == (int rhs_id);
 	
 friend ostream& operator<<(ostream& out, const Order& d)

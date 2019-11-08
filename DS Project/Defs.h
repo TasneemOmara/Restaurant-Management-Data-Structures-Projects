@@ -15,7 +15,6 @@ enum ORD_TYPE	//types of orders
 	TYPE_VEG,	//vegan
 	TYPE_VIP,	//VIP
 	TYPE_CNT,	//Number of types
-	TYPE_TEMP   //temp type for defaul constructor
 
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./Defs.h"
+#include "../Defs.h"
 #include "Order.h"
 
 class Cook

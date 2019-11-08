@@ -1,5 +1,7 @@
 #include "Order.h"
 
+Order::Order(){}
+
 Order::Order(int id, ORD_TYPE r_Type, int Dishes_val, double price_val, int ArrTime_val)
 {
 	ID = (id>0&&id<1000)?id:0;	//1<ID<999
@@ -99,6 +101,11 @@ bool Order::to_be_promoted(int extra)
 void Order::set_price(int n)
 {
     Price=n;
+}
+
+int Order::VI_Priority()
+{
+	return exp(1/ArrTime)+ 5*(Price+Dishes);
 }
 
 bool Order::operator == (int rhs_id)

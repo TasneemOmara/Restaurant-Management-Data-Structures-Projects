@@ -2,6 +2,7 @@
 #define __QUEUE_H_
 
 #include "Node.h"
+#include <iostream>
 using namespace std;
 
 template <typename T>
@@ -21,6 +22,7 @@ public :
 	bool peekFront(T& frntEntry)  const;
 	T* toArray(int& count);	//returns array of T (array if items)
     PriorityQueue(const PriorityQueue<T> & LQ);
+	static void PrintQueue(PriorityQueue<T> Q);
 	~PriorityQueue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -68,8 +70,7 @@ Output: True if the operation is successful; otherwise false.
 template <typename T>
 bool PriorityQueue<T>::enqueue(const T& newEntry, int pri)
 {
-	cout << frontPtr << endl;
-	cout  << backPtr << endl;
+
 	Node<T>* newNodePtr = new Node<T>(newEntry, pri);
 	// Insert the new node
 	if (isEmpty())
@@ -94,9 +95,6 @@ bool PriorityQueue<T>::enqueue(const T& newEntry, int pri)
     }
 	else
     {
-		cout << frontPtr->getNext() << endl;
-		cout << backPtr << endl;
-		cout << "5 " << endl;
         Node<T>*p=frontPtr;
         Node<T>*q=p->getNext();
 		int flag=0;
@@ -272,6 +270,15 @@ PriorityQueue<T>::PriorityQueue(const PriorityQueue<T> & LQ)
 	}	
 }
 
+template <typename T>
+void PriorityQueue<T>::PrintQueue(PriorityQueue<T> Q) 
+{
+	T K;
+	cout<<"\nQueue contents: ";
+	while(Q.dequeue(K))
+		cout << K << " ";
+	cout<<endl;
+}
 
 
 

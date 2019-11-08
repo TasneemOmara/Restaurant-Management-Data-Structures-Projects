@@ -2,6 +2,9 @@
 #ifndef __NODE_H_
 #define __NODE_H_
 
+#include <iostream>
+using namespace std;
+
 template < typename T>
 class Node
 {
