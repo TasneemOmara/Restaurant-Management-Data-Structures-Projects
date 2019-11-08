@@ -1,5 +1,7 @@
-#ifndef __QUEUE_H_
-#define __QUEUE_H_
+#pragma once
+#include <iostream>
+
+#include "Node.h"
 
 /*This code is an updated version from "Data Abstraction & Problem Solving with C++,WALLS AND MIRRORS ,SIXTH EDITION"*/
 
@@ -9,49 +11,11 @@ The queue is implemented as a chain of linked nodes that has two pointers,
 a frontPtr pointer for the front of the queue and a backPtr pointer for the back of the queue.
 */
 
-/*
-
-				The Node: item of type T and a "next" pointer
-					------------- 
-					| item| next | --->
-					-------------
-General Queue case:
-
-                 frontPtr																backPtr
-					\											   						/		
-					 \											  					   /		
-					------------- 	  ------------- 	  ------------- 	  ------------- 	  	  
-					| item| next |--->| item| next |--->  | item| next |--->  | item| next |---> NULL
-					------------- 	  ------------- 	  ------------- 	  -------------	  
-		
-Empty Case:
-
-                 frontptr	 backptr
-						\	 /				
-						 \	/				
-					---- NULL ------
-
-
-Single Node Case:
-                 frontPtr	 backPtr
-					\		/	
-					 \	   /			
-					-------- 	
-					|	|nxt -->NULL
-					--------	
-
-*/
-
-#include "Node.h"
-#include <iostream>
-using namespace std;
-
 template <typename T>
 class Queue
 {
-private :
-	
-	Node<T>* backPtr;
+private:
+    Node<T>* backPtr;
 	Node<T>* frontPtr;
 public :
 	Queue();	
@@ -247,6 +211,3 @@ void Queue<T>::PrintQueue(Queue<T> Q)
 		cout << K << " ";
 	cout<<endl;
 }
-
-
-#endif
