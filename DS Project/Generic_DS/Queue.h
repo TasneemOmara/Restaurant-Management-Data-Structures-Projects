@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+using namespace std;
 #include "Node.h"
 
 /*This code is an updated version from "Data Abstraction & Problem Solving with C++,WALLS AND MIRRORS ,SIXTH EDITION"*/

@@ -10,7 +10,6 @@
 
 class Restaurant;
 
-
 //The base class for all possible events in the system (abstract class)
 class Event
 {
