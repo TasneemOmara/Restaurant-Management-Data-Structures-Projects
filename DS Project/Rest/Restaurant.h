@@ -27,8 +27,8 @@ private:
 	Queue<Order> Vegan_Orders;
 	LinkedList<Order> Normal_Orders;
 	int Cooks_num; 
-	Cook *Inservice;
-	Cook *Done;
+	Cook Inservice;
+	Cook Done;
 
 public:
 	
