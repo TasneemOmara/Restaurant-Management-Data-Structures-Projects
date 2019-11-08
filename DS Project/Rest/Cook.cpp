@@ -1,5 +1,6 @@
 #include "Cook.h"
 
+Cook::Cook(){};
 
 Cook::Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val, int current_time_val): ID{id_val}, type{type_val}, speed{speed_val}, dishes_before_break{dishes_before_break_val}, current_time{current_time_val}
 {

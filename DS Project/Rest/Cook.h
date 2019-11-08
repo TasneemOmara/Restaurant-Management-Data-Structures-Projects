@@ -17,6 +17,7 @@ private:
 	
 
 public:
+	Cook();
 	Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val, int current_time);
 	~Cook();
 	int GetID() const;
