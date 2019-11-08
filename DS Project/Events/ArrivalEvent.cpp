@@ -1,7 +1,4 @@
 #include "ArrivalEvent.h"
-#include "..\Rest\Restaurant.h"
-
-
 
 ArrivalEvent::ArrivalEvent(int eTime, int oID, ORD_TYPE oType):Event(eTime, oID)
 {
@@ -12,24 +9,30 @@ void ArrivalEvent::Execute(Restaurant* pRest)
 {
 	//This function should create an order and fills its data 
 	// Then adds it to normal, vegan, or VIP order lists that you will create in phase1
-	LinkedList<Order> Normal_Orders = get_Normal_orders_list();
-	Queue<Order> Vegan_Orders = get_Vegan_orders_queue();
-	PriorityQueue<Order> VI_Orders = get_VI_orders_queue();
 	switch (this->OrdType)
 	{
 	case 0:
-		Order O(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
-		Normal_Orders.InsertBeg(O);
+		{
+		Order O1(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
+		pRest->get_Normal_orders_list().InsertBeg(O1);
 		break;
+		}
 	case 1:
-		Order O(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
-		Vegan_Orders.enqueue(O);
+		{
+		Order O2(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
+		pRest->get_Vegan_orders_queue().enqueue(O2);
+		break;
+		}
 	case 2:
-		Order O(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
-		VI_Orders.enqueue(O,O.VI_Priority());
+		{
+		Order O3(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
+		pRest->get_VI_orders_queue().enqueue(O3,O3.VI_Priority());
+		break;
+		}
 	}
 
 }
+
 
 void ArrivalEvent::setDishes(int size)
 {

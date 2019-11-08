@@ -3,13 +3,12 @@
 #include "../Defs.h"
 #include "../Generic_DS/Queue.h"
 #include "../Generic_DS/PriorityQueue.h"
+#include "../Generic_DS/Node.h"
 #include "../Generic_DS/LinkedList.h"
-#include "../Events/Event.h"
 #include "../Rest/Cook.h"
 #include "../Rest/Order.h"
+#include "../Rest/Restaurant.h"
 
-
-class Restaurant;	//Forward declation
 
 //The base class for all possible events in the system (abstract class)
 class Event
