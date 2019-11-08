@@ -1,10 +1,13 @@
 #include "Order.h"
 
-Order::Order(int id, ORD_TYPE r_Type)
+Order::Order(int id, ORD_TYPE r_Type, int Dishes_val, double price_val, int ArrTime_val)
 {
 	ID = (id>0&&id<1000)?id:0;	//1<ID<999
 	type = r_Type;
 	status = WAIT;
+	Dishes=Dishes_val;
+	Price=price_val;
+	ArrTime=ArrTime_val;
 }
 
 Order::~Order()

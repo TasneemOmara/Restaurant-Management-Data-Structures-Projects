@@ -18,9 +18,8 @@ protected:
 	int extra_money;                    //money for promtion if exist (normal orders only )
 
 public:
-	Order(int ID, ORD_TYPE r_Type);
-	virtual ~Order();
-
+	Order(int ID, ORD_TYPE r_Type, int Dishes_val, double price_val, int ArrTime_val);
+	~Order();
 	int GetID() const;
 	ORD_TYPE GetType() const;
 	void SetDishes(int d);
