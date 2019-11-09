@@ -165,7 +165,7 @@ void Read_File2(char** Events, int** Event_Data, int M)
 	*/
 }
 
-void Enqueuer(Event** Array, char** Events, int** Event_Data, int M)
+void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 {
 
 	char R;
@@ -206,5 +206,12 @@ void Enqueuer(Event** Array, char** Events, int** Event_Data, int M)
 			//EventsQueue.enqueue(E);
 			break;
 		}
+	}
+}
+void QueueEnqueuer(Event** Array, Queue<Event*> EventsQueue, int M)
+{
+	for (int i = 0; i < M; i++)
+	{
+		EventsQueue.enqueue(Array[i])
 	}
 }
