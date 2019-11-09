@@ -198,20 +198,20 @@ void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 			//EventsQueue.enqueue(A);
 			break;
 		}
-		else if (R == 'X')
+		/*else if (R == 'X')
 		{
 
 			CancellationEvent* E = new CancellationEvent(Event_Data[i][0], Event_Data[i][1]);
 			Array[i] = E;
 			//EventsQueue.enqueue(E);
 			break;
-		}
+		}*/
 	}
 }
 void QueueEnqueuer(Event** Array, Queue<Event*> EventsQueue, int M)
 {
 	for (int i = 0; i < M; i++)
 	{
-		EventsQueue.enqueue(Array[i])
+		EventsQueue.enqueue(Array[i]);
 	}
 }

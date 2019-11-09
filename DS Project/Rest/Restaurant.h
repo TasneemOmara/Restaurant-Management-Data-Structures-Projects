@@ -11,6 +11,7 @@
 #include "Cook.h"
 #include "../Events/Event.h"
 
+
 // it is the maestro of the project
 class Restaurant  
 {	
@@ -29,19 +30,11 @@ private:
 	int Cooks_num; 
 	Cook Inservice[100];
 	Cook Done[100];
-	int M;
-	char** Events;
-	int** Event_Data;
-	Event** Array;
+
 
 public:
-	//to Read the input file, the following 4 lines must be uncommented
-	/*
-	Read_File1(int Arr[12]);
-	Read_File2(char** Events, int** Event_Data, int M);
-	ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M);
-	QueueEnqueuer(Event** Array, Queue<Event*> EventsQueue, int M);
-	*/
+
+
 	Restaurant(int Cooks_num_val=11);
 	~Restaurant();
 	

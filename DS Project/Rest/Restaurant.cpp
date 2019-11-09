@@ -5,6 +5,7 @@ using namespace std;
 
 #include "Restaurant.h"
 #include "../Events/ArrivalEvent.h"
+#include "../Events/CancellationEvent.h"
 
 
 Restaurant::Restaurant(int Cooks_num_val)

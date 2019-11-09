@@ -4,17 +4,35 @@
 #include "GUI\GUIDrawables\VeganGUIElement.h"
 #include "GUI\GUIDrawables\VIPGUIElement.h"
 #include "GUI\GUI.h"
+#include "File Reader/reader.h"
 
 
 int main() {
 
+	int M;
 	int steps = 1;
+	int Arr[12];
+	Queue<Event*> EventsQueue;
+
+	//to Read the input file, the following 4 lines must be uncommented
+	
+	Read_File1(Arr);
+	M = Arr[11];
+	char** Events = new char* [M];
+	int** Event_Data = new int* [M];
+	Event** Array = new Event* [M];
+	Read_File2(Events, Event_Data, M);
+	ArrayEnqueuer(Array, Events, Event_Data, M);
+	QueueEnqueuer(Array, EventsQueue, M);
+	
 
 	//byefta7 el ma7al
 	Restaurant* pRest = new Restaurant;
 
 	//Choosing Simulation Mode
 	pRest->RunSimulation();
+
+
 
 	pRest->main_loop(steps);
 
@@ -28,7 +46,8 @@ int main() {
 	GUI gui;
 	gui.initSimMode();
 
-	while (true) {
+	while (true)
+	{
 		if (steps % 5 == 0) {
 			gui.printStringInStatusBar("Current Time: " + std::to_string(steps));
 		}
@@ -53,4 +72,6 @@ int main() {
 
 		steps++;
 	}
+
+
 }
