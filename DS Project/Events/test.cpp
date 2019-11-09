@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ArrivalEvent.h"
+#include "../File Reader/reader.h"
 
 
 int main()
@@ -11,7 +12,12 @@ int main()
     ArrivalEvent *e2 = new ArrivalEvent{0,0,TYPE_VIP};
     ArrivalEvent *e3 = new ArrivalEvent{1,1,TYPE_VIP};
     Event** array_e= new Event*[10];
-    array_e[0]=e1;
+    for (size_t i = 0; i < 10; i++)
+    {
+        array_e[i]= new ArrivalEvent{0,0,TYPE_VIP};
+    }
+    
+    
     
     
     return 0;

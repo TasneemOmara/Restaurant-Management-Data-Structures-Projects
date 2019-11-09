@@ -156,7 +156,7 @@ public:
 	//deletes the first node with the given value (if found) and returns true
 	//if not found, returns false
 	//Note: List is not sorted
-	bool DeleteNode(const T &value){
+	bool DeleteNode(const int &value){
 		cout<<"\nDeleting the element "<<value<<endl;
 		if(Head == nullptr){
 			return false;
