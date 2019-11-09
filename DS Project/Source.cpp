@@ -8,7 +8,7 @@
 
 int main() {
 
-	const int time = 0;
+	int steps = 1;
 
 	//byefta7 el ma7al
 	Restaurant* pRest = new Restaurant;
@@ -16,8 +16,7 @@ int main() {
 	//Choosing Simulation Mode
 	pRest->RunSimulation();
 
-	//Executes ALL events that should take place at current timestep
-	//pRest->ExecuteEvents(int CurrentTimeStep);
+	pRest->main_loop(steps);
 
 	//This should add ALL orders and cooks to the drawing list
 	//It should get orders from orders lists/queues/stacks/whatever (same for cooks)
@@ -28,8 +27,6 @@ int main() {
 	//Creating GUI & Initializing
 	GUI gui;
 	gui.initSimMode();
-
-	int& steps = x;
 
 	while (true) {
 		if (steps % 5 == 0) {

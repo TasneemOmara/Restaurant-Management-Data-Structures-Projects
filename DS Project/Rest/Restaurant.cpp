@@ -57,9 +57,9 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 }
 
 
-void Restaurant::main_loop()
+void Restaurant::main_loop(int x)
 {
-	int mouse_click;
+	int mouse_click = x;
 	ExecuteEvents(mouse_click);
 	for (size_t i = 0; i < Cooks_num; i++)
 	{

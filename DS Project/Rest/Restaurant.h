@@ -27,8 +27,8 @@ private:
 	Queue<Order> Vegan_Orders;
 	LinkedList<Order> Normal_Orders;
 	int Cooks_num; 
-	Cook Inservice[];
-	Cook Done[];
+	Cook Inservice[100];
+	Cook Done[100];
 	int M;
 	char** Events;
 	int** Event_Data;
@@ -50,7 +50,7 @@ public:
 
 	void FillDrawingList();
 
-	void main_loop();
+	void main_loop(int x);
 
 	Queue<Cook> get_VI_cooks_queue() const;
 	Queue<Cook> get_Vegan_cooks_queue() const;

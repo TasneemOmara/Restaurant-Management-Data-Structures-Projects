@@ -54,7 +54,7 @@ void Cook::setMaxCooksNum(int max)
 
 void Cook::global_time(int i)
 {
-	current_time=i;
+	current_time = i;
 }
 
 //moving the assigned order from in service to done 
