@@ -1,7 +1,7 @@
 #include "CancellationEvent.h"
-#include "Restaurant.h"
+#include "../Rest/Restaurant.h"
 
-
+CancellationEvent::CancellationEvent() {};
 CancellationEvent::CancellationEvent(int eTime, int oID):Event(eTime, oID)
 {
 	
