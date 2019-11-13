@@ -48,12 +48,12 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 	while( EventsQueue.peekFront(pE) )	//as long as there are more events
 	{
 		if(pE->getEventTime() > CurrentTimeStep )	//no more events at current time
-			return;
-
-		pE->Execute(this);
-		EventsQueue.dequeue(pE);	//remove event from the queue
-		delete pE;		//deallocate event object from memory
+		{
+			pE->Execute(this);
+			EventsQueue.dequeue(pE);	//remove event from the queue
+		}
 	}
+	delete pE;		//deallocate event object from memory
 
 }
 
@@ -62,13 +62,14 @@ void Restaurant::main_loop(int x)
 {
 	int mouse_click = x;
 	ExecuteEvents(mouse_click);
+	VI_Orders;
 	for (size_t i = 0; i < Cooks_num; i++)
 	{
 		Inservice[i].global_time(mouse_click);
 		Inservice[i].ToDone(Done);
 		(Done[i].getAssignedOrder()).set_FT(mouse_click);
 	}
-	Order v;
+	Order vegan_order;
 	Vegan_Orders.dequeue(v);
 	Cook c;
 	VI_Cooks.dequeue(c);
