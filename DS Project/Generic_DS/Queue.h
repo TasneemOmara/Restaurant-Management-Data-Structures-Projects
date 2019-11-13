@@ -23,7 +23,7 @@ public :
 	bool enqueue(const T& newEntry); 
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;
-	T* toArray(int& count);	//returns array of T (array if items)
+	T* toArray();	//returns array of T (array if items)
 	Queue(const Queue<T> & LQ); //copy constructor
 	static void PrintQueue(Queue<T> Q); 
 
@@ -156,7 +156,7 @@ returns: The array of T. (nullptr if Queue is empty)
 */
 
 template <typename T>
-T* Queue<T>::toArray(int& count)
+T* Queue<T>::toArray()
 {
 	count=0;
 
