@@ -235,6 +235,20 @@ public:
             cout<<"Beyond List Length"<<endl;
 	}
 
+
+	T* LinkedList<T>::toArray()
+	{
+
+		T* Arr= new T[count];
+		Node<T>* p  = Head;
+		for(int i=0; i<count;i++)
+		{
+			Arr[i] = p->getItem();
+			p = p->getNext();
+		}
+		return Arr;
+	}
+
 };
 
 #endif
