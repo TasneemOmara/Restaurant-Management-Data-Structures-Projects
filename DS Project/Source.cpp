@@ -32,15 +32,18 @@ int main() {
 	Restaurant* pRest = new Restaurant();
 	
 	//Choosing Simulation Mode
-	pRest->RunSimulation();
+	//pRest->RunSimulation();
 
-	int steps = 1;
+	//int steps = 1;
+	for (size_t i = 0; i < 5; i++)
+	{
+		pRest->main_loop(i);
+	}
 
-	pRest->main_loop(steps);
 
 	//This should add ALL orders and cooks to the drawing list
 	//It should get orders from orders lists/queues/stacks/whatever (same for cooks)
-	pRest->FillDrawingList();
+	/*pRest->FillDrawingList();
 
 	delete pRest;
 
@@ -75,5 +78,5 @@ int main() {
 		steps++;
 	}
 	
-
+	*/
 }

@@ -11,21 +11,22 @@ void ArrivalEvent::Execute(Restaurant* pRest)
 {
 	//This function should create an order and fills its data 
 	// Then adds it to normal, vegan, or VIP order lists that you will create in phase1
+	cout << endl << this -> OrdType << "zidan" <<endl;
 	switch (this->OrdType)
 	{
-	case 0:
+	case 1:
 		{
 		Order O1(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
 		pRest->get_Normal_orders_list().InsertBeg(O1);
 		break;
 		}
-	case 1:
+	case 2:
 		{
 		Order O2(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
-		pRest->get_Vegan_orders_queue().enqueue(O2);
+		cout << pRest->get_Vegan_orders_queue().enqueue(O2) << "hiiii" << endl;
 		break;
 		}
-	case 2:
+	case 3:
 		{
 		Order O3(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
 		pRest->get_VI_orders_queue().enqueue(O3,O3.VI_Priority());

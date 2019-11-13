@@ -26,10 +26,28 @@ Restaurant::Restaurant()
 	Event* A;
 	cout << "We are in restaurant" << boolalpha << EventsQueue.peekFront(A) << endl;
 	Cooks_num = Arr[3] + Arr[4] + Arr[5];
-	for (size_t i = 0; i < length; i++)
+	
+	//
+	for (size_t i = 0; i < Arr[3]; i++)
 	{
-
+		Cook c(i, TYPE_NRM, Arr[0], Arr[6]);
+		Normal_Cooks.enqueue(c);
 	}
+
+	//Vegan cooks enqueuer
+	for (size_t i = Arr[3] + 1 ; i < Arr[4]; i++)
+	{
+		Cook c(i, TYPE_NRM, Arr[1], Arr[7]);
+		Vegan_Cooks.enqueue(c);
+	}
+
+	//VIP cooks enqueuer
+	for (size_t i = Arr[3] + Arr[4] + 1 ; i < Arr[5]; i++)
+	{
+		Cook c(i, TYPE_NRM, Arr[2], Arr[8]);
+		VI_Cooks.enqueue(c);
+	}
+
 	Inservice = new Cook[Cooks_num];
 	Done = new Cook[Cooks_num];
 	
@@ -63,16 +81,20 @@ void Restaurant::RunSimulation()
 //Executes ALL events that should take place at current timestep
 void Restaurant::ExecuteEvents(int CurrentTimeStep)
 {
+	
 	Event *pE;
+	//cout << endl << EventsQueue.peekFront(pE) << endl;
 	while( EventsQueue.peekFront(pE) )	//as long as there are more events
 	{
-		if(pE->getEventTime() > CurrentTimeStep )	//no more events at current time
+		cout << CurrentTimeStep;
+		if (pE->getEventTime() == CurrentTimeStep)	//no more events at current time
 		{
 			pE->Execute(this);
 			EventsQueue.dequeue(pE);	//remove event from the queue
 		}
+		else break;
 	}
-	delete pE;		//deallocate event object from memory
+	//delete pE;		//deallocate event object from memory
 
 }
 
@@ -81,27 +103,34 @@ void Restaurant::main_loop(int steps)
 {
 	ExecuteEvents(steps);
 	bool done=false;
+
 	for (int i = 0; i < Cooks_num; i++)
 	{
 		if (Inservice[i].getAssignedOrder()!=0)
 		{
 			Inservice[i].global_time(steps);
 			done= Inservice[i].ToDone(Done);
+
+
 			if (done)
 			{
 				(Done[i].getAssignedOrder()).set_FT(steps);
 				(Done[i].getAssignedOrder()).setStatus(DONE);
+				cout << endl << Done[i].getAssignedOrder() << endl;
 			}
 		}
 	}
 	Order vegan_order;
-	Vegan_Orders.dequeue(vegan_order);
-	Cook c;
-	VI_Cooks.dequeue(c);
-	c.AssignOrder(vegan_order);
-	(c.getAssignedOrder()).set_SV(steps);
-	(c.getAssignedOrder()).setStatus(SRV);
-	Inservice[c.GetID()]=c;
+	if (Vegan_Orders.dequeue(vegan_order))
+	{
+		Cook c;
+		Vegan_Cooks.dequeue(c);
+		c.AssignOrder(vegan_order);
+		(c.getAssignedOrder()).set_SV(steps);
+		(c.getAssignedOrder()).setStatus(SRV);
+		Inservice[c.GetID()] = c;
+		cout << c.getAssignedOrder() << endl;
+	}
 
 }
 
