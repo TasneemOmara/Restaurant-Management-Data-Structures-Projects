@@ -58,23 +58,30 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 }
 
 
-void Restaurant::main_loop(int x)
+void Restaurant::main_loop(int steps)
 {
-	int mouse_click = x;
-	ExecuteEvents(mouse_click);
-	VI_Orders;
+	ExecuteEvents(steps);
+	bool done=false;
 	for (size_t i = 0; i < Cooks_num; i++)
 	{
-		Inservice[i].global_time(mouse_click);
-		Inservice[i].ToDone(Done);
-		(Done[i].getAssignedOrder()).set_FT(mouse_click);
+		if (Inservice[i].getAssignedOrder()!=0)
+		{
+			Inservice[i].global_time(steps);
+			done= Inservice[i].ToDone(Done);
+			if (done)
+			{
+				(Done[i].getAssignedOrder()).set_FT(steps);
+				(Done[i].getAssignedOrder()).setStatus(DONE);
+			}
+		}
 	}
 	Order vegan_order;
 	Vegan_Orders.dequeue(v);
 	Cook c;
 	VI_Cooks.dequeue(c);
 	c.AssignOrder(v);
-	(c.getAssignedOrder()).set_SV(mouse_click);
+	(c.getAssignedOrder()).set_SV(steps);
+	(c.getAssignedOrder()).setStatus(SRV);
 	Inservice[c.GetID()]=c;
 
 }
