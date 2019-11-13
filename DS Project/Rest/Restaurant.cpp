@@ -6,14 +6,33 @@ using namespace std;
 #include "Restaurant.h"
 #include "../Events/ArrivalEvent.h"
 #include "../Events/CancellationEvent.h"
-
+#include "../File Reader/reader.h"
 
 Restaurant::Restaurant()
 {
+	
+	int M;
+	int steps = 1;
+	int Arr[12];
 	pGUI = NULL;
+	Read_File1(Arr);
+	M = Arr[11];
+	char** Events = new char* [M];
+	int** Event_Data = new int* [M];
+	Event** Array = new Event * [M];
+	Read_File2(Events, Event_Data, M);
+	ArrayEnqueuer(Array, Events, Event_Data, M);
+	QueueEnqueuer(Array, EventsQueue, M);
+	Event* A;
+	cout << "We are in restaurant" << boolalpha << EventsQueue.peekFront(A) << endl;
+	Cooks_num = Arr[3] + Arr[4] + Arr[5];
+	for (size_t i = 0; i < length; i++)
+	{
 
-	Inservice[Cooks_num];
-	Done[Cooks_num];
+	}
+	Inservice = new Cook[Cooks_num];
+	Done = new Cook[Cooks_num];
+	
 }
 
 void Restaurant::RunSimulation()
@@ -62,7 +81,7 @@ void Restaurant::main_loop(int steps)
 {
 	ExecuteEvents(steps);
 	bool done=false;
-	for (size_t i = 0; i < Cooks_num; i++)
+	for (int i = 0; i < Cooks_num; i++)
 	{
 		if (Inservice[i].getAssignedOrder()!=0)
 		{
@@ -76,10 +95,10 @@ void Restaurant::main_loop(int steps)
 		}
 	}
 	Order vegan_order;
-	Vegan_Orders.dequeue(v);
+	Vegan_Orders.dequeue(vegan_order);
 	Cook c;
 	VI_Cooks.dequeue(c);
-	c.AssignOrder(v);
+	c.AssignOrder(vegan_order);
 	(c.getAssignedOrder()).set_SV(steps);
 	(c.getAssignedOrder()).setStatus(SRV);
 	Inservice[c.GetID()]=c;

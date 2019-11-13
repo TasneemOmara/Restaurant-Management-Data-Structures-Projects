@@ -39,7 +39,7 @@ public:
     void set_price(int n);
 	int VI_Priority();
 	bool operator == (int rhs_id);
-	
+	bool operator != (int rhs_id);
 friend ostream& operator<<(ostream& out, const Order& d)
 {
 	cout << "The order's ID is " << d.GetID() << " It's type is" << d.GetType() << " It's size is " << d.GetDishes() << "\nIt's status is " << d.getStatus() << endl;

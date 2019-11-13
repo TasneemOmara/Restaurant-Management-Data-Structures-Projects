@@ -119,4 +119,8 @@ bool Order::operator == (int rhs_id)
 	return this->GetID()==rhs_id;
 }
 
+bool Order::operator != (int rhs_id)
+{
+	return this->GetID() != rhs_id;
+}
 

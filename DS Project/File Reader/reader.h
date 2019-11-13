@@ -11,7 +11,7 @@ using namespace std;
 ///class Restaurant;
 
 // void fun(int [] arr, int size)
-void Read_File1(int* Arr)//, char** Events, int** Event_Data )//,Queue<Event*> Q)
+void Read_File1(int Arr[])//, char** Events, int** Event_Data )//,Queue<Event*> Q)
 {
 	ifstream myfile;
 	// replace "dir" with the directory of the file you want to read and make sure the address has no spaces in it and to put the address inside quotation marks
@@ -41,7 +41,7 @@ void Read_File1(int* Arr)//, char** Events, int** Event_Data )//,Queue<Event*> Q
 	{
 		myfile >> Arr[i];
 	}
-	int M = Arr[11];
+	//int M = Arr[11];
 
 	//Queue<Event*> EventsQueue;
 	/*
@@ -219,11 +219,9 @@ void QueueEnqueuer(Event** Array, Queue<Event*> &EventsQueue, int M)
 {
 	for (int i = 0; i < M; i++)
 	{
-		cout << Array[i]->getEventTime() << endl;
-		Event* A = Array[i] ;
-		EventsQueue.enqueue(A);
-		Event* B;
-		cout << boolalpha <<  EventsQueue.peekFront(B)<<endl;
+		//cout << Array[i]->getEventTime() << endl;
+		//Event* A = Array[i] ;
+		EventsQueue.enqueue(Array[i]);
 
 
 	}

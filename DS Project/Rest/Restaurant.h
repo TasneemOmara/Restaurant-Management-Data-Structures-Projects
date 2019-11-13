@@ -28,14 +28,14 @@ private:
 	Queue<Order> Vegan_Orders;
 	LinkedList<Order> Normal_Orders;
 	int Cooks_num; 
-	Cook Inservice[];
-	Cook Done[];
+	Cook *Inservice;
+	Cook *Done;
 
 
 public:
 
 
-	Restaurant(Queue<Event*> Queue, int Cooks_num_val=11);
+	Restaurant();
 	~Restaurant();
 	
 	void ExecuteEvents(int TimeStep);	//executes all events at current timestep
