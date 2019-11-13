@@ -10,6 +10,8 @@
 #include "Order.h"
 #include "Cook.h"
 #include "../Events/Event.h"
+#include "../GUI/GUI.h"
+#include "../GUI/GUIDefs.h"
 
 
 // it is the maestro of the project
@@ -41,7 +43,7 @@ public:
 	void ExecuteEvents(int TimeStep);	//executes all events at current timestep
 	void RunSimulation();
 
-	void FillDrawingList();
+	void FillDrawingList(int steps);
 
 	void main_loop(int x);
 

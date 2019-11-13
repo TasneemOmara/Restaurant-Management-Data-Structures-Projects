@@ -7,6 +7,7 @@
 #include "GUIDrawables\VIPGUIElement.h"
 #include "..\Defs.h"
 
+
 class GUI{
 
 private:

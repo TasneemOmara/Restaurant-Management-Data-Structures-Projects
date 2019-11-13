@@ -8,6 +8,7 @@ using namespace std;
 #include "../Events/CancellationEvent.h"
 #include "../File Reader/reader.h"
 
+
 Restaurant::Restaurant()
 {
 	
@@ -56,16 +57,20 @@ Restaurant::Restaurant()
 void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
-	PROG_MODE mode = pGUI->getProgramMode();
+	cout << pGUI << endl;
+	PROG_MODE mode = pGUI -> getProgramMode();
 
 	// If you want to use the simulation GUI you must call initSimMode() same as the demo mode
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
+		pGUI->initSimMode();
 		break;
 	case MODE_STEP:
+		pGUI->initSimMode();
 		break;
 	case MODE_SLNT:
+		pGUI->initSimMode();
 		break;
 	case MODE_DEMO:
 		pGUI->initSimMode();
@@ -132,6 +137,11 @@ void Restaurant::main_loop(int steps)
 		cout << c.getAssignedOrder() << endl;
 	}
 
+	pGUI -> updateInterface();
+	pGUI -> handleSimGUIEvents();
+	// For Interactive mode
+	pGUI -> waitForClick();
+
 }
 
 Queue<Cook>& Restaurant::get_VI_cooks_queue()
@@ -177,11 +187,23 @@ Restaurant::~Restaurant()
 		delete pGUI;
 }
 
-
-void Restaurant::FillDrawingList()
+//This function should be implemented in phase1
+//It should add ALL orders and cooks to the drawing list
+//It should get orders from orders lists/queues/stacks/whatever (same for cooks)
+void Restaurant::FillDrawingList(int steps)
 {
-	//This function should be implemented in phase1
-	//It should add ALL orders and cooks to the drawing list
-	//It should get orders from orders lists/queues/stacks/whatever (same for cooks)
 
+	if (steps % 5 == 0)
+	{
+		pGUI->printStringInStatusBar("Current Time: " + std::to_string(steps));
+	}
+
+	//This is where GUI No's are cooked
+	for (int i = 0; i < steps; i++)
+	{
+		pGUI->addGUIDrawable(new VIPGUIElement(i, GUI_REGION::ORD_REG));
+		//pGUI->addGUIDrawable(new NormalGUIElement(i, GUI_REGION::COOK_REG));
+		//pGUI->addGUIDrawable(new VeganGUIElement(i, GUI_REGION::SRV_REG));
+		pGUI->addGUIDrawable(new VIPGUIElement(i, GUI_REGION::DONE_REG));
+	}
 }
