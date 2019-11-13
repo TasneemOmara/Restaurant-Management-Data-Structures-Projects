@@ -14,8 +14,8 @@ public:
     ArrivalEvent();
 	ArrivalEvent(int eTime, int oID, ORD_TYPE oType);	
 	virtual void Execute(Restaurant *pRest);	//override execute function
-	void setDishes(int size);
-	void setMoney(double money);
+	virtual void setDishes(int size);
+	virtual void setMoney(double money);
 
 
 };

@@ -20,7 +20,7 @@ private:
 public :
 	Queue();	
 	bool isEmpty() const ;
-	bool enqueue(const T& newEntry);
+	bool enqueue(const T& newEntry); 
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;
 	T* toArray(int& count);	//returns array of T (array if items)
@@ -72,7 +72,7 @@ Output: True if the operation is successful; otherwise false.
 */
 
 template <typename T>
-bool Queue<T>::enqueue( const T& newEntry)
+bool Queue<T>::enqueue(const  T& newEntry) 
 {
 	Node<T>* newNodePtr = new Node<T>(newEntry);
 	// Insert the new node

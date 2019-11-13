@@ -8,10 +8,10 @@ using namespace std;
 #include "../Events/CancellationEvent.h"
 
 
-Restaurant::Restaurant(int Cooks_num_val)
+Restaurant::Restaurant(Queue<Event*> Queue , int Cooks_num_val)
 {
 	pGUI = NULL;
-
+	EventsQueue = Queue;
 	Inservice[Cooks_num_val];
 	Done[Cooks_num_val];
 }

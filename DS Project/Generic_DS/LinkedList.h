@@ -64,12 +64,13 @@ public:
 	//Deletes all nodes of the list.
 	void DeleteAll()
 	{
-		Node<T> *P = Head;
-		while (Head)
+		Node<T> *p = Head;
+		Node<T>* temp = Head;
+		while (p)
 		{
-			P = Head->getNext();
-			delete Head;
-			Head = P;
+			temp = p->getNext();
+			delete p;
+			p = temp;
 		}
 		count = 0;
 	}

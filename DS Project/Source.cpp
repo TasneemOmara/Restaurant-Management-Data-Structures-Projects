@@ -5,7 +5,7 @@
 #include "GUI\GUIDrawables\VIPGUIElement.h"
 #include "GUI\GUI.h"
 #include "File Reader/reader.h"
-
+#include "Events/Event.h"
 
 int main() {
 
@@ -23,11 +23,12 @@ int main() {
 	Event** Array = new Event* [M];
 	Read_File2(Events, Event_Data, M);
 	ArrayEnqueuer(Array, Events, Event_Data, M);
-	QueueEnqueuer(Array, EventsQueue, M);
+	QueueEnqueuer(Array, EventsQueue, M); 
 	
 
+	/*
 	//byefta7 el ma7al
-	Restaurant* pRest = new Restaurant;
+	Restaurant* pRest = new Restaurant(EventsQueue);
 
 	//Choosing Simulation Mode
 	pRest->RunSimulation();
@@ -72,6 +73,6 @@ int main() {
 
 		steps++;
 	}
-
+	*/
 
 }

@@ -42,6 +42,7 @@ void Read_File1(int* Arr)//, char** Events, int** Event_Data )//,Queue<Event*> Q
 		myfile >> Arr[i];
 	}
 	int M = Arr[11];
+
 	//Queue<Event*> EventsQueue;
 	/*
 	Event** Events_Array;
@@ -168,11 +169,12 @@ void Read_File2(char** Events, int** Event_Data, int M)
 		}
 	}
 	*/
+	cout << "5lst" << endl;
 }
 
 void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
-{
-
+{ 
+	cout << "function ArrayEnqueuer entered" << endl;
 	char R;
 	char T;
 	ORD_TYPE TY;
@@ -198,10 +200,10 @@ void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 			//TY = ORD_TYPE(Events[i][1]);
 			ArrivalEvent* A = new ArrivalEvent(Event_Data[i][0], Event_Data[i][1], TY);
 			Array[i] = A;
-			A->setDishes(Event_Data[i][2]);
-			A->setMoney(Event_Data[i][3]);
+			Array[i]->setDishes(Event_Data[i][2]);
+			Array[i]->setMoney(Event_Data[i][3]);
+			//cout << Array[i]->getOrderID() << endl;
 			//EventsQueue.enqueue(A);
-			break;
 		}
 		/*else if (R == 'X')
 		{
@@ -213,10 +215,16 @@ void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 		}*/
 	}
 }
-void QueueEnqueuer(Event** Array, Queue<Event*> EventsQueue, int M)
+void QueueEnqueuer(Event** Array, Queue<Event*> &EventsQueue, int M)
 {
 	for (int i = 0; i < M; i++)
 	{
-		EventsQueue.enqueue(Array[i]);
+		cout << Array[i]->getEventTime() << endl;
+		Event* A = Array[i] ;
+		EventsQueue.enqueue(A);
+		Event* B;
+		cout << boolalpha <<  EventsQueue.peekFront(B)<<endl;
+
+
 	}
 }
