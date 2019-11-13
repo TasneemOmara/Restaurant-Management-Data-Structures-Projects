@@ -86,36 +86,36 @@ void Restaurant::main_loop(int steps)
 
 }
 
-Queue<Cook>& Restaurant::get_VI_cooks_queue() const
+Queue<Cook>& Restaurant::get_VI_cooks_queue()
 {
 	return VI_Cooks;
 }
-Queue<Cook>& Restaurant::get_Vegan_cooks_queue() const
+Queue<Cook>& Restaurant::get_Vegan_cooks_queue()
 {
 	return Vegan_Cooks;
 }
-Queue<Cook>& Restaurant::get_Normal_cooks_queue() const
+Queue<Cook>& Restaurant::get_Normal_cooks_queue()
 {
 	return Normal_Cooks;
 }
-Queue<Cook>& Restaurant::get_VI_cooks_break_queue() const
+Queue<Cook>& Restaurant::get_VI_cooks_break_queue()
 {
 	return VI_Cooks_break;
 }
-Queue<Cook>& Restaurant::get_Vegan_cooks_break_queue() const
+Queue<Cook>& Restaurant::get_Vegan_cooks_break_queue()
 {
 	return Vegan_Cooks_break;
 }
-Queue<Cook>& Restaurant::get_Normal_cooks_break_queue() const
+Queue<Cook>& Restaurant::get_Normal_cooks_break_queue()
 {
 	return Normal_Cooks_break;
 }
 
-PriorityQueue<Order>& Restaurant::get_VI_orders_queue() const
+PriorityQueue<Order>& Restaurant::get_VI_orders_queue()
 {
 	return VI_Orders;
 }
-Queue<Order>& Restaurant::get_Vegan_orders_queue() const
+Queue<Order>& Restaurant::get_Vegan_orders_queue()
 {
 	return Vegan_Orders;
 }
