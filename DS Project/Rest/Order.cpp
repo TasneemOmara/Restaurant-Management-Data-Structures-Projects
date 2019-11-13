@@ -1,6 +1,8 @@
 #include "Order.h"
 
-Order::Order(){}
+Order::Order(){
+	ID=0;
+}
 
 Order::Order(int id, ORD_TYPE r_Type, int Dishes_val, double price_val, int ArrTime_val)
 {

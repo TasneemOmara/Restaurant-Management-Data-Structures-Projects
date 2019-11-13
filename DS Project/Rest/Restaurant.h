@@ -28,8 +28,8 @@ private:
 	Queue<Order> Vegan_Orders;
 	LinkedList<Order> Normal_Orders;
 	int Cooks_num; 
-	Cook Inservice[100];
-	Cook Done[100];
+	Cook Inservice[];
+	Cook Done[];
 
 
 public:
@@ -45,14 +45,14 @@ public:
 
 	void main_loop(int x);
 
-	Queue<Cook> get_VI_cooks_queue() const;
-	Queue<Cook> get_Vegan_cooks_queue() const;
-	Queue<Cook> get_Normal_cooks_queue() const;
-	Queue<Cook> get_VI_cooks_break_queue() const;
-	Queue<Cook> get_Vegan_cooks_break_queue() const;
-	Queue<Cook> get_Normal_cooks_break_queue() const;
-	PriorityQueue<Order> get_VI_orders_queue() const;
-	Queue<Order> get_Vegan_orders_queue() const;
-	LinkedList<Order> get_Normal_orders_list() const;
+	Queue<Cook>& get_VI_cooks_queue();
+	Queue<Cook>& get_Vegan_cooks_queue();
+	Queue<Cook>& get_Normal_cooks_queue();
+	Queue<Cook>& get_VI_cooks_break_queue();
+	Queue<Cook>& get_Vegan_cooks_break_queue();
+	Queue<Cook>& get_Normal_cooks_break_queue();
+	PriorityQueue<Order>& get_VI_orders_queue();
+	Queue<Order>& get_Vegan_orders_queue();
+	LinkedList<Order>& get_Normal_orders_list();
 
 };

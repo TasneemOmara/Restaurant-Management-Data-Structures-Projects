@@ -8,19 +8,19 @@ using namespace std;
 #include "../Events/CancellationEvent.h"
 
 
-Restaurant::Restaurant(Queue<Event*> Queue , int Cooks_num_val)
+Restaurant::Restaurant()
 {
 	pGUI = NULL;
-	EventsQueue = Queue;
-	Inservice[Cooks_num_val];
-	Done[Cooks_num_val];
+
+	Inservice[Cooks_num];
+	Done[Cooks_num];
 }
 
 void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
 	PROG_MODE mode = pGUI->getProgramMode();
-		
+
 	// If you want to use the simulation GUI you must call initSimMode() same as the demo mode
 	switch (mode)	//Add a function for each mode in next phases
 	{
@@ -48,70 +48,78 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 	while( EventsQueue.peekFront(pE) )	//as long as there are more events
 	{
 		if(pE->getEventTime() > CurrentTimeStep )	//no more events at current time
-			return;
-
-		pE->Execute(this);
-		EventsQueue.dequeue(pE);	//remove event from the queue
-		delete pE;		//deallocate event object from memory
+		{
+			pE->Execute(this);
+			EventsQueue.dequeue(pE);	//remove event from the queue
+		}
 	}
+	delete pE;		//deallocate event object from memory
 
 }
 
 
-void Restaurant::main_loop(int x)
+void Restaurant::main_loop(int steps)
 {
-	int mouse_click = x;
-	ExecuteEvents(mouse_click);
+	ExecuteEvents(steps);
+	bool done=false;
 	for (size_t i = 0; i < Cooks_num; i++)
 	{
-		Inservice[i].global_time(mouse_click);
-		Inservice[i].ToDone(Done);
-		(Done[i].getAssignedOrder()).set_FT(mouse_click);
+		if (Inservice[i].getAssignedOrder()!=0)
+		{
+			Inservice[i].global_time(steps);
+			done= Inservice[i].ToDone(Done);
+			if (done)
+			{
+				(Done[i].getAssignedOrder()).set_FT(steps);
+				(Done[i].getAssignedOrder()).setStatus(DONE);
+			}
+		}
 	}
-	Order v;
+	Order vegan_order;
 	Vegan_Orders.dequeue(v);
 	Cook c;
 	VI_Cooks.dequeue(c);
 	c.AssignOrder(v);
-	(c.getAssignedOrder()).set_SV(mouse_click);
+	(c.getAssignedOrder()).set_SV(steps);
+	(c.getAssignedOrder()).setStatus(SRV);
 	Inservice[c.GetID()]=c;
 
 }
 
-Queue<Cook> Restaurant::get_VI_cooks_queue() const
+Queue<Cook>& Restaurant::get_VI_cooks_queue()
 {
 	return VI_Cooks;
 }
-Queue<Cook> Restaurant::get_Vegan_cooks_queue() const
+Queue<Cook>& Restaurant::get_Vegan_cooks_queue()
 {
 	return Vegan_Cooks;
 }
-Queue<Cook> Restaurant::get_Normal_cooks_queue() const
+Queue<Cook>& Restaurant::get_Normal_cooks_queue()
 {
 	return Normal_Cooks;
 }
-Queue<Cook> Restaurant::get_VI_cooks_break_queue() const
+Queue<Cook>& Restaurant::get_VI_cooks_break_queue()
 {
 	return VI_Cooks_break;
 }
-Queue<Cook> Restaurant::get_Vegan_cooks_break_queue() const
+Queue<Cook>& Restaurant::get_Vegan_cooks_break_queue()
 {
 	return Vegan_Cooks_break;
 }
-Queue<Cook> Restaurant::get_Normal_cooks_break_queue() const
+Queue<Cook>& Restaurant::get_Normal_cooks_break_queue()
 {
 	return Normal_Cooks_break;
 }
 
-PriorityQueue<Order> Restaurant::get_VI_orders_queue() const
+PriorityQueue<Order>& Restaurant::get_VI_orders_queue()
 {
 	return VI_Orders;
 }
-Queue<Order> Restaurant::get_Vegan_orders_queue() const
+Queue<Order>& Restaurant::get_Vegan_orders_queue()
 {
 	return Vegan_Orders;
 }
-LinkedList<Order> Restaurant::get_Normal_orders_list() const
+LinkedList<Order>& Restaurant::get_Normal_orders_list()
 {
 	return Normal_Orders;
 }
