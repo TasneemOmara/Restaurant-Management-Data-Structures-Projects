@@ -8,12 +8,12 @@ using namespace std;
 #include "../Events/CancellationEvent.h"
 
 
-Restaurant::Restaurant(int Cooks_num_val)
+Restaurant::Restaurant()
 {
 	pGUI = NULL;
 
-	Inservice[Cooks_num_val];
-	Done[Cooks_num_val];
+	Inservice[Cooks_num];
+	Done[Cooks_num];
 }
 
 void Restaurant::RunSimulation()
