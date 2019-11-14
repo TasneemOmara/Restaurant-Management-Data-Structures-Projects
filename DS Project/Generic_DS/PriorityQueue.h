@@ -214,10 +214,11 @@ Output: count: the length of the returned array (zero if Queue is empty)
 returns: The array of T. (nullptr if Queue is empty)
 */
 
+
 template <typename T>
 T* PriorityQueue<T>::toArray()
 {
-	count=0;
+	int count = 0;
 
 	if(!frontPtr)
 		return nullptr;
@@ -239,6 +240,7 @@ T* PriorityQueue<T>::toArray()
 	}
 	return Arr;
 }
+
 
 /*
 Function: Copy constructor

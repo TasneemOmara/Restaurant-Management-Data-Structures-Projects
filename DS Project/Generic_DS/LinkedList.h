@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _LINKEDLIST
 #define _LINKEDLIST
 
@@ -235,8 +236,8 @@ public:
             cout<<"Beyond List Length"<<endl;
 	}
 
-
-	T* LinkedList<T>::toArray()
+	template <typename T>
+	T* toArray()
 	{
 
 		T* Arr= new T[count];
@@ -248,7 +249,7 @@ public:
 		}
 		return Arr;
 	}
-
+	
 };
 
 #endif

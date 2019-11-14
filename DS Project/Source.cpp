@@ -10,7 +10,7 @@ int main() {
 
 	//byefta7 el ma7al
 	Restaurant* pRest = new Restaurant();
-	int steps = 1;
+	int steps = 0;
 
 	//Choosing Simulation Mode
 	pRest->RunSimulation();

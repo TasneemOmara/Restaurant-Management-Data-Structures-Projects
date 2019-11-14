@@ -158,28 +158,31 @@ returns: The array of T. (nullptr if Queue is empty)
 template <typename T>
 T* Queue<T>::toArray()
 {
-	count=0;
+	int count = 0;
 
 	if(!frontPtr)
 		return nullptr;
+
 	//counting the no. of items in the Queue
 	Node<T>* p = frontPtr;
 	while(p)
 	{
 		count++;
-		p = p->getNext();
+		p = p -> getNext();
 	}
 
 
-	T* Arr= new T[count];
+
+	T* Arr = new T[count];
 	p = frontPtr;
-	for(int i=0; i<count;i++)
+	for(int i=0; i< count ; i++)
 	{
-		Arr[i] = p->getItem();
-		p = p->getNext();
+		Arr[i] = p -> getItem();
+		p = p-> getNext();
 	}
 	return Arr;
 }
+
 
 template <typename T>
 Queue<T>::Queue(const Queue<T> & LQ)

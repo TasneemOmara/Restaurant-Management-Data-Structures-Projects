@@ -7,7 +7,7 @@ using namespace std;
 #include "../Events/ArrivalEvent.h"
 #include "../Events/CancellationEvent.h"
 #include "../File Reader/reader.h"
-
+#include "../Generic_DS/Queue.h"
 
 Restaurant::Restaurant()
 {
@@ -58,7 +58,7 @@ void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
 	cout << pGUI << endl;
-	PROG_MODE mode = pGUI -> getProgramMode();
+	PROG_MODE mode = pGUI->getProgramMode();
 
 	// If you want to use the simulation GUI you must call initSimMode() same as the demo mode
 	switch (mode)	//Add a function for each mode in next phases
@@ -140,7 +140,8 @@ void Restaurant::main_loop(int steps)
 	pGUI -> updateInterface();
 	pGUI -> handleSimGUIEvents();
 	// For Interactive mode
-	pGUI -> waitForClick();
+	FillDrawingList(steps);
+	pGUI->waitForClick();
 
 }
 
@@ -192,6 +193,8 @@ Restaurant::~Restaurant()
 //It should get orders from orders lists/queues/stacks/whatever (same for cooks)
 void Restaurant::FillDrawingList(int steps)
 {
+	Order* p = Vegan_Orders.toArray();
+	cout << endl << "of zero" << p[0].GetID() << endl;
 
 	if (steps % 5 == 0)
 	{
@@ -199,8 +202,10 @@ void Restaurant::FillDrawingList(int steps)
 	}
 
 	//This is where GUI No's are cooked
-	for (int i = 0; i < steps; i++)
+	for (int i = 0; i <= steps; i++)
 	{
+		//p[i].GetID()
+		//Waiting Up-left corner
 		pGUI->addGUIDrawable(new VIPGUIElement(i, GUI_REGION::ORD_REG));
 		//pGUI->addGUIDrawable(new NormalGUIElement(i, GUI_REGION::COOK_REG));
 		//pGUI->addGUIDrawable(new VeganGUIElement(i, GUI_REGION::SRV_REG));
