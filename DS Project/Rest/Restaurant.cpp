@@ -25,7 +25,7 @@ Restaurant::Restaurant()
 	ArrayEnqueuer(Array, Events, Event_Data, M);
 	QueueEnqueuer(Array, EventsQueue, M);
 	Event* A;
-	cout << "We are in restaurant" << boolalpha << EventsQueue.peekFront(A) << endl;
+	//cout << "We are in restaurant" << boolalpha << EventsQueue.peekFront(A) << endl;
 	Cooks_num = Arr[3] + Arr[4] + Arr[5];
 	
 	//
@@ -57,7 +57,7 @@ Restaurant::Restaurant()
 void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
-	cout << pGUI << endl;
+	// << pGUI << endl;
 	PROG_MODE mode = pGUI->getProgramMode();
 
 	// If you want to use the simulation GUI you must call initSimMode() same as the demo mode
@@ -86,12 +86,11 @@ void Restaurant::RunSimulation()
 //Executes ALL events that should take place at current timestep
 void Restaurant::ExecuteEvents(int CurrentTimeStep)
 {
-	
+	cout << endl << "Current time step is" << CurrentTimeStep << endl;
 	Event *pE;
 	//cout << endl << EventsQueue.peekFront(pE) << endl;
 	while( EventsQueue.peekFront(pE) )	//as long as there are more events
 	{
-		cout << CurrentTimeStep;
 		if (pE->getEventTime() == CurrentTimeStep)	//no more events at current time
 		{
 			pE->Execute(this);
@@ -125,6 +124,7 @@ void Restaurant::main_loop(int steps)
 			}
 		}
 	}
+
 	Order vegan_order;
 	if (Vegan_Orders.dequeue(vegan_order))
 	{
@@ -139,6 +139,8 @@ void Restaurant::main_loop(int steps)
 
 	pGUI -> updateInterface();
 	pGUI -> handleSimGUIEvents();
+
+
 	// For Interactive mode
 	FillDrawingList(steps);
 	pGUI->waitForClick();
@@ -193,8 +195,14 @@ Restaurant::~Restaurant()
 //It should get orders from orders lists/queues/stacks/whatever (same for cooks)
 void Restaurant::FillDrawingList(int steps)
 {
-	Order* p = Vegan_Orders.toArray();
-	cout << endl << "of zero" << p[0].GetID() << endl;
+	Queue<Order> testvegan = get_Vegan_orders_queue();
+	Order* p = testvegan.toArray();
+	testvegan.PrintQueue(testvegan);
+	
+	if (p != nullptr) {
+		cout << endl << "of zero" << p[0].GetID() << endl;
+	}
+	cout << p[0];
 
 	if (steps % 5 == 0)
 	{
