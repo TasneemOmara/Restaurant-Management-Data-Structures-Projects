@@ -27,8 +27,9 @@ Restaurant::Restaurant()
 	Event* A;
 	//cout << "We are in restaurant" << boolalpha << EventsQueue.peekFront(A) << endl;
 	Cooks_num = Arr[3] + Arr[4] + Arr[5];
+	//cout << "cooks num is " << Cooks_num << endl;
 	
-	//
+	//Normal cooks enqueuer
 	for (size_t i = 0; i < Arr[3]; i++)
 	{
 		Cook c(i, TYPE_NRM, Arr[0], Arr[6]);
@@ -36,14 +37,14 @@ Restaurant::Restaurant()
 	}
 
 	//Vegan cooks enqueuer
-	for (size_t i = Arr[3] + 1 ; i < Arr[4]; i++)
+	for (size_t i = Arr[3] ; i < Arr[4] + Arr[3] ; i++)
 	{
 		Cook c(i, TYPE_NRM, Arr[1], Arr[7]);
 		Vegan_Cooks.enqueue(c);
 	}
 
 	//VIP cooks enqueuer
-	for (size_t i = Arr[3] + Arr[4] + 1 ; i < Arr[5]; i++)
+	for (size_t i = Arr[3] + Arr[4] ; i < Arr[5] + Arr[4] + Arr[3] ; i++)
 	{
 		Cook c(i, TYPE_NRM, Arr[2], Arr[8]);
 		VI_Cooks.enqueue(c);
@@ -115,26 +116,34 @@ void Restaurant::main_loop(int steps)
 			Inservice[i].global_time(steps);
 			done= Inservice[i].ToDone(Done);
 
-
+			cout << "done is " << done << endl;
 			if (done)
 			{
 				(Done[i].getAssignedOrder()).set_FT(steps);
 				(Done[i].getAssignedOrder()).setStatus(DONE);
-				cout << endl << Done[i].getAssignedOrder() << endl;
+				//cout << endl << Done[i].getAssignedOrder() << endl;
 			}
 		}
 	}
 
+	//Demo
 	Order vegan_order;
-	if (Vegan_Orders.dequeue(vegan_order))
+	cout << "ya raaab " << Vegan_Orders.peekFront(vegan_order) << "     ";
+	cout << !Vegan_Cooks.isEmpty() << endl;
+
+	while (Vegan_Orders.peekFront(vegan_order) && !Vegan_Cooks.isEmpty())
 	{
+		cout << "ana gowa el while " << endl;
+		Vegan_Orders.dequeue(vegan_order);
 		Cook c;
 		Vegan_Cooks.dequeue(c);
 		c.AssignOrder(vegan_order);
 		(c.getAssignedOrder()).set_SV(steps);
+		cout << "steps is " << steps << endl;
+		cout << "getter is " << (c.getAssignedOrder()).get_SV() << endl;
 		(c.getAssignedOrder()).setStatus(SRV);
 		Inservice[c.GetID()] = c;
-		cout << c.getAssignedOrder() << endl;
+		//cout << c.getAssignedOrder() << endl;
 	}
 
 	pGUI -> updateInterface();
@@ -190,19 +199,23 @@ Restaurant::~Restaurant()
 		delete pGUI;
 }
 
+
+
 //This function should be implemented in phase1
 //It should add ALL orders and cooks to the drawing list
 //It should get orders from orders lists/queues/stacks/whatever (same for cooks)
 void Restaurant::FillDrawingList(int steps)
 {
-	Queue<Order> testvegan = get_Vegan_orders_queue();
-	Order* p = testvegan.toArray();
-	testvegan.PrintQueue(testvegan);
-	
-	if (p != nullptr) {
+	Order tsneem;
+	int count;
+	Order* p = Vegan_Orders.toArray(count);
+	//cout << Vegan_Orders.peekFront(tsneem)<< tsneem << endl;
+	//cout << endl << "Ay 7aga" << p[0].GetID() << endl;
+
+	/*if (p != nullptr) {
 		cout << endl << "of zero" << p[0].GetID() << endl;
-	}
-	cout << p[0];
+	}*/
+
 
 	if (steps % 5 == 0)
 	{
@@ -210,8 +223,27 @@ void Restaurant::FillDrawingList(int steps)
 	}
 
 	//This is where GUI No's are cooked
-	for (int i = 0; i <= steps; i++)
+	for (int i = 0 ; i < count ; i++)
 	{
+		pGUI->addGUIDrawable(new VIPGUIElement(p[i].GetID(), GUI_REGION::ORD_REG));
+	}
+
+	for (int i = 0; i < Cooks_num; i++)
+	{
+		if (Inservice[i].getAssignedOrder() != 0)
+		{
+			pGUI->addGUIDrawable(new VIPGUIElement(Inservice[i].getAssignedOrder().GetID(), GUI_REGION::SRV_REG));
+		}
+	}
+
+	for (int i = 0; i < Cooks_num; i++)
+	{
+		if (Done[i].getAssignedOrder() != 0)
+		{
+			pGUI->addGUIDrawable(new VIPGUIElement(Done[i].getAssignedOrder().GetID(), GUI_REGION::DONE_REG));
+		}
+	}
+	/*
 		//p[i].GetID()
 		//Waiting Up-left corner
 		pGUI->addGUIDrawable(new VIPGUIElement(i, GUI_REGION::ORD_REG));
@@ -219,4 +251,5 @@ void Restaurant::FillDrawingList(int steps)
 		//pGUI->addGUIDrawable(new VeganGUIElement(i, GUI_REGION::SRV_REG));
 		pGUI->addGUIDrawable(new VIPGUIElement(i, GUI_REGION::DONE_REG));
 	}
+	*/
 }

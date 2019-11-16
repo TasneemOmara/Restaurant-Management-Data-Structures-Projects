@@ -25,9 +25,9 @@ public:
 	void setID(int);
 	void setType(ORD_TYPE);
 	void AssignOrder(Order &O);
-	Order getAssignedOrder() const;
+	Order& getAssignedOrder();
 	void setMaxCooksNum(int max);
 	void global_time(int i);
-	bool ToDone(Cook Arr[]);
+	bool ToDone(Cook Arr_done[]);
 	bool break_time();
 };

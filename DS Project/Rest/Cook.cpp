@@ -42,7 +42,7 @@ void Cook::AssignOrder(Order &O)
 	dishes_served=dishes_served+cooking.GetDishes();
 }
 
-Order Cook::getAssignedOrder() const
+Order& Cook::getAssignedOrder()
 {
 	return cooking;
 }
@@ -61,7 +61,12 @@ void Cook::global_time(int i)
 
 bool Cook::ToDone(Cook Arr_done[])
 {
-	if (current_time==cooking.get_SV()+(cooking.GetDishes()/speed))
+	cout << "tsneem" << endl;
+	cout << "el rakam = " << cooking.get_SV() + (cooking.GetDishes() / speed) << endl;
+	cout << "speed is " << speed << endl;
+	cout << "dishes num is " << cooking.GetDishes() << endl;
+	cout << "service time is " << cooking.get_SV() << endl;
+	if (current_time == cooking.get_SV() + (cooking.GetDishes() / speed))
 	{
 		Arr_done[ID]=*this;
 		return true;

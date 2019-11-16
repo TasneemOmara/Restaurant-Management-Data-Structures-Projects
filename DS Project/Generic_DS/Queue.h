@@ -17,13 +17,14 @@ class Queue
 private:
     Node<T>* backPtr;
 	Node<T>* frontPtr;
+
 public :
 	Queue();	
 	bool isEmpty() const ;
 	bool enqueue(const T& newEntry); 
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;
-	T* toArray();	//returns array of T (array if items)
+	T* toArray(int & count);	//returns array of T (array if items)
 	Queue(const Queue<T> & LQ); //copy constructor
 	static void PrintQueue(Queue<T> Q); 
 
@@ -156,9 +157,9 @@ returns: The array of T. (nullptr if Queue is empty)
 */
 
 template <typename T>
-T* Queue<T>::toArray()
+T* Queue<T>::toArray(int &count)
 {
-	int count = 0;
+	count = 0;
 
 	if(!frontPtr)
 		return nullptr;

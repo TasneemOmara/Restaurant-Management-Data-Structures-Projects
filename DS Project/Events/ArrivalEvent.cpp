@@ -9,9 +9,9 @@ ArrivalEvent::ArrivalEvent(int eTime, int oID, ORD_TYPE oType):Event(eTime, oID)
 
 void ArrivalEvent::Execute(Restaurant* pRest)
 {
-	//This function should create an order and fills its data 
+	// This function should create an order and fills its data 
 	// Then adds it to normal, vegan, or VIP order lists that you will create in phase1
-	cout << endl << this -> OrdType << "zidan" <<endl;
+	// cout << endl << this -> OrdType << "zidan" <<endl;
 	switch (this->OrdType)
 	{
 	case 1:
