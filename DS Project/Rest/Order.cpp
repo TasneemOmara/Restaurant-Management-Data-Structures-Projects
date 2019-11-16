@@ -64,7 +64,6 @@ int Order::get_SV() const
 
 void Order::set_SV(int SV) 
 {
-	cout << "wallahy da5alt" << endl;
 	ServTime = SV;
 }
 

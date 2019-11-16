@@ -25,9 +25,7 @@ Restaurant::Restaurant()
 	ArrayEnqueuer(Array, Events, Event_Data, M);
 	QueueEnqueuer(Array, EventsQueue, M);
 	Event* A;
-	//cout << "We are in restaurant" << boolalpha << EventsQueue.peekFront(A) << endl;
 	Cooks_num = Arr[3] + Arr[4] + Arr[5];
-	//cout << "cooks num is " << Cooks_num << endl;
 	
 	//Normal cooks enqueuer
 	for (size_t i = 0; i < Arr[3]; i++)
@@ -59,7 +57,7 @@ void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
 	// << pGUI << endl;
-	PROG_MODE mode = pGUI->getProgramMode();
+	PROG_MODE mode = pGUI -> getProgramMode();
 
 	// If you want to use the simulation GUI you must call initSimMode() same as the demo mode
 	switch (mode)	//Add a function for each mode in next phases
@@ -82,14 +80,14 @@ void Restaurant::RunSimulation()
 
 
 
-//////////////////////////////////  Event handling functions   /////////////////////////////
+//////////////////////////////////   Event handling functions   /////////////////////////////
 
 //Executes ALL events that should take place at current timestep
 void Restaurant::ExecuteEvents(int CurrentTimeStep)
 {
-	cout << endl << "Current time step is" << CurrentTimeStep << endl;
+	//cout << endl << "Current time step is: " << CurrentTimeStep << endl;
+	
 	Event *pE;
-	//cout << endl << EventsQueue.peekFront(pE) << endl;
 	while( EventsQueue.peekFront(pE) )	//as long as there are more events
 	{
 		if (pE->getEventTime() == CurrentTimeStep)	//no more events at current time
@@ -116,43 +114,36 @@ void Restaurant::main_loop(int steps)
 			Inservice[i].global_time(steps);
 			done= Inservice[i].ToDone(Done);
 
-			cout << "done is " << done << endl;
 			if (done)
 			{
 				(Done[i].getAssignedOrder()).set_FT(steps);
 				(Done[i].getAssignedOrder()).setStatus(DONE);
-				//cout << endl << Done[i].getAssignedOrder() << endl;
 			}
 		}
 	}
 
 	//Demo
 	Order vegan_order;
-	cout << "ya raaab " << Vegan_Orders.peekFront(vegan_order) << "     ";
-	cout << !Vegan_Cooks.isEmpty() << endl;
 
 	while (Vegan_Orders.peekFront(vegan_order) && !Vegan_Cooks.isEmpty())
 	{
-		cout << "ana gowa el while " << endl;
 		Vegan_Orders.dequeue(vegan_order);
 		Cook c;
 		Vegan_Cooks.dequeue(c);
 		c.AssignOrder(vegan_order);
 		(c.getAssignedOrder()).set_SV(steps);
-		cout << "steps is " << steps << endl;
-		cout << "getter is " << (c.getAssignedOrder()).get_SV() << endl;
 		(c.getAssignedOrder()).setStatus(SRV);
 		Inservice[c.GetID()] = c;
-		//cout << c.getAssignedOrder() << endl;
 	}
 
 	pGUI -> updateInterface();
 	pGUI -> handleSimGUIEvents();
 
 
+	pGUI->waitForClick();
 	// For Interactive mode
 	FillDrawingList(steps);
-	pGUI->waitForClick();
+	
 
 }
 
@@ -206,21 +197,13 @@ Restaurant::~Restaurant()
 //It should get orders from orders lists/queues/stacks/whatever (same for cooks)
 void Restaurant::FillDrawingList(int steps)
 {
-	Order tsneem;
+	//Printing Current Time to the GUI status bar
+	pGUI->printStringInStatusBar("Current Time: " + std::to_string(steps));
+
+
 	int count;
 	Order* p = Vegan_Orders.toArray(count);
-	//cout << Vegan_Orders.peekFront(tsneem)<< tsneem << endl;
-	//cout << endl << "Ay 7aga" << p[0].GetID() << endl;
 
-	/*if (p != nullptr) {
-		cout << endl << "of zero" << p[0].GetID() << endl;
-	}*/
-
-
-	if (steps % 5 == 0)
-	{
-		pGUI->printStringInStatusBar("Current Time: " + std::to_string(steps));
-	}
 
 	//This is where GUI No's are cooked
 	for (int i = 0 ; i < count ; i++)

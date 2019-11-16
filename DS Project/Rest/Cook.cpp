@@ -61,11 +61,13 @@ void Cook::global_time(int i)
 
 bool Cook::ToDone(Cook Arr_done[])
 {
-	cout << "tsneem" << endl;
+	/*
+	cout << "tsneem sa7" << endl;
 	cout << "el rakam = " << cooking.get_SV() + (cooking.GetDishes() / speed) << endl;
 	cout << "speed is " << speed << endl;
 	cout << "dishes num is " << cooking.GetDishes() << endl;
 	cout << "service time is " << cooking.get_SV() << endl;
+	*/
 	if (current_time == cooking.get_SV() + (cooking.GetDishes() / speed))
 	{
 		Arr_done[ID]=*this;

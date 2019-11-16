@@ -23,7 +23,7 @@ void ArrivalEvent::Execute(Restaurant* pRest)
 	case 2:
 		{
 		Order O2(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
-		cout << pRest->get_Vegan_orders_queue().enqueue(O2) << "hiiii" << endl;
+		pRest->get_Vegan_orders_queue().enqueue(O2);
 		break;
 		}
 	case 3:
