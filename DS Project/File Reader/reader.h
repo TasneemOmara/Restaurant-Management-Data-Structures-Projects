@@ -205,14 +205,13 @@ void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 			//cout << Array[i]->getOrderID() << endl;
 			//EventsQueue.enqueue(A);
 		}
-		/*else if (R == 'X')
+		else if (R == 'X')
 		{
-
+			cout << "Cancellation deteced" << endl;
 			CancellationEvent* E = new CancellationEvent(Event_Data[i][0], Event_Data[i][1]);
 			Array[i] = E;
-			//EventsQueue.enqueue(E);
-			break;
-		}*/
+			//EventsQueue.enqueue(E);	
+		}
 	}
 }
 void QueueEnqueuer(Event** Array, Queue<Event*> &EventsQueue, int M)
