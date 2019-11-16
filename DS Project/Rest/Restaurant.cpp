@@ -136,33 +136,6 @@ void Restaurant::main_loop(int steps)
 		Inservice[c.GetID()] = c;
 	}
 
-	//normal
-	Order Normal_Order;
-	while (Normal_Orders.getCount() != 0 && !Normal_Cooks.isEmpty())
-	{
-		Normal_Orders.getbeg(Normal_Order);
-		Cook c;
-		Normal_Cooks.dequeue(c);
-		c.AssignOrder(Normal_Order);
-		(c.getAssignedOrder()).set_SV(steps);
-		(c.getAssignedOrder()).setStatus(SRV);
-		Inservice[c.GetID()] = c;
-	}
-
-	//VIP
-	Order VIP_Order;
-	while (VI_Orders.peekFront(VIP_Order) && !VI_Cooks.isEmpty())
-	{
-		VI_Orders.dequeue(VIP_Order);
-		Cook c;
-		VI_Cooks.dequeue(c);
-		c.AssignOrder(VIP_Order);
-		(c.getAssignedOrder()).set_SV(steps);
-		(c.getAssignedOrder()).setStatus(SRV);
-		Inservice[c.GetID()] = c;
-	}
-
-
 	pGUI -> updateInterface();
 	pGUI -> handleSimGUIEvents();
 
@@ -238,7 +211,6 @@ void Restaurant::FillDrawingList(int steps)
 		pGUI->addGUIDrawable(new VIPGUIElement(p[i].GetID(), GUI_REGION::ORD_REG));
 	}
 
-
 	for (int i = 0; i < Cooks_num; i++)
 	{
 		if (Inservice[i].getAssignedOrder() != 0)
@@ -254,7 +226,6 @@ void Restaurant::FillDrawingList(int steps)
 			pGUI->addGUIDrawable(new VIPGUIElement(Done[i].getAssignedOrder().GetID(), GUI_REGION::DONE_REG));
 		}
 	}
-
 	/*
 		//p[i].GetID()
 		//Waiting Up-left corner
