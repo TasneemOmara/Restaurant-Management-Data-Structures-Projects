@@ -24,7 +24,9 @@ Restaurant::Restaurant()
 	Read_File2(Events, Event_Data, M);
 	ArrayEnqueuer(Array, Events, Event_Data, M);
 	QueueEnqueuer(Array, EventsQueue, M);
-	Event* A;
+	cout << "event time is"<<Array[0]->getEventTime() << endl;
+	cout << "event time of cancellation is " << Array[7]->getEventTime() << endl;
+	//Event* A;
 	//cout << "We are in restaurant" << boolalpha << EventsQueue.peekFront(A) << endl;
 	Cooks_num = Arr[3] + Arr[4] + Arr[5];
 	//cout << "cooks num is " << Cooks_num << endl;
