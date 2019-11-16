@@ -218,10 +218,6 @@ public:
 		return Head;
 	}
 
-	int getCount(){
-		return count;
-	}
-
 	void Print_kth_data(int k){
 	    if (k<=count)
         {
@@ -239,7 +235,6 @@ public:
 	template <typename T>
 	T* toArray()
 	{
-
 		T* Arr= new T[count];
 		Node<T>* p  = Head;
 		for(int i=0; i<count;i++)
@@ -249,7 +244,31 @@ public:
 		}
 		return Arr;
 	}
+
+	template <typename T>
+	int getCount()
+	{
+		return count;
+	}
+
+
+	template <typename T>
+	bool getbeg(T &item)
+	{
+		if (count!=0)
+		{
+			Node<T>* p  = Head;
+			Node<T>* temp  = Head;
+			item = p->getItem();
+			p=p->getNext();
+			Head=p;
+			delete temp;
+			return true;
+		}
+		return false;
+	}
 	
+
 };
 
 #endif
