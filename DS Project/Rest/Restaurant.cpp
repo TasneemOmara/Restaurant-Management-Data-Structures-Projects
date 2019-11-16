@@ -24,7 +24,10 @@ Restaurant::Restaurant()
 	Read_File2(Events, Event_Data, M);
 	ArrayEnqueuer(Array, Events, Event_Data, M);
 	QueueEnqueuer(Array, EventsQueue, M);
-	//Event* A;
+
+	cout << "event time is" << Array[0]->getEventTime() << endl;
+	cout << "event time of cancellation is " << Array[7]->getEventTime() << endl;
+
 	Cooks_num = Arr[3] + Arr[4] + Arr[5];
 	
 	//Normal cooks enqueuer
@@ -123,8 +126,8 @@ void Restaurant::main_loop(int steps)
 	}
 
 	//Demo
+	//Vegan
 	Order vegan_order;
-
 	while (Vegan_Orders.peekFront(vegan_order) && !Vegan_Cooks.isEmpty())
 	{
 		Vegan_Orders.dequeue(vegan_order);
@@ -136,9 +139,36 @@ void Restaurant::main_loop(int steps)
 		Inservice[c.GetID()] = c;
 	}
 
+	/*
+	//Normal
+	Order Normal_Order;
+	while (Normal_Orders.getCount() != 0 && !Normal_Cooks.isEmpty())
+	{
+		Normal_Orders.getbeg(Normal_Order);
+		Cook c;
+		Normal_Cooks.dequeue(c);
+		c.AssignOrder(Normal_Order);
+		(c.getAssignedOrder()).set_SV(steps);
+		(c.getAssignedOrder()).setStatus(SRV);
+		Inservice[c.GetID()] = c;
+	}
+	*/
+
+	//VIP
+	Order VIP_Order;
+	while (VI_Orders.peekFront(VIP_Order) && !VI_Cooks.isEmpty())
+	{
+		VI_Orders.dequeue(VIP_Order);
+		Cook c;
+		VI_Cooks.dequeue(c);
+		c.AssignOrder(VIP_Order);
+		(c.getAssignedOrder()).set_SV(steps);
+		(c.getAssignedOrder()).setStatus(SRV);
+		Inservice[c.GetID()] = c;
+	}
+
 	pGUI -> updateInterface();
 	pGUI -> handleSimGUIEvents();
-
 
 	pGUI->waitForClick();
 	// For Interactive mode

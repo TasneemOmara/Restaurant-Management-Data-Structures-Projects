@@ -207,9 +207,10 @@ void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 		}
 		else if (R == 'X')
 		{
+			cout << "Cancellation deteced" << endl;
 			CancellationEvent* E = new CancellationEvent(Event_Data[i][0], Event_Data[i][1]);
 			Array[i] = E;
-			//EventsQueue.enqueue(E);	
+			//EventsQueue.enqueue(E);
 		}
 	}
 }

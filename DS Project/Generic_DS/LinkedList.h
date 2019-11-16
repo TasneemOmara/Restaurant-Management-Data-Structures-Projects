@@ -254,16 +254,15 @@ public:
 
 
 	template <typename T>
-	bool getbeg(T &item)
+	bool getbeg(T& item)
 	{
-		if (count!=0)
+		if (count != 0)
 		{
-			
-			Node<T>* p  = Head;
-			Node<T>* temp  = Head;
+			Node<T>* p = Head;
+			Node<T>* temp = Head;
 			item = p->getItem();
-			p=p->getNext();
-			Head=p;
+			p = p->getNext();
+			Head = p;
 			delete temp;
 			return true;
 		}
