@@ -24,7 +24,7 @@ Restaurant::Restaurant()
 	Read_File2(Events, Event_Data, M);
 	ArrayEnqueuer(Array, Events, Event_Data, M);
 	QueueEnqueuer(Array, EventsQueue, M);
-	Event* A;
+	//Event* A;
 	Cooks_num = Arr[3] + Arr[4] + Arr[5];
 	
 	//Normal cooks enqueuer
