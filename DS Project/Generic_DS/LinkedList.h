@@ -258,6 +258,7 @@ public:
 	{
 		if (count!=0)
 		{
+			
 			Node<T>* p  = Head;
 			Node<T>* temp  = Head;
 			item = p->getItem();
