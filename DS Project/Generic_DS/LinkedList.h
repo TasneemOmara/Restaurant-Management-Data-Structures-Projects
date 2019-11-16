@@ -100,11 +100,12 @@ public:
 
 	//Find
 	//searches for a given value in the list, returns true if found; false otherwise.
-	bool Find(int Key){
+	bool Find(int Key, T &item){
 		Node<T> *p = Head;
 		while(p){
 			if(p->getItem() == Key){
 				cout<<"Found the element "<<Key<<endl;
+				item=p->getItem();
 				return true;
 			}
 			p = p->getNext();
