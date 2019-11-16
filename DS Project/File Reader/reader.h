@@ -98,9 +98,8 @@ void Read_File2(char** Events, int** Event_Data, int M)
 	{
 		char Event_Type;
 		myfile >> Event_Type;
-		switch (Event_Type)
+		if (Event_Type == 'R')
 		{
-		case 'R':
 			Events[i] = new char[2];
 			Event_Data[i] = new int[4];
 			Events[i][0] = Event_Type;
@@ -110,15 +109,17 @@ void Read_File2(char** Events, int** Event_Data, int M)
 			{
 				myfile >> Event_Data[i][j];
 			}
-			break;
-		case 'X':
+		}
+		else if (Event_Type == 'X')
+		{
 			Events[i] = new char[1];
 			Events[i][0] = Event_Type;
 			Event_Data[i] = new int[2];
 			myfile >> Event_Data[i][0];
 			myfile >> Event_Data[i][1];
-			break;
-		case 'P':
+		}
+		else if (Event_Type == 'P')
+		{
 			Events[i] = new char[1];
 			Events[i][0] = Event_Type;
 			Event_Data[i] = new int[3];
@@ -126,7 +127,6 @@ void Read_File2(char** Events, int** Event_Data, int M)
 			{
 				myfile >> Event_Data[i][j];
 			}
-			break;
 		}
 	}
 
@@ -207,7 +207,6 @@ void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 		}
 		else if (R == 'X')
 		{
-			cout << "Cancellation deteced" << endl;
 			CancellationEvent* E = new CancellationEvent(Event_Data[i][0], Event_Data[i][1]);
 			Array[i] = E;
 			//EventsQueue.enqueue(E);	
