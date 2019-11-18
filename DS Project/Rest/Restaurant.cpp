@@ -25,8 +25,6 @@ Restaurant::Restaurant()
 	ArrayEnqueuer(Array, Events, Event_Data, M);
 	QueueEnqueuer(Array, EventsQueue, M);
 
-	cout << "event time is" << Array[0]->getEventTime() << endl;
-	cout << "event time of cancellation is " << Array[7]->getEventTime() << endl;
 
 	Cooks_num = Arr[3] + Arr[4] + Arr[5];
 	
@@ -91,6 +89,7 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 	//cout << endl << "Current time step is: " << CurrentTimeStep << endl;
 	
 	Event *pE;
+	cout << endl << "eh el 7ewar da" << EventsQueue.peekFront(pE) << endl;
 	while( EventsQueue.peekFront(pE) )	//as long as there are more events
 	{
 		if (pE->getEventTime() == CurrentTimeStep)	//no more events at current time
@@ -125,6 +124,7 @@ void Restaurant::main_loop(int steps)
 		}
 	}
 
+
 	//Demo
 	//Vegan
 	Order vegan_order;
@@ -139,10 +139,10 @@ void Restaurant::main_loop(int steps)
 		Inservice[c.GetID()] = c;
 	}
 
-	/*
+	
 	//Normal
 	Order Normal_Order;
-	while (Normal_Orders.getCount() != 0 && !Normal_Cooks.isEmpty())
+	while (Normal_Orders.getCount() > 0 && !Normal_Cooks.isEmpty())
 	{
 		Normal_Orders.getbeg(Normal_Order);
 		Cook c;
@@ -152,7 +152,7 @@ void Restaurant::main_loop(int steps)
 		(c.getAssignedOrder()).setStatus(SRV);
 		Inservice[c.GetID()] = c;
 	}
-	*/
+	
 
 	//VIP
 	Order VIP_Order;
@@ -231,38 +231,46 @@ void Restaurant::FillDrawingList(int steps)
 	pGUI->printStringInStatusBar("Current Time: " + std::to_string(steps));
 
 
-	int count;
-	Order* p = Vegan_Orders.toArray(count);
-
+	int count_g;
+	int count_n = Normal_Orders.getCount();
+	int count_v;
+	Order* g = Vegan_Orders.toArray(count_g);	//Vegan
+	Order* n = Normal_Orders.toArray();			//Normal
+	Order* v = VI_Orders.toArray(count_v);      //VIP
 
 	//This is where GUI No's are cooked
-	for (int i = 0 ; i < count ; i++)
-	{
-		pGUI->addGUIDrawable(new VIPGUIElement(p[i].GetID(), GUI_REGION::ORD_REG));
+	//Waiting Orders
+	for (int i = 0 ; i < count_g ; i++)
+	{	//Vegan Waiting
+		pGUI->addGUIDrawable(new VeganGUIElement(g[i].GetID(), GUI_REGION::ORD_REG));
+	}
+	for (int i = 0 ; i < count_n ; i++)
+	{	//Normal Waiting
+		pGUI->addGUIDrawable(new NormalGUIElement(n[i].GetID(), GUI_REGION::ORD_REG));
+	}
+	for (int i = 0; i < count_v; i++)
+	{	//VI Waiting
+		pGUI->addGUIDrawable(new VIPGUIElement(v[i].GetID(), GUI_REGION::ORD_REG));
 	}
 
+	
+
+	//Serving Printing
 	for (int i = 0; i < Cooks_num; i++)
 	{
 		if (Inservice[i].getAssignedOrder() != 0)
 		{
-			pGUI->addGUIDrawable(new VIPGUIElement(Inservice[i].getAssignedOrder().GetID(), GUI_REGION::SRV_REG));
+			pGUI->addGUIDrawable(new NormalGUIElement(Inservice[i].getAssignedOrder().GetID(), GUI_REGION::SRV_REG));
 		}
 	}
-
+	//Done Printing
 	for (int i = 0; i < Cooks_num; i++)
 	{
 		if (Done[i].getAssignedOrder() != 0)
 		{
-			pGUI->addGUIDrawable(new VIPGUIElement(Done[i].getAssignedOrder().GetID(), GUI_REGION::DONE_REG));
+			pGUI->addGUIDrawable(new NormalGUIElement(Done[i].getAssignedOrder().GetID(), GUI_REGION::DONE_REG));
 		}
 	}
-	/*
-		//p[i].GetID()
-		//Waiting Up-left corner
-		pGUI->addGUIDrawable(new VIPGUIElement(i, GUI_REGION::ORD_REG));
-		//pGUI->addGUIDrawable(new NormalGUIElement(i, GUI_REGION::COOK_REG));
-		//pGUI->addGUIDrawable(new VeganGUIElement(i, GUI_REGION::SRV_REG));
-		pGUI->addGUIDrawable(new VIPGUIElement(i, GUI_REGION::DONE_REG));
-	}
-	*/
+
+	
 }

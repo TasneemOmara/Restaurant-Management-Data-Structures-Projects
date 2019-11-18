@@ -233,7 +233,6 @@ public:
             cout<<"Beyond List Length"<<endl;
 	}
 
-	template <typename T>
 	T* toArray()
 	{
 		T* Arr= new T[count];
@@ -246,14 +245,12 @@ public:
 		return Arr;
 	}
 
-	template <typename T>
 	int getCount()
 	{
 		return count;
 	}
 
 
-	template <typename T>
 	bool getbeg(T& item)
 	{
 		if (count != 0)
@@ -263,7 +260,7 @@ public:
 			item = p->getItem();
 			p = p->getNext();
 			Head = p;
-			delete temp;
+			count--;
 			return true;
 		}
 		return false;
