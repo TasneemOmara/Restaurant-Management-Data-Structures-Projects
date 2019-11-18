@@ -170,7 +170,7 @@ void Restaurant::main_loop(int steps)
 	pGUI -> handleSimGUIEvents();
 
 	pGUI->waitForClick();
-	// For Interactive mode
+	// For Step-by-Step mode
 	FillDrawingList(steps);
 	
 
