@@ -174,7 +174,7 @@ void Read_File2(char** Events, int** Event_Data, int M)
 
 void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 { 
-	cout << "function ArrayEnqueuer entered" << endl;
+	//cout << "function ArrayEnqueuer entered" << endl;
 	char R;
 	char T;
 	ORD_TYPE TY;

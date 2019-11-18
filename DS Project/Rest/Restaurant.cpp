@@ -89,7 +89,6 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 	//cout << endl << "Current time step is: " << CurrentTimeStep << endl;
 	
 	Event *pE;
-	cout << endl << "eh el 7ewar da" << EventsQueue.peekFront(pE) << endl;
 	while( EventsQueue.peekFront(pE) )	//as long as there are more events
 	{
 		if (pE->getEventTime() == CurrentTimeStep)	//no more events at current time
@@ -255,6 +254,8 @@ void Restaurant::FillDrawingList(int steps)
 
 	
 
+
+
 	//Serving Printing
 	for (int i = 0; i < Cooks_num; i++)
 	{
@@ -263,6 +264,7 @@ void Restaurant::FillDrawingList(int steps)
 			pGUI->addGUIDrawable(new NormalGUIElement(Inservice[i].getAssignedOrder().GetID(), GUI_REGION::SRV_REG));
 		}
 	}
+
 	//Done Printing
 	for (int i = 0; i < Cooks_num; i++)
 	{
@@ -271,6 +273,4 @@ void Restaurant::FillDrawingList(int steps)
 			pGUI->addGUIDrawable(new NormalGUIElement(Done[i].getAssignedOrder().GetID(), GUI_REGION::DONE_REG));
 		}
 	}
-
-	
 }
