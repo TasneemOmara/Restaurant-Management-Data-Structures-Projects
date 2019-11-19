@@ -20,7 +20,7 @@ public :
 	bool isEmpty() const ;
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;
-	T* toArray();	//returns array of T (array if items)
+	T* toArray(int& count);	//returns array of T (array if items)
     PriorityQueue(const PriorityQueue<T> & LQ);
 	static void PrintQueue(PriorityQueue<T> Q);
 	~PriorityQueue();
@@ -216,9 +216,9 @@ returns: The array of T. (nullptr if Queue is empty)
 
 
 template <typename T>
-T* PriorityQueue<T>::toArray()
+T* PriorityQueue<T>::toArray(int &count)
 {
-	int count = 0;
+	count = 0;
 
 	if(!frontPtr)
 		return nullptr;

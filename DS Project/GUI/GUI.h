@@ -5,6 +5,8 @@
 #include "GUIWindows\MainScreen.h"
 #include "GUIWindows\TextArea.h"
 #include "GUIDrawables\VIPGUIElement.h"
+#include "GUIDrawables\VeganGUIElement.h"
+#include "GUIDrawables\NormalGUIElement.h"
 #include "..\Defs.h"
 
 
