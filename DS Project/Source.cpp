@@ -8,7 +8,7 @@
 
 int main()
 {
-	//byefta7 el ma7al
+	//Byefta7 el ma7al
 	Restaurant* pRest = new Restaurant();
 
 	//Choosing Simulation Mode

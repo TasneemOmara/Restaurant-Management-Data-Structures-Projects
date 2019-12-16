@@ -72,6 +72,12 @@ void Restaurant::RunSimulation()
 		{
 			steps++;
 			main_loop(steps);
+
+			//GUI
+			pGUI->updateInterface();
+			pGUI->handleSimGUIEvents();
+			FillDrawingList(steps);
+
 			pGUI->waitForClick(); //Wait for user click to enter the loop again.
 		}
 		break;
@@ -83,11 +89,23 @@ void Restaurant::RunSimulation()
 		{
 			steps++;
 			main_loop(steps);
+
+			//GUI
+			pGUI->updateInterface();
+			pGUI->handleSimGUIEvents();
+			FillDrawingList(steps);
+
 			pGUI->sleep(1000); //Updates the loop each 1000 milliseconds.
 		}
 		break;
+
 	case MODE_SLNT:
-		//pGUI->initSimMode();
+
+		while (true /*hna 7war el condition elly lesa ha3melo mn el sticky note*/)
+		{
+			steps++;
+			main_loop(steps);
+		}
 		break;
 	};
 
@@ -179,14 +197,6 @@ void Restaurant::main_loop(int steps)
 		(c.getAssignedOrder()).setStatus(SRV);
 		Inservice[c.GetID()] = c;
 	}
-
-	pGUI -> updateInterface();
-	pGUI -> handleSimGUIEvents();
-
-	// For Step-by-Step mode
-	FillDrawingList(steps);
-	
-
 }
 
 Queue<Cook>& Restaurant::get_VI_cooks_queue()
