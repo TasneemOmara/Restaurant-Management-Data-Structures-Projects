@@ -57,23 +57,37 @@ Restaurant::Restaurant()
 void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
-	// << pGUI << endl;
 	PROG_MODE mode = pGUI -> getProgramMode();
+
+	//initialize time
+	int steps = 0;
 
 	// If you want to use the simulation GUI you must call initSimMode() same as the demo mode
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
 		pGUI->initSimMode();
+
+		while (true)
+		{
+			steps++;
+			main_loop(steps);
+			pGUI->waitForClick(); //Wait for user click to enter the loop again.
+		}
 		break;
+
 	case MODE_STEP:
 		pGUI->initSimMode();
+
+		while (true)
+		{
+			steps++;
+			main_loop(steps);
+			pGUI->sleep(1000); //Updates the loop each 1000 milliseconds.
+		}
 		break;
 	case MODE_SLNT:
-		pGUI->initSimMode();
-		break;
-	case MODE_DEMO:
-		pGUI->initSimMode();
+		//pGUI->initSimMode();
 		break;
 	};
 
@@ -169,7 +183,6 @@ void Restaurant::main_loop(int steps)
 	pGUI -> updateInterface();
 	pGUI -> handleSimGUIEvents();
 
-	pGUI->waitForClick();
 	// For Step-by-Step mode
 	FillDrawingList(steps);
 	
