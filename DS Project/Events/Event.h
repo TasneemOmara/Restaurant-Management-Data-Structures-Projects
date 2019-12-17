@@ -25,5 +25,4 @@ public:
 	virtual void setDishes(int size) {};
 	virtual void setMoney(double money) {};
 	virtual void Execute(Restaurant* pRest)=0;	////a pointer to "Restaurant" and events need it to execute
-
 };
