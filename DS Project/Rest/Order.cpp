@@ -87,6 +87,17 @@ void Order::set_WT()
 	WaitTime = FinishTime - ArrTime;
 }
 
+int Order::get_ST() const
+{
+	return ServingTime;
+}
+
+void Order::set_ST()
+{
+	ServingTime = FinishTime - ServTime;
+}
+
+
 int Order::get_FT() const
 {
 	return FinishTime;

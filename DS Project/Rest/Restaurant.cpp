@@ -307,6 +307,7 @@ void Restaurant::updateServiceDone(int steps)
 			{
 				(Done[i].getAssignedOrder()).set_FT(steps);		//setting finish time for just-done order
 				(Done[i].getAssignedOrder()).set_WT();			//setting total waiting time for done order
+				(Done[i].getAssignedOrder()).set_ST();			//setting total serving time for done order
 				(Done[i].getAssignedOrder()).setStatus(DONE);	//setting the order status as done
 				All_Done.enqueue(Done[i].getAssignedOrder());
 				Done[i].RemoveOrder();
@@ -456,14 +457,14 @@ void Restaurant::FillDrawingList(int steps)
 
 
 	//Calculating Averages
-	double SV_tot = 0;
+	double ST_tot = 0;
 	double WT_tot = 0;
-	double AVG_SV = 0;
+	double AVG_ST = 0;
 	double AVG_WT = 0;
 
 	for (int i = 0; i < m; i++)
 	{
-		SV_tot	= SV_tot + d[i].get_SV();
+		ST_tot	= ST_tot + d[i].get_ST();
 		WT_tot	= WT_tot + d[i].get_WT();
 		cout << d[i].get_WT();
 	}
@@ -471,7 +472,7 @@ void Restaurant::FillDrawingList(int steps)
 	
 	if (count_ord_all != 0)
 	{
-		AVG_SV = SV_tot / count_ord_all;
+		AVG_ST = ST_tot / count_ord_all;
 		AVG_WT = WT_tot / count_ord_all;
 	}
 
@@ -493,7 +494,7 @@ void Restaurant::FillDrawingList(int steps)
 		+ "]" + "\n"
 
 		/*Average Time Printing*/
-		+ "Avg Wait = " + std::to_string(AVG_WT) + ",	Avg Serv = " + std::to_string(AVG_SV) + "\n"
+		+ "Avg Wait = " + std::to_string(AVG_WT) + ",	Avg Serv = " + std::to_string(AVG_ST) + "\n"
 
 		/*Auto Promoted Printing*/
 		+ "Auto-Promoted: " + std::to_string(/*Auto Promoted*/ 1000000001)	);
