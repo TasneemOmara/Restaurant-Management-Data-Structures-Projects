@@ -145,7 +145,24 @@ void Restaurant::main_loop(int steps)
 	updateServiceDone(steps);
 	AssignVIP(steps);
 	AssignVegan(steps);
-	AssignNormal(steps);
+	AssignNormal(steps); 
+
+	cout << "Normal Cooks : " << endl;
+	Queue<Cook>::PrintQueue(Normal_Cooks);
+	cout << "Vegan Cooks : " << endl;
+	Queue<Cook>::PrintQueue(Vegan_Cooks);
+	cout << "VIP Cooks : " << endl;
+	Queue<Cook>::PrintQueue(VI_Cooks);
+
+	cout << "Normal Cooks break : " << endl;
+	Queue<Cook>::PrintQueue(Normal_Cooks_break);
+	cout << "Vegan Cooks break : " << endl;
+	Queue<Cook>::PrintQueue(Vegan_Cooks_break);
+	cout << "VIP Cooks break : " << endl;
+	Queue<Cook>::PrintQueue(VI_Cooks_break);
+
+
+
 
 }
 

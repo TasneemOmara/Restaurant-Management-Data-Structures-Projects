@@ -36,6 +36,10 @@ void Cook::setType(ORD_TYPE t)
 	type = t;
 }
 
+int Cook::getDishesServed() const
+{
+	return dishes_served;
+}
 //setting and getting the order assigned to the cook
 
 void Cook::AssignOrder(Order &O)
@@ -74,7 +78,7 @@ bool Cook::ToDone(Cook Arr_done[])
 
 //should he take a break or not 
 
-bool Cook::break_time()
+bool Cook::break_time() const
 {	
 	if (dishes_served>=dishes_before_break)
 	{
