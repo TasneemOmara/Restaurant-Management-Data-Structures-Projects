@@ -406,6 +406,11 @@ LinkedList<Order>& Restaurant::get_Normal_orders_list()
 	return Normal_Orders;
 }
 
+Queue<Order>& Restaurant::get_All_Done()
+{
+	return All_Done;
+}
+
 Restaurant::~Restaurant()
 {
 		delete pGUI;
