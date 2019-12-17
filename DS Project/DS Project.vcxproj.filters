@@ -62,6 +62,8 @@
       <Filter>Rest</Filter>
     </ClCompile>
     <ClCompile Include="Events\CancellationEvent.cpp" />
+    <ClCompile Include="Events\PromotionEvent.cpp" />
+    <ClCompile Include="Events\test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.h" />
@@ -110,6 +112,8 @@
     <ClInclude Include="Generic_DS\LinkedList.h" />
     <ClInclude Include="Generic_DS\PriorityQueue.h" />
     <ClInclude Include="File Reader\reader.h" />
+    <ClInclude Include="Events\PromotionEvent.h" />
+    <ClInclude Include="File Reader\Saver.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\logo.png">

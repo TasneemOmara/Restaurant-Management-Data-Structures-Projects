@@ -55,7 +55,7 @@ public:
 	void AssignVIP(int steps);
 	void AssignVegan(int steps);
 	void AssignNormal(int steps);
-
+	int get_m();
 	void moveCookToBreak(Cook &c);
 	void moveCookToQueue(Cook &c);
 
@@ -69,5 +69,6 @@ public:
 	PriorityQueue<Order>& get_VI_orders_queue();
 	Queue<Order>& get_Vegan_orders_queue();
 	LinkedList<Order>& get_Normal_orders_list();
+	Queue<Order>& get_All_Done();
 
 };
