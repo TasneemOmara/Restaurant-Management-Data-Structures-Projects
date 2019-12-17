@@ -55,7 +55,7 @@ public:
 	void AssignVIP(int steps);
 	void AssignVegan(int steps);
 	void AssignNormal(int steps);
-
+	int get_m();
 	void moveCookToBreak(Cook &c);
 	void moveCookToQueue(Cook &c);
 

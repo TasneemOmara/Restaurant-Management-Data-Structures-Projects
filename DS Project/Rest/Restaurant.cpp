@@ -504,3 +504,8 @@ void Restaurant::FillDrawingList(int steps)
 		+ "Auto-Promoted: " + std::to_string(/*Auto Promoted*/ 1000000001)	);
 
 }
+
+int Restaurant::get_m()
+{
+	return m;
+};
