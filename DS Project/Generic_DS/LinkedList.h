@@ -265,6 +265,19 @@ public:
 		}
 		return false;
 	}
+
+	T* getorder(int ID)
+	{
+		Node<T>* p = Head;
+		while (p) {
+			if (p->getItem() == ID) {
+				cout << "Found the element " << ID << endl;
+				item = p->getItem();
+			}
+			p = p->getNext();
+		}
+		cout << "\nElement " << ID << " not found" << endl;
+	}
 	
 
 };

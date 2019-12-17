@@ -5,6 +5,7 @@
 #include "../Events/Event.h"
 #include "../Generic_DS/Queue.h"
 #include "../Events/CancellationEvent.h"
+#include "../Events/PromotionEvent.h"
 #include "../Defs.h"
 
 using namespace std;
@@ -211,6 +212,12 @@ void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 			CancellationEvent* E = new CancellationEvent(Event_Data[i][0], Event_Data[i][1]);
 			Array[i] = E;
 			//EventsQueue.enqueue(E);
+		}
+		else if (R == 'P')
+		{
+			cout << "Promotion detected" << endl;
+			PromotionEvent* P = new PromotionEvent(Event_Data[i][0], Event_Data[i][1], Event_Data[i][2]);
+			Array[i] = P;
 		}
 	}
 }
