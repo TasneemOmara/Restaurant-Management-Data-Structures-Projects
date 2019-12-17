@@ -265,20 +265,22 @@ public:
 		}
 		return false;
 	}
-
+	/*
 	T* getorder(int ID)
 	{
+		
 		Node<T>* p = Head;
+		//Order* promo;
 		while (p) {
-			if (p->getItem() == ID) {
+			if (p->getItem()->GetID() == ID) {
 				cout << "Found the element " << ID << endl;
-				item = p->getItem();
+				 return p->getItem();
 			}
 			p = p->getNext();
 		}
 		cout << "\nElement " << ID << " not found" << endl;
 	}
-	
+	*/
 
 };
 
