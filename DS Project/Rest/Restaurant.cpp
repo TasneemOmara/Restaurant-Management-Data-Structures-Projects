@@ -75,15 +75,13 @@ void Restaurant::RunSimulation()
 
 		while (true)
 		{
+			steps++;
 			main_loop(steps);
-
 			//GUI
 			pGUI->updateInterface();
 			pGUI->handleSimGUIEvents();
 			FillDrawingList(steps);
 			pGUI->waitForClick(); //Wait for user click to enter the loop again.
-			steps++;
-
 		}
 		break;
 
@@ -94,12 +92,10 @@ void Restaurant::RunSimulation()
 		{
 			steps++;
 			main_loop(steps);
-
 			//GUI
 			pGUI->updateInterface();
 			pGUI->handleSimGUIEvents();
 			FillDrawingList(steps);
-
 			pGUI->sleep(1000); //Updates the loop each 1000 milliseconds.
 		}
 		break;
@@ -162,10 +158,6 @@ void Restaurant::main_loop(int steps)
 	Queue<Cook>::PrintQueue(Vegan_Cooks_break);
 	cout << "VIP Cooks break : " << endl;
 	Queue<Cook>::PrintQueue(VI_Cooks_break);
-
-
-
-
 }
 
 void Restaurant::AssignVIP(int steps)
@@ -319,9 +311,6 @@ void Restaurant::updateServiceDone(int steps)
 				All_Done.enqueue(Done[i].getAssignedOrder());
 				Done[i].RemoveOrder();
 				moveCookToQueue(Done[i]);
-
-
-
 			}
 		}
 	}
@@ -503,7 +492,7 @@ void Restaurant::FillDrawingList(int steps)
 		+ "]" + "\n"
 
 		/*Cooks Printing*/
-		+ "Cooks: " + std::to_string(Cooks_num)			+ "		[Norm:" + std::to_string(count_n)
+		+ "Cooks: " + std::to_string(Cooks_num)			+ "	[Norm:" + std::to_string(count_n)
 		+ ", Veg:" + std::to_string(count_v)
 		+ ", VIP:" + std::to_string(count_n)
 		+ "]" + "\n"
