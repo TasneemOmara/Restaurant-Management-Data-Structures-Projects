@@ -16,19 +16,19 @@ void ArrivalEvent::Execute(Restaurant* pRest)
 	{
 	case 0:
 		{
-		Order O1(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
+		Order O1(this->OrderID, this->OrdType, this->OrdDishes, this->OrdMoney, this->EventTime);
 		pRest->get_Normal_orders_list().InsertEnd(O1);
 		break;
 		}
 	case 1:
 		{
-		Order O2(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
+		Order O2(this->OrderID, this->OrdType, this->OrdDishes, this->OrdMoney, this->EventTime);
 		pRest->get_Vegan_orders_queue().enqueue(O2);
 		break;
 		}
 	case 2:
 		{
-		Order O3(this->OrderID,this->OrdType, this->OrdDishes,this->OrdMoney, this->EventTime);
+		Order O3(this->OrderID, this->OrdType, this->OrdDishes, this->OrdMoney, this->EventTime);
 		pRest->get_VI_orders_queue().enqueue(O3,O3.VI_Priority());
 		break;
 		}

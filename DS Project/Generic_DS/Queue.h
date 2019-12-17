@@ -17,6 +17,7 @@ class Queue
 private:
     Node<T>* backPtr;
 	Node<T>* frontPtr;
+	int counter;
 
 public :
 	Queue();	
@@ -26,7 +27,8 @@ public :
 	bool peekFront(T& frntEntry)  const;
 	T* toArray(int & count);	//returns array of T (array if items)
 	Queue(const Queue<T> & LQ); //copy constructor
-	static void PrintQueue(Queue<T> Q); 
+	static void PrintQueue(Queue<T> Q);
+	int getcounter() const;
 
 	~Queue();
 };
@@ -82,9 +84,15 @@ bool Queue<T>::enqueue(const  T& newEntry)
 	else
 		backPtr->setNext(newNodePtr); // The queue was not empty
 	backPtr = newNodePtr; // New node is at back
+	counter++;
 	return true ;
 } // end enqueue
 
+template <typename T>
+int Queue<T>::getcounter() const
+{
+	return counter;
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -135,7 +143,6 @@ bool Queue<T>:: peekFront(T& frntEntry) const
 
 	frntEntry = frontPtr->getItem();
 	return true;
-
 }
 ///////////////////////////////////////////////////////////////////////////////////
 

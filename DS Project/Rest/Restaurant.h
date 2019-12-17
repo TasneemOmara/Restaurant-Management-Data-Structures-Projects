@@ -32,6 +32,8 @@ private:
 	int Cooks_num; 
 	Cook *Inservice;
 	Cook *Done;
+	Queue<Order> All_Done;
+	int m;
 
 
 public:

@@ -25,6 +25,7 @@ public:
 	void setID(int);
 	void setType(ORD_TYPE);
 	void AssignOrder(Order &O);
+	void RemoveOrder();
 	Order& getAssignedOrder();
 	void setMaxCooksNum(int max);
 	void global_time(int i);

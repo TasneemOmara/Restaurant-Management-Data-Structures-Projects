@@ -47,6 +47,14 @@ Order& Cook::getAssignedOrder()
 	return cooking;
 }
 
+void Cook::RemoveOrder()
+{
+	Order* p = &cooking;
+
+	//Set p to hold NULL
+	p = NULL;
+}
+
 void Cook::setMaxCooksNum(int max)
 {
 	max_cooks_num=max;
@@ -70,7 +78,7 @@ bool Cook::ToDone(Cook Arr_done[])
 	*/
 	if (current_time == cooking.get_SV() + (cooking.GetDishes() / speed))
 	{
-		Arr_done[ID]=*this;
+		Arr_done[ID] = *this;
 		return true;
 	}
 	return false;

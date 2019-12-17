@@ -77,6 +77,16 @@ void Order::set_AV(int AV)
 	ArrTime=AV;
 }
 
+int Order::get_WT() const
+{
+	return WaitTime;
+}
+
+void Order::set_WT()
+{
+	WaitTime = FinishTime - ArrTime;
+}
+
 int Order::get_FT() const
 {
 	return FinishTime;
