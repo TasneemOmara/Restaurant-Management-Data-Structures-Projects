@@ -30,6 +30,9 @@ private:
 	Queue<Order> Vegan_Orders;
 	LinkedList<Order> Normal_Orders;
 	int Cooks_num; 
+	int Cooks_num_Vegan;
+	int Cooks_num_VIP;
+	int Cooks_num_Normal;
 	Cook *Inservice;
 	Cook *Done;
 	Queue<Order> All_Done;
@@ -48,6 +51,14 @@ public:
 	void FillDrawingList(int steps);
 
 	void main_loop(int x);
+	void updateServiceDone(int steps);
+	void AssignVIP(int steps);
+	void AssignVegan(int steps);
+	void AssignNormal(int steps);
+
+	void moveCookToBreak(Cook &c);
+	void moveCookToQueue(Cook &c);
+
 
 	Queue<Cook>& get_VI_cooks_queue();
 	Queue<Cook>& get_Vegan_cooks_queue();

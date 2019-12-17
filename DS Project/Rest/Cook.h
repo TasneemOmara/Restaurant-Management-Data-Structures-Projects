@@ -30,5 +30,14 @@ public:
 	void setMaxCooksNum(int max);
 	void global_time(int i);
 	bool ToDone(Cook Arr_done[]);
-	bool break_time();
+	bool break_time() const;
+	void addDish();
+	int getDishesServed() const;
+
+	friend ostream& operator<<(ostream& out, const Cook& d)
+	{
+		cout << "The Cook's ID is " << d.GetID() << " The type is" << d.GetType() << "His break time is" << d.break_time()
+			<< "His served dishes number is" << d.getDishesServed() << endl;
+		return out;
+	}
 };
