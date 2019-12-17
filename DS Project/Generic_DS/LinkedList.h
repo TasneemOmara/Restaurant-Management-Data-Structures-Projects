@@ -266,7 +266,7 @@ public:
 		return false;
 	}
 
-
+	/*
 	T* getorder(int ID)
 	{
 		
@@ -282,7 +282,7 @@ public:
 		cout << "\nElement " << ID << " not found" << endl;
 		return item;
 	}
-
+	*/
 };
 
 #endif

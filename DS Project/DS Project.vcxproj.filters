@@ -63,7 +63,6 @@
     </ClCompile>
     <ClCompile Include="Events\CancellationEvent.cpp" />
     <ClCompile Include="Events\PromotionEvent.cpp" />
-    <ClCompile Include="Events\test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.h" />

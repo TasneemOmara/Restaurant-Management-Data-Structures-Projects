@@ -132,7 +132,6 @@
     <ClCompile Include="Events\CancellationEvent.cpp" />
     <ClCompile Include="Events\Event.cpp" />
     <ClCompile Include="Events\PromotionEvent.cpp" />
-    <ClCompile Include="Events\test.cpp" />
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="GUI\GUIDrawables\GUIDrawable.cpp" />
     <ClCompile Include="GUI\GUIDrawables\VeganGUIElement.cpp" />
