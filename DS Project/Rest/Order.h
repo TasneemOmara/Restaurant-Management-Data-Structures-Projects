@@ -16,7 +16,7 @@ protected:
 	double totalMoney;	                //Total order money
 	double Price;                       //the total price for one dish
 	int ArrTime, ServTime, FinishTime;	//arrival, service start, and finish times
-	int WaitTime;						//total waiting time = FinishTime - ArrTime
+	int WaitTime, ServingTime;			//total WaitTime = FinishTime - ArrTime, ServingTime = FinishTime - ServTime
 	int extra_money;                    //money for promtion if exist (normal orders only )
 
 public:
@@ -36,6 +36,8 @@ public:
 	void set_AV(int AV);
 	int get_WT() const;
 	void set_WT();
+	int get_ST() const;
+	void set_ST();
 	int get_FT() const;
 	void set_FT(int FT);
 	bool to_be_promoted(int extra);

@@ -43,19 +43,35 @@ Restaurant::Restaurant()
 	//Vegan cooks enqueuer
 	for (size_t i = Arr[3] ; i < Arr[4] + Arr[3] ; i++)
 	{
-		Cook c(i, TYPE_NRM, Arr[1], Arr[7]);
+		Cook c(i, TYPE_VEG, Arr[1], Arr[7]);
 		Vegan_Cooks.enqueue(c);
 	}
 
 	//VIP cooks enqueuer
 	for (size_t i = Arr[3] + Arr[4] ; i < Arr[5] + Arr[4] + Arr[3] ; i++)
 	{
-		Cook c(i, TYPE_NRM, Arr[2], Arr[8]);
+		Cook c(i, TYPE_VIP, Arr[2], Arr[8]);
 		VI_Cooks.enqueue(c);
 	}
 
 	Inservice = new Cook[Cooks_num];
 	Done = new Cook[Cooks_num];
+
+	cout << "Normal Cooks : " << endl;
+	Queue<Cook>::PrintQueue(Normal_Cooks);
+	cout << "Vegan Cooks : " << endl;
+	Queue<Cook>::PrintQueue(Vegan_Cooks);
+	cout << "VIP Cooks : " << endl;
+	Queue<Cook>::PrintQueue(VI_Cooks);
+
+	cout << "Normal Cooks break : " << endl;
+	Queue<Cook>::PrintQueue(Normal_Cooks_break);
+	cout << "Vegan Cooks break : " << endl;
+	Queue<Cook>::PrintQueue(Vegan_Cooks_break);
+	cout << "VIP Cooks break : " << endl;
+	Queue<Cook>::PrintQueue(VI_Cooks_break);
+
+	cout << "*************************" << endl;
 	
 }
 
@@ -138,13 +154,6 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 
 void Restaurant::main_loop(int steps)
 {
-	ExecuteEvents(steps);
-
-	updateServiceDone(steps);
-	AssignVIP(steps);
-	AssignVegan(steps);
-	AssignNormal(steps); 
-
 	cout << "Normal Cooks : " << endl;
 	Queue<Cook>::PrintQueue(Normal_Cooks);
 	cout << "Vegan Cooks : " << endl;
@@ -158,6 +167,14 @@ void Restaurant::main_loop(int steps)
 	Queue<Cook>::PrintQueue(Vegan_Cooks_break);
 	cout << "VIP Cooks break : " << endl;
 	Queue<Cook>::PrintQueue(VI_Cooks_break);
+
+	ExecuteEvents(steps);
+
+	updateServiceDone(steps);
+	AssignVIP(steps);
+	AssignVegan(steps);
+	AssignNormal(steps); 
+
 }
 
 void Restaurant::AssignVIP(int steps)
@@ -170,21 +187,23 @@ void Restaurant::AssignVIP(int steps)
 		Cook c;
 		if (VI_Cooks.peekFront(c))
 		{
-			if (!c.break_time())
+			VI_Cooks.dequeue(c);
+			if (!(c.break_time()))
 			{
-				VI_Cooks.dequeue(c);
+				cout << "NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
 				foundCookFlag = true;
 			}
 			else
 			{
+				cout << "HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" << endl;
 				moveCookToBreak(c);
 			}
 		}
 		else if (Normal_Cooks.peekFront(c))
 		{
+			Normal_Cooks.dequeue(c);
 			if (!c.break_time())
 			{
-				Normal_Cooks.dequeue(c);
 				foundCookFlag = true;
 			}
 			else
@@ -194,9 +213,9 @@ void Restaurant::AssignVIP(int steps)
 		}
 		else if (Vegan_Cooks.peekFront(c))
 		{
+			Vegan_Cooks.dequeue(c);
 			if (!c.break_time())
 			{
-				Vegan_Cooks.dequeue(c);
 				foundCookFlag = true;
 			}
 			else
@@ -225,9 +244,9 @@ void Restaurant::AssignVegan(int steps)
 
 	while (Vegan_Orders.peekFront(vegan_order) && Vegan_Cooks.peekFront(c))
 	{
+		Vegan_Cooks.dequeue(c);
 		if (!c.break_time())
 		{
-			Vegan_Cooks.dequeue(c);
 			foundCookFlag = true;
 		}
 		else
@@ -257,9 +276,9 @@ void Restaurant::AssignNormal(int steps)
 		Cook c;
 		if (Normal_Cooks.peekFront(c))
 		{
+			Normal_Cooks.dequeue(c);
 			if (!c.break_time())
 			{
-				Normal_Cooks.dequeue(c);
 				foundCookFlag = true;
 			}
 			else
@@ -269,13 +288,15 @@ void Restaurant::AssignNormal(int steps)
 		}
 		else if (VI_Cooks.peekFront(c))
 		{
-			if (!c.break_time())
+			VI_Cooks.dequeue(c);
+			if (!(c.break_time()))
 			{
-				VI_Cooks.dequeue(c);
 				foundCookFlag = true;
+				cout << "NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
 			}
 			else
 			{
+				cout << "HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" << endl;
 				moveCookToBreak(c);
 			}
 		}
@@ -307,6 +328,7 @@ void Restaurant::updateServiceDone(int steps)
 			{
 				(Done[i].getAssignedOrder()).set_FT(steps);		//setting finish time for just-done order
 				(Done[i].getAssignedOrder()).set_WT();			//setting total waiting time for done order
+				(Done[i].getAssignedOrder()).set_ST();			//setting total serving time for done order
 				(Done[i].getAssignedOrder()).setStatus(DONE);	//setting the order status as done
 				All_Done.enqueue(Done[i].getAssignedOrder());
 				Done[i].RemoveOrder();
@@ -321,9 +343,6 @@ void Restaurant::updateServiceDone(int steps)
 void Restaurant::moveCookToBreak(Cook &c)
 {
 	
-	if (c.break_time())
-
-	{
 		ORD_TYPE CookType = c.GetType();
 		if (CookType == TYPE_NRM)
 		{
@@ -337,7 +356,7 @@ void Restaurant::moveCookToBreak(Cook &c)
 		{
 			VI_Cooks_break.enqueue(c);
 		}
-	}
+
 }
 
 void Restaurant::moveCookToQueue(Cook& c)
@@ -461,14 +480,14 @@ void Restaurant::FillDrawingList(int steps)
 
 
 	//Calculating Averages
-	double SV_tot = 0;
+	double ST_tot = 0;
 	double WT_tot = 0;
-	double AVG_SV = 0;
+	double AVG_ST = 0;
 	double AVG_WT = 0;
 
 	for (int i = 0; i < m; i++)
 	{
-		SV_tot	= SV_tot + d[i].get_SV();
+		ST_tot	= ST_tot + d[i].get_ST();
 		WT_tot	= WT_tot + d[i].get_WT();
 		cout << d[i].get_WT();
 	}
@@ -476,7 +495,7 @@ void Restaurant::FillDrawingList(int steps)
 	
 	if (count_ord_all != 0)
 	{
-		AVG_SV = SV_tot / count_ord_all;
+		AVG_ST = ST_tot / count_ord_all;
 		AVG_WT = WT_tot / count_ord_all;
 	}
 
@@ -498,7 +517,7 @@ void Restaurant::FillDrawingList(int steps)
 		+ "]" + "\n"
 
 		/*Average Time Printing*/
-		+ "Avg Wait = " + std::to_string(AVG_WT) + ",	Avg Serv = " + std::to_string(AVG_SV) + "\n"
+		+ "Avg Wait = " + std::to_string(AVG_WT) + ",	Avg Serv = " + std::to_string(AVG_ST) + "\n"
 
 		/*Auto Promoted Printing*/
 		+ "Auto-Promoted: " + std::to_string(/*Auto Promoted*/ 1000000001)	);
