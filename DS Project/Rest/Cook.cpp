@@ -90,6 +90,7 @@ bool Cook::break_time() const
 {	
 	if (dishes_served>=dishes_before_break)
 	{
+		cout << "Breaaaaaaaaaaaaaaaak" << endl;
 		return true;
 	}
 	return false;
