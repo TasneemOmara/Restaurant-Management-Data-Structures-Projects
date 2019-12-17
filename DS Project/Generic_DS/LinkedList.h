@@ -272,11 +272,12 @@ public:
 		while (p) {
 			if (p->getItem() == ID) {
 				cout << "Found the element " << ID << endl;
-				item = p->getItem();
+				T item = p->getItem();
 			}
 			p = p->getNext();
 		}
 		cout << "\nElement " << ID << " not found" << endl;
+		return item;
 	}
 	
 
