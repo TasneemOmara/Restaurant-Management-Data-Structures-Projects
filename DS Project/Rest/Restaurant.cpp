@@ -142,8 +142,7 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 void Restaurant::main_loop(int steps)
 {
 	ExecuteEvents(steps);
-
-
+	updateServiceDone(steps);
 	AssignVIP(steps);
 	AssignVegan(steps);
 	AssignNormal(steps);
