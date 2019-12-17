@@ -27,7 +27,11 @@ Restaurant::Restaurant()
 
 
 	Cooks_num = Arr[3] + Arr[4] + Arr[5];
+	Cooks_num_Normal = Arr[3];
+	Cooks_num_Vegan = Arr[4];
+	Cooks_num_VIP = Arr[5];
 	
+
 	//Normal cooks enqueuer
 	for (size_t i = 0; i < Arr[3]; i++)
 	{
@@ -138,64 +142,203 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 void Restaurant::main_loop(int steps)
 {
 	ExecuteEvents(steps);
-	bool done=false;
+
+
+	AssignVIP(steps);
+	AssignVegan(steps);
+	AssignNormal(steps);
+
+}
+
+void Restaurant::AssignVIP(int steps)
+{
+	Order VIP_Order;
+	bool foundCookFlag = false;
+
+	while (VI_Orders.peekFront(VIP_Order))
+	{
+		Cook c;
+		if (VI_Cooks.peekFront(c))
+		{
+			if (!c.break_time())
+			{
+				VI_Cooks.dequeue(c);
+				foundCookFlag = true;
+			}
+			else
+			{
+				moveCookToBreak(c);
+			}
+		}
+		else if (Normal_Cooks.peekFront(c))
+		{
+			if (!c.break_time())
+			{
+				Normal_Cooks.dequeue(c);
+				foundCookFlag = true;
+			}
+			else
+			{
+				moveCookToBreak(c);
+			}
+		}
+		else if (Vegan_Cooks.peekFront(c))
+		{
+			if (!c.break_time())
+			{
+				Vegan_Cooks.dequeue(c);
+				foundCookFlag = true;
+			}
+			else
+			{
+				moveCookToBreak(c);
+			}
+		}
+		if (foundCookFlag)
+		{
+			VI_Orders.dequeue(VIP_Order);
+			c.AssignOrder(VIP_Order);
+			c.addDish();
+			(c.getAssignedOrder()).set_SV(steps);
+			(c.getAssignedOrder()).setStatus(SRV);
+			Inservice[c.GetID()] = c;
+		}
+
+	}
+}
+
+void Restaurant::AssignVegan(int steps)
+{
+	Order vegan_order;
+	bool foundCookFlag = false;
+	Cook c;
+
+	while (Vegan_Orders.peekFront(vegan_order) && Vegan_Cooks.peekFront(c))
+	{
+		if (!c.break_time())
+		{
+			Vegan_Cooks.dequeue(c);
+			foundCookFlag = true;
+		}
+		else
+		{
+			moveCookToBreak(c);
+		}
+
+		if (foundCookFlag)
+		{
+			Vegan_Orders.dequeue(vegan_order);
+			c.AssignOrder(vegan_order);
+			c.addDish();
+			(c.getAssignedOrder()).set_SV(steps);
+			(c.getAssignedOrder()).setStatus(SRV);
+			Inservice[c.GetID()] = c;
+		}
+	}
+}
+
+void Restaurant::AssignNormal(int steps)
+{
+	Order Normal_Order;
+	bool foundCookFlag = false;
+
+	while (Normal_Orders.getCount() > 0)
+	{
+		Cook c;
+		if (Normal_Cooks.peekFront(c))
+		{
+			if (!c.break_time())
+			{
+				Normal_Cooks.dequeue(c);
+				foundCookFlag = true;
+			}
+			else
+			{
+				moveCookToBreak(c);
+			}
+		}
+		else if (VI_Cooks.peekFront(c))
+		{
+			if (!c.break_time())
+			{
+				VI_Cooks.dequeue(c);
+				foundCookFlag = true;
+			}
+			else
+			{
+				moveCookToBreak(c);
+			}
+		}
+		if (foundCookFlag)
+		{
+			Normal_Orders.getbeg(Normal_Order);
+			c.AssignOrder(Normal_Order);
+			c.addDish();
+			(c.getAssignedOrder()).set_SV(steps);
+			(c.getAssignedOrder()).setStatus(SRV);
+			Inservice[c.GetID()] = c;
+		}
+
+	}
+}
+
+void Restaurant::updateServiceDone(int steps)
+{
+	bool done = false;
 
 	for (int i = 0; i < Cooks_num; i++)
 	{
-		if (Inservice[i].getAssignedOrder()!=0)
+		if (Inservice[i].getAssignedOrder() != 0)
 		{
 			Inservice[i].global_time(steps);
-			done= Inservice[i].ToDone(Done);
+			done = Inservice[i].ToDone(Done);
 
 			if (done)
 			{
 				(Done[i].getAssignedOrder()).set_FT(steps);
 				(Done[i].getAssignedOrder()).setStatus(DONE);
+				moveCookToQueue(Done[i]);
 			}
 		}
 	}
+}
 
 
-	//Demo
-	//Vegan
-	Order vegan_order;
-	while (Vegan_Orders.peekFront(vegan_order) && !Vegan_Cooks.isEmpty())
-	{
-		Vegan_Orders.dequeue(vegan_order);
-		Cook c;
-		Vegan_Cooks.dequeue(c);
-		c.AssignOrder(vegan_order);
-		(c.getAssignedOrder()).set_SV(steps);
-		(c.getAssignedOrder()).setStatus(SRV);
-		Inservice[c.GetID()] = c;
-	}
-
+void Restaurant::moveCookToBreak(Cook &c)
+{
 	
-	//Normal
-	Order Normal_Order;
-	while (Normal_Orders.getCount() > 0 && !Normal_Cooks.isEmpty())
+	if (c.break_time())
 	{
-		Normal_Orders.getbeg(Normal_Order);
-		Cook c;
-		Normal_Cooks.dequeue(c);
-		c.AssignOrder(Normal_Order);
-		(c.getAssignedOrder()).set_SV(steps);
-		(c.getAssignedOrder()).setStatus(SRV);
-		Inservice[c.GetID()] = c;
+		ORD_TYPE CookType = c.GetType();
+		if (CookType == TYPE_NRM)
+		{
+			Normal_Cooks_break.enqueue(c);
+		}
+		else if (CookType == TYPE_VEG)
+		{
+			Vegan_Cooks_break.enqueue(c);
+		}
+		else if (CookType == TYPE_VIP)
+		{
+			VI_Cooks_break.enqueue(c);
+		}
 	}
-	
+}
 
-	//VIP
-	Order VIP_Order;
-	while (VI_Orders.peekFront(VIP_Order) && !VI_Cooks.isEmpty())
+void Restaurant::moveCookToQueue(Cook& c)
+{
+	ORD_TYPE CookType = c.GetType();
+	if (CookType == TYPE_NRM)
 	{
-		VI_Orders.dequeue(VIP_Order);
-		Cook c;
-		VI_Cooks.dequeue(c);
-		c.AssignOrder(VIP_Order);
-		(c.getAssignedOrder()).set_SV(steps);
-		(c.getAssignedOrder()).setStatus(SRV);
-		Inservice[c.GetID()] = c;
+		Normal_Cooks.enqueue(c);
+	}
+	else if (CookType == TYPE_VEG)
+	{
+		Vegan_Cooks.enqueue(c);
+	}
+	else if (CookType == TYPE_VIP)
+	{
+		VI_Cooks.enqueue(c);
 	}
 }
 

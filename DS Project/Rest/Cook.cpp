@@ -1,9 +1,11 @@
 #include "Cook.h"
 
-Cook::Cook(){};
+Cook::Cook(){
+};
 
 Cook::Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val, int current_time_val): ID{id_val}, type{type_val}, speed{speed_val}, dishes_before_break{dishes_before_break_val}, current_time{current_time_val}
 {
+	dishes_served = 0;
 }
 
 
@@ -61,13 +63,6 @@ void Cook::global_time(int i)
 
 bool Cook::ToDone(Cook Arr_done[])
 {
-	/*
-	cout << "tsneem sa7" << endl;
-	cout << "el rakam = " << cooking.get_SV() + (cooking.GetDishes() / speed) << endl;
-	cout << "speed is " << speed << endl;
-	cout << "dishes num is " << cooking.GetDishes() << endl;
-	cout << "service time is " << cooking.get_SV() << endl;
-	*/
 	if (current_time == cooking.get_SV() + (cooking.GetDishes() / speed))
 	{
 		Arr_done[ID]=*this;
@@ -86,4 +81,9 @@ bool Cook::break_time()
 		return true;
 	}
 	return false;
+}
+
+void Cook::addDish()
+{
+	dishes_served++;
 }

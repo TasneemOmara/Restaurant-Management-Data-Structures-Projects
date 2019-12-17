@@ -30,4 +30,5 @@ public:
 	void global_time(int i);
 	bool ToDone(Cook Arr_done[]);
 	bool break_time();
+	void addDish();
 };
