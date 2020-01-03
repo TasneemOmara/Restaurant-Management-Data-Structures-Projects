@@ -3,9 +3,10 @@
 Cook::Cook(){
 };
 
-Cook::Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val, int current_time_val): ID{id_val}, type{type_val}, speed{speed_val}, dishes_before_break{dishes_before_break_val}, current_time{current_time_val}
+Cook::Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val, int break_duration_val, int current_time_val) : ID{ id_val }, type{ type_val }, speed{ speed_val }, dishes_before_break{ dishes_before_break_val }, break_duration{ break_duration_val }, current_time{ current_time_val }
 {
 	dishes_served = 0;
+	timeEnteredBreak = 0;
 }
 
 
@@ -88,15 +89,39 @@ bool Cook::ToDone(Cook Arr_done[])
 
 bool Cook::break_time() const
 {	
-	if (dishes_served>=dishes_before_break)
+	if (dishes_served >= dishes_before_break)
 	{
-		cout << "Breaaaaaaaaaaaaaaaak" << endl;
 		return true;
 	}
 	return false;
 }
 
-void Cook::addDish()
+void Cook::ResetDishesServed()
 {
-	dishes_served++;
+	dishes_served = 0;
+}
+
+void Cook::set_breakDuration(int n)
+{
+	break_duration = n;
+}
+
+void Cook::set_timeEnteredBreak(int steps)
+{
+	timeEnteredBreak = steps;
+}
+
+void Cook::reset_timeEnteredBreak()
+{
+	timeEnteredBreak = 0;
+}
+
+int Cook::get_timeEnteredBreak() const
+{
+	return timeEnteredBreak;
+}
+
+int Cook::get_breakDuration() const
+{
+	return break_duration;
 }

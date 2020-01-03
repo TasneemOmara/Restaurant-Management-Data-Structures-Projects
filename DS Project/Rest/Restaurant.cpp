@@ -36,43 +36,27 @@ Restaurant::Restaurant()
 	//Normal cooks enqueuer
 	for (size_t i = 0; i < Arr[3]; i++)
 	{
-		Cook c(i, TYPE_NRM, Arr[0], Arr[6]);
+		Cook c(i, TYPE_NRM, Arr[0], Arr[6], Arr[9]);
 		Normal_Cooks.enqueue(c);
 	}
 
 	//Vegan cooks enqueuer
 	for (size_t i = Arr[3] ; i < Arr[4] + Arr[3] ; i++)
 	{
-		Cook c(i, TYPE_VEG, Arr[1], Arr[7]);
+		Cook c(i, TYPE_VEG, Arr[1], Arr[7], Arr[9]);
 		Vegan_Cooks.enqueue(c);
 	}
 
 	//VIP cooks enqueuer
 	for (size_t i = Arr[3] + Arr[4] ; i < Arr[5] + Arr[4] + Arr[3] ; i++)
 	{
-		Cook c(i, TYPE_VIP, Arr[2], Arr[8]);
+		Cook c(i, TYPE_VIP, Arr[2], Arr[8], Arr[9]);
 		VI_Cooks.enqueue(c);
 	}
 
 	Inservice = new Cook[Cooks_num];
 	Done = new Cook[Cooks_num];
 
-	cout << "Normal Cooks : " << endl;
-	Queue<Cook>::PrintQueue(Normal_Cooks);
-	cout << "Vegan Cooks : " << endl;
-	Queue<Cook>::PrintQueue(Vegan_Cooks);
-	cout << "VIP Cooks : " << endl;
-	Queue<Cook>::PrintQueue(VI_Cooks);
-
-	cout << "Normal Cooks break : " << endl;
-	Queue<Cook>::PrintQueue(Normal_Cooks_break);
-	cout << "Vegan Cooks break : " << endl;
-	Queue<Cook>::PrintQueue(Vegan_Cooks_break);
-	cout << "VIP Cooks break : " << endl;
-	Queue<Cook>::PrintQueue(VI_Cooks_break);
-
-	cout << "*************************" << endl;
-	
 }
 
 void Restaurant::RunSimulation()
@@ -147,30 +131,36 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 		}
 		else break;
 	}
-	//delete pE;		//deallocate event object from memory
 
 }
 
 
 void Restaurant::main_loop(int steps)
 {
-	cout << "Normal Cooks : " << endl;
-	Queue<Cook>::PrintQueue(Normal_Cooks);
-	cout << "Vegan Cooks : " << endl;
-	Queue<Cook>::PrintQueue(Vegan_Cooks);
-	cout << "VIP Cooks : " << endl;
-	Queue<Cook>::PrintQueue(VI_Cooks);
+	cout << "Normal Cooks: " << endl;
+	Normal_Cooks.PrintQueue(Normal_Cooks);
 
-	cout << "Normal Cooks break : " << endl;
-	Queue<Cook>::PrintQueue(Normal_Cooks_break);
-	cout << "Vegan Cooks break : " << endl;
-	Queue<Cook>::PrintQueue(Vegan_Cooks_break);
-	cout << "VIP Cooks break : " << endl;
-	Queue<Cook>::PrintQueue(VI_Cooks_break);
+	cout << "Normal Cooks Break: " << endl;
+	Normal_Cooks_break.PrintQueue(Normal_Cooks_break);
+	cout << "______________" << endl;
+
+	cout << "Vegan Cooks: " << endl;
+	Vegan_Cooks.PrintQueue(Vegan_Cooks);
+
+	cout << "Vegan Cooks Break: " << endl;
+	Vegan_Cooks_break.PrintQueue(Vegan_Cooks_break);
+	cout << "______________" << endl;
+
+	cout << "VIP Cooks: " << endl;
+	VI_Cooks.PrintQueue(VI_Cooks);
+
+	cout << "VIP Cooks Break: " << endl;
+	VI_Cooks_break.PrintQueue(VI_Cooks_break);
+	cout << "______________" << endl;
 
 	ExecuteEvents(steps);
-
 	updateServiceDone(steps);
+	BackFromBreak(steps);
 	AssignVIP(steps);
 	AssignVegan(steps);
 	AssignNormal(steps); 
@@ -188,50 +178,27 @@ void Restaurant::AssignVIP(int steps)
 		if (VI_Cooks.peekFront(c))
 		{
 			VI_Cooks.dequeue(c);
-			if (!(c.break_time()))
-			{
-				cout << "NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
-				foundCookFlag = true;
-			}
-			else
-			{
-				cout << "HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" << endl;
-				moveCookToBreak(c);
-			}
+			foundCookFlag = true;
 		}
 		else if (Normal_Cooks.peekFront(c))
 		{
 			Normal_Cooks.dequeue(c);
-			if (!c.break_time())
-			{
-				foundCookFlag = true;
-			}
-			else
-			{
-				moveCookToBreak(c);
-			}
+			foundCookFlag = true;
 		}
 		else if (Vegan_Cooks.peekFront(c))
 		{
 			Vegan_Cooks.dequeue(c);
-			if (!c.break_time())
-			{
-				foundCookFlag = true;
-			}
-			else
-			{
-				moveCookToBreak(c);
-			}
+			foundCookFlag = true;
 		}
 		if (foundCookFlag)
 		{
 			VI_Orders.dequeue(VIP_Order);
 			c.AssignOrder(VIP_Order);
-			c.addDish();
 			(c.getAssignedOrder()).set_SV(steps);
 			(c.getAssignedOrder()).setStatus(SRV);
 			Inservice[c.GetID()] = c;
 		}
+		else break;
 
 	}
 }
@@ -245,24 +212,17 @@ void Restaurant::AssignVegan(int steps)
 	while (Vegan_Orders.peekFront(vegan_order) && Vegan_Cooks.peekFront(c))
 	{
 		Vegan_Cooks.dequeue(c);
-		if (!c.break_time())
-		{
-			foundCookFlag = true;
-		}
-		else
-		{
-			moveCookToBreak(c);
-		}
-
+		foundCookFlag = true;
+		
 		if (foundCookFlag)
 		{
 			Vegan_Orders.dequeue(vegan_order);
 			c.AssignOrder(vegan_order);
-			c.addDish();
 			(c.getAssignedOrder()).set_SV(steps);
 			(c.getAssignedOrder()).setStatus(SRV);
 			Inservice[c.GetID()] = c;
 		}
+		else break;
 	}
 }
 
@@ -277,39 +237,22 @@ void Restaurant::AssignNormal(int steps)
 		if (Normal_Cooks.peekFront(c))
 		{
 			Normal_Cooks.dequeue(c);
-			if (!c.break_time())
-			{
-				foundCookFlag = true;
-			}
-			else
-			{
-				moveCookToBreak(c);
-			}
+			foundCookFlag = true;
 		}
 		else if (VI_Cooks.peekFront(c))
 		{
 			VI_Cooks.dequeue(c);
-			if (!(c.break_time()))
-			{
-				foundCookFlag = true;
-				cout << "NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
-			}
-			else
-			{
-				cout << "HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" << endl;
-				moveCookToBreak(c);
-			}
+			foundCookFlag = true;
 		}
 		if (foundCookFlag)
 		{
 			Normal_Orders.getbeg(Normal_Order);
 			c.AssignOrder(Normal_Order);
-			c.addDish();
 			(c.getAssignedOrder()).set_SV(steps);
 			(c.getAssignedOrder()).setStatus(SRV);
 			Inservice[c.GetID()] = c;
 		}
-
+		else break;
 	}
 }
 
@@ -332,7 +275,7 @@ void Restaurant::updateServiceDone(int steps)
 				(Done[i].getAssignedOrder()).setStatus(DONE);	//setting the order status as done
 				All_Done.enqueue(Done[i].getAssignedOrder());
 				Done[i].RemoveOrder();
-				moveCookToQueue(Done[i]);
+				moveCook(Done[i], steps);
 			}
 		}
 	}
@@ -340,20 +283,23 @@ void Restaurant::updateServiceDone(int steps)
 
 
 
-void Restaurant::moveCookToBreak(Cook &c)
+void Restaurant::moveCookToBreak(Cook &c, int step)
 {
-	
+
 		ORD_TYPE CookType = c.GetType();
 		if (CookType == TYPE_NRM)
 		{
+			c.set_timeEnteredBreak(step);
 			Normal_Cooks_break.enqueue(c);
 		}
 		else if (CookType == TYPE_VEG)
 		{
+			c.set_timeEnteredBreak(step);
 			Vegan_Cooks_break.enqueue(c);
 		}
 		else if (CookType == TYPE_VIP)
 		{
+			c.set_timeEnteredBreak(step);
 			VI_Cooks_break.enqueue(c);
 		}
 
@@ -376,6 +322,65 @@ void Restaurant::moveCookToQueue(Cook& c)
 	}
 }
 
+void Restaurant::moveCook(Cook& c, int step)
+{
+	if (c.break_time())
+	{
+		moveCookToBreak(c, step);
+	}
+	else
+	{
+		moveCookToQueue(c);
+	}
+}
+void Restaurant::BackFromBreak(int step)
+{
+	Cook C;
+	while (Normal_Cooks_break.peekFront(C))
+	{
+		if (step >= C.get_timeEnteredBreak() + C.get_breakDuration())
+		{
+			Normal_Cooks_break.dequeue(C);
+			C.reset_timeEnteredBreak();
+			C.ResetDishesServed();
+			Normal_Cooks.enqueue(C);
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	while (VI_Cooks_break.peekFront(C))
+	{
+		if (step >= C.get_timeEnteredBreak() + C.get_breakDuration())
+		{
+			VI_Cooks_break.dequeue(C);
+			VI_Cooks.enqueue(C);
+			C.reset_timeEnteredBreak();
+			C.ResetDishesServed();
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	while (Vegan_Cooks_break.peekFront(C))
+	{
+		if (step >= C.get_timeEnteredBreak() + C.get_breakDuration())
+		{
+			Vegan_Cooks_break.dequeue(C);
+			Vegan_Cooks.enqueue(C);
+			C.reset_timeEnteredBreak();
+			C.ResetDishesServed();
+		}
+		else
+		{
+			break;
+		}
+	}
+}
 Queue<Cook>& Restaurant::get_VI_cooks_queue()
 {
 	return VI_Cooks;

@@ -56,9 +56,10 @@ public:
 	void AssignVegan(int steps);
 	void AssignNormal(int steps);
 	int get_m();
-	void moveCookToBreak(Cook &c);
+	void moveCookToBreak(Cook &c, int step);
 	void moveCookToQueue(Cook &c);
-
+	void moveCook(Cook& c, int step);
+	void BackFromBreak(int step);
 
 	Queue<Cook>& get_VI_cooks_queue();
 	Queue<Cook>& get_Vegan_cooks_queue();
