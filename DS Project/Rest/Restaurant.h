@@ -37,6 +37,8 @@ private:
 	Cook *Done;
 	Queue<Order> All_Done;
 	int m;
+	int PromoterLimit;
+	int count_p = 0;
 
 
 public:
@@ -45,6 +47,7 @@ public:
 	Restaurant();
 	~Restaurant();
 	
+	void Promoter(int TimeStep);
 	void ExecuteEvents(int TimeStep);	//executes all events at current timestep
 	void RunSimulation();
 

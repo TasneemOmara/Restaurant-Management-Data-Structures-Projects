@@ -19,6 +19,7 @@ Restaurant::Restaurant()
 	Read_File1(Arr);
 	M = Arr[11];
 	m = M;
+	PromoterLimit = Arr[10];
 	char** Events = new char* [M];
 	int** Event_Data = new int* [M];
 	Event** Array = new Event * [M];
@@ -131,12 +132,35 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 		}
 		else break;
 	}
+}
 
+//Promotes poor normal orders to luxurious VIP ones after a certain amount of time steps
+void Restaurant::Promoter(int CurrentTimeStep)
+{
+	while ( get_Normal_orders_list().getHead() )		//checks if any 
+	{
+		Order O;
+		O = get_Normal_orders_list().getHead()->getItem();
+
+		if (CurrentTimeStep - O.get_AV() >= PromoterLimit)
+		{
+			O.to_be_promoted(0);
+			get_VI_orders_queue().enqueue(O, O.VI_Priority());
+			get_Normal_orders_list().DeleteFirst();
+			count_p++;
+		}
+
+		else
+		{
+			break;
+		}
+	}
 }
 
 
 void Restaurant::main_loop(int steps)
 {
+
 	cout << "Normal Cooks: " << endl;
 	Normal_Cooks.PrintQueue(Normal_Cooks);
 
@@ -158,6 +182,7 @@ void Restaurant::main_loop(int steps)
 	VI_Cooks_break.PrintQueue(VI_Cooks_break);
 	cout << "______________" << endl;
 
+	Promoter(steps);
 	ExecuteEvents(steps);
 	updateServiceDone(steps);
 	BackFromBreak(steps);
@@ -525,7 +550,7 @@ void Restaurant::FillDrawingList(int steps)
 		+ "Avg Wait = " + std::to_string(AVG_WT) + ",	Avg Serv = " + std::to_string(AVG_ST) + "\n"
 
 		/*Auto Promoted Printing*/
-		+ "Auto-Promoted: " + std::to_string(/*Auto Promoted*/ 1000000001)	);
+		+ "Auto-Promoted: " + std::to_string(/*Auto Promoted*/ count_p)	);
 
 }
 

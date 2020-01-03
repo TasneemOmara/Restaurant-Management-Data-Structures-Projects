@@ -130,7 +130,7 @@ int Order::VI_Priority()
 {
 	if (type==TYPE_VIP)                //set priority only if the order is VIP
 	{
-		return exp(1/ArrTime)+ 5*(Price+Dishes);
+		return exp(1/ArrTime) + 5*(Price+Dishes);
 	}
 	return 0;
 }
