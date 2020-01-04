@@ -62,6 +62,7 @@ public:
 	int get_Cooks_num_Normal() const;
 	int get_Cooks_num_Vegan() const;
 	int get_Cooks_num_VIP() const;
+	int get_count_p();
 	void moveCookToBreak(Cook &c, int step);
 	void moveCookToQueue(Cook &c);
 	void moveCook(Cook& c, int step);

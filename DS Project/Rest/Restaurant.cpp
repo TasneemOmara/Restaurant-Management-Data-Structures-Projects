@@ -8,6 +8,7 @@ using namespace std;
 #include "../Events/CancellationEvent.h"
 #include "../File Reader/reader.h"
 #include "../Generic_DS/Queue.h"
+#include "../File Reader/Saver.h"
 
 Restaurant::Restaurant()
 {
@@ -630,3 +631,8 @@ int Restaurant::get_Cooks_num_VIP() const
 {
 	return Cooks_num_VIP;
 }
+
+int Restaurant::get_count_p()
+{
+	return count_p;
+};
