@@ -16,7 +16,7 @@ using namespace std;
 void Save(Restaurant* pRest)
 {
 	
-
+	
 	//Printing Statistics
 	int count_ord_all = pRest -> get_All_Done().getcounter();		//Orders
 	int count_n = 0;												//Norm Ord
@@ -29,8 +29,8 @@ void Save(Restaurant* pRest)
 	double AVG_ST = 0;
 	double AVG_WT = 0;
 
-	int k = ArrivalEvent::get_arrival_count();
-
+	int k = pRest->count_for_arrivals;
+	cout << "this is K" << k << endl;
 	Order o;
 
 	while ( pRest->get_All_Done().dequeue(o) )
@@ -49,12 +49,17 @@ void Save(Restaurant* pRest)
 			break;
 		}
 	}
+	Order *Q = pRest->get_All_Done().toArray(k);
+	Queue<Order> All_Done;
+	pRest->get_All_Done().PrintQueue(All_Done);
+	cout << "K = " << k << endl;
+	cout << "count_ord_all = " << count_ord_all << endl;
 	
-	
+
 	for (int i = 0; i < k ; i++)
 	{
-		ST_tot = ST_tot + pRest->get_All_Done().toArray(k)[i].get_ST();
-		WT_tot = WT_tot + pRest->get_All_Done().toArray(k)[i].get_WT();
+		ST_tot = ST_tot + Q[i].get_ST();
+		WT_tot = WT_tot + Q[i].get_WT();
 	}
 
 	if (count_ord_all != 0)
@@ -74,9 +79,9 @@ void Save(Restaurant* pRest)
 	savedfile << "	";
 	savedfile << "ST\n";
 	//int m = pRest->get_m();
-	int all_count = pRest->get_All_Done().getcounter();
-	Order* d = pRest->get_All_Done().toArray(all_count);
-	for (int i = 0; i < all_count; i++)
+	//int all_count = pRest->get_All_Done().getcounter();
+	Order* d = pRest->get_All_Done().toArray(k);
+	for (int i = 0; i < k; i++)
 	{
 		savedfile << d[i].get_FT();
 		savedfile << "	";

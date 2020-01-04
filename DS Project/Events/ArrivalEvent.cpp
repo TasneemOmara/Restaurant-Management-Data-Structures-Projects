@@ -1,13 +1,14 @@
 #include "ArrivalEvent.h"
 #include "../Rest/Restaurant.h"
 
-static int arrival_count = 0;
+int ArrivalEvent::arrival_count = 0;
 
 ArrivalEvent::ArrivalEvent(){};
 ArrivalEvent::ArrivalEvent(int eTime, int oID, ORD_TYPE oType):Event(eTime, oID)
 {
 	OrdType = oType;
 	arrival_count++;
+	cout << "arrival_count = " << arrival_count << endl;
 }
 
 void ArrivalEvent::Execute(Restaurant* pRest)

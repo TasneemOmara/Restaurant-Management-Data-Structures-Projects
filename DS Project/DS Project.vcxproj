@@ -172,6 +172,9 @@
   <ItemGroup>
     <Image Include="Resources\logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Output.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

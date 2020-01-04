@@ -40,7 +40,6 @@ private:
 	int PromoterLimit;
 	int count_p = 0;
 
-
 public:
 
 
@@ -79,4 +78,5 @@ public:
 	LinkedList<Order>& get_Normal_orders_list();
 	Queue<Order>& get_All_Done();
 
+	int count_for_arrivals;
 };

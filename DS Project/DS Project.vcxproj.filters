@@ -119,4 +119,7 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Output.txt" />
+  </ItemGroup>
 </Project>

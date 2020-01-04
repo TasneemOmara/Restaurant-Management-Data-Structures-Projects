@@ -58,6 +58,8 @@ Restaurant::Restaurant()
 
 	Inservice = new Cook[Cooks_num];
 	Done = new Cook[Cooks_num];
+	count_for_arrivals = ArrivalEvent::get_arrival_count();
+	
 
 }
 
