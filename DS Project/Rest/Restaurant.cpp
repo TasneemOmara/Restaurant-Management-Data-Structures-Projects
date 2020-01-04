@@ -83,8 +83,18 @@ void Restaurant::RunSimulation()
 			pGUI->handleSimGUIEvents();
 			FillDrawingList(steps);
 			pGUI->waitForClick(); //Wait for user click to enter the loop again.
+
+			if(All_Done.getcounter() > ArrivalEvent::get_arrival_count())
+			{ 
+				pGUI->sleep(10000); //holds GUI.
+				break;
+			}
 		}
+		
+		//save
 		break;
+
+
 
 	case MODE_STEP:
 		pGUI->initSimMode();
@@ -97,17 +107,31 @@ void Restaurant::RunSimulation()
 			pGUI->updateInterface();
 			pGUI->handleSimGUIEvents();
 			FillDrawingList(steps);
-			pGUI->sleep(1000); //Updates the loop each 1000 milliseconds.
+			pGUI->sleep(50); //Updates the loop each 1000 milliseconds.
+			
+			if (All_Done.getcounter() > ArrivalEvent::get_arrival_count())
+			{
+				pGUI->sleep(10000); //holds GUI.
+				break;
+			}
 		}
+
+		//save
+		Save(this);
 		break;
+
+
 
 	case MODE_SLNT:
 
-		while (true /*hna 7war el condition elly lesa ha3melo mn el sticky note*/)
+		while ( All_Done.getcounter() < ArrivalEvent::get_arrival_count() )  /*hna 7war el condition elly lesa ha3melo mn el sticky note*/
 		{
 			steps++;
 			main_loop(steps);
 		}
+
+		//save
+		Save(this);
 		break;
 	};
 
@@ -160,27 +184,28 @@ void Restaurant::Promoter(int CurrentTimeStep)
 
 void Restaurant::main_loop(int steps)
 {
-
-	cout << "Normal Cooks: " << endl;
+	/*
+	//cout << "Normal Cooks: " << endl;
 	Normal_Cooks.PrintQueue(Normal_Cooks);
 
-	cout << "Normal Cooks Break: " << endl;
+	//cout << "Normal Cooks Break: " << endl;
 	Normal_Cooks_break.PrintQueue(Normal_Cooks_break);
-	cout << "______________" << endl;
+	//cout << "______________" << endl;
 
-	cout << "Vegan Cooks: " << endl;
+	//cout << "Vegan Cooks: " << endl;
 	Vegan_Cooks.PrintQueue(Vegan_Cooks);
 
-	cout << "Vegan Cooks Break: " << endl;
+	//cout << "Vegan Cooks Break: " << endl;
 	Vegan_Cooks_break.PrintQueue(Vegan_Cooks_break);
-	cout << "______________" << endl;
+	//cout << "______________" << endl;
 
-	cout << "VIP Cooks: " << endl;
+	//cout << "VIP Cooks: " << endl;
 	VI_Cooks.PrintQueue(VI_Cooks);
 
-	cout << "VIP Cooks Break: " << endl;
+	//cout << "VIP Cooks Break: " << endl;
 	VI_Cooks_break.PrintQueue(VI_Cooks_break);
-	cout << "______________" << endl;
+	//cout << "______________" << endl;
+	*/
 
 	Promoter(steps);
 	ExecuteEvents(steps);
@@ -291,6 +316,8 @@ void Restaurant::updateServiceDone(int steps)
 		{
 			Inservice[i].global_time(steps);	//setting current time-stamp to cook
 			done = Inservice[i].ToDone(Done);	//check if an order is done by checking if it took enough required time
+			cout << Inservice[i].getAssignedOrder().GetID() << "<-- ID" << endl;
+			cout << Inservice[i].getAssignedOrder().getStatus() << "<-- Status Before" << endl;
 
 			if (done)
 			{
@@ -299,8 +326,10 @@ void Restaurant::updateServiceDone(int steps)
 				(Done[i].getAssignedOrder()).set_ST();			//setting total serving time for done order
 				(Done[i].getAssignedOrder()).setStatus(DONE);	//setting the order status as done
 				All_Done.enqueue(Done[i].getAssignedOrder());
-				Done[i].RemoveOrder();
+				Inservice[i].RemoveOrder();
 				moveCook(Done[i], steps);
+				
+				cout << Inservice[i].getAssignedOrder().getStatus() << "<-- Status After" << endl;
 			}
 		}
 	}
@@ -461,29 +490,56 @@ Restaurant::~Restaurant()
 //It should get orders from orders lists/queues/stacks/whatever (same for cooks)
 void Restaurant::FillDrawingList(int steps)
 {
-
-	int count_g;
-	int count_n = Normal_Orders.getCount();
-	int count_v;
+	//Waiting orders counters at each step
+	int counter_g;
+	int counter_n = Normal_Orders.getCount();
+	int counter_v;
 	int count_ord_all = All_Done.getcounter();
 
-	Order* g = Vegan_Orders.toArray(count_g);	//Vegan
+	//Done orders counts at each step
+	int count_g = 0;
+	int count_n = 0;
+	int count_v = 0;
+
+	//For calculating Averages
+	double ST_tot = 0;
+	double WT_tot = 0;
+	double AVG_ST = 0;
+	double AVG_WT = 0;
+
+	Order* g = Vegan_Orders.toArray(counter_g);	//Vegan
 	Order* n = Normal_Orders.toArray();			//Normal
-	Order* v = VI_Orders.toArray(count_v);      //VIP
+	Order* v = VI_Orders.toArray(counter_v);      //VIP
 	Order* d = All_Done.toArray(m);				//All Done
 
+	for (int i = 0; i < count_ord_all; i++)
+	{
+		switch ( d[i].GetType() )
+		
+		{
+		case TYPE_NRM:
+			count_n++;
+			break;
+		case TYPE_VEG:
+			count_g++;
+			break;
+		case TYPE_VIP:
+			count_v++;
+			break;
+		}
+	}
 
 	//This is where GUI No's are cooked
 	//Waiting Orders
-	for (int i = 0 ; i < count_g ; i++)
+	for (int i = 0 ; i < counter_g ; i++)
 	{	//Vegan Waiting
 		pGUI->addGUIDrawable(new VeganGUIElement(g[i].GetID(), GUI_REGION::ORD_REG));
 	}
-	for (int i = 0 ; i < count_n ; i++)
+	for (int i = 0 ; i < counter_n ; i++)
 	{	//Normal Waiting
 		pGUI->addGUIDrawable(new NormalGUIElement(n[i].GetID(), GUI_REGION::ORD_REG));
 	}
-	for (int i = 0 ; i < count_v; i++)
+	for (int i = 0 ; i < counter_v; i++)
 	{	//VI Waiting
 		pGUI->addGUIDrawable(new VIPGUIElement(v[i].GetID(), GUI_REGION::ORD_REG));
 	}
@@ -492,36 +548,35 @@ void Restaurant::FillDrawingList(int steps)
 	//Serving Printing
 	for (int i = 0 ; i < Cooks_num; i++)
 	{
-		if (Inservice[i].getAssignedOrder() != 0)
+		if ( Inservice[i].getAssignedOrder() != 0 /*&& Inservice[i].getAssignedOrder().getStatus() == SRV*/ )
 		{
 			pGUI->addGUIDrawable(new NormalGUIElement(Inservice[i].getAssignedOrder().GetID(), GUI_REGION::SRV_REG));
 		}
 	}
 
 	//Done Printing
-	for (int i = 0 ; i < m ; i++)
+	for (int i = 0 ; i < ArrivalEvent::get_arrival_count() ; i++)
 	{
 		{
-			pGUI->addGUIDrawable(new NormalGUIElement(d[i].GetID(), GUI_REGION::DONE_REG));
-			//cout << Done[i].getAssignedOrder().GetID() << " " << Done[i].getAssignedOrder().get_WT() << endl;
+			if ( d[i].getStatus() == DONE )
+			{
+				pGUI->addGUIDrawable(new NormalGUIElement(d[i].GetID(), GUI_REGION::DONE_REG));
+				//cout << Done[i].getAssignedOrder().GetID() << " " << Done[i].getAssignedOrder().get_WT() << endl;
+			}
 		}
 	}
 
 
 
-	//Calculating Averages
-	double ST_tot = 0;
-	double WT_tot = 0;
-	double AVG_ST = 0;
-	double AVG_WT = 0;
 
-	for (int i = 0; i < m; i++)
+
+	for (int i = 0; i < ArrivalEvent::get_arrival_count() ; i++)
 	{
 		ST_tot	= ST_tot + d[i].get_ST();
 		WT_tot	= WT_tot + d[i].get_WT();
-		cout << d[i].get_WT();
+		//cout << d[i].get_WT();
 	}
-	cout << endl;
+	//cout << endl;
 	
 	if (count_ord_all != 0)
 	{
@@ -534,16 +589,18 @@ void Restaurant::FillDrawingList(int steps)
 		/*Printing Current Time*/
 	pGUI->printStringInStatusBar("Current Time: "		+ std::to_string(steps) + "\n"
 
-		/*Orders Printing*/
-		+ "Orders: " + std::to_string(count_ord_all)	+ "	[Norm:" + std::to_string(count_n)
-		+ ", Veg:" + std::to_string(count_v)
-		+ ", VIP:" + std::to_string(count_n)
+		/*Done Orders Statistics Printing*/
+		+ "Orders: " + std::to_string(count_ord_all)	
+		+ "	[Norm:" + std::to_string(count_n)
+		+ ", Veg:" + std::to_string(count_g)
+		+ ", VIP:" + std::to_string(count_v)
 		+ "]" + "\n"
 
 		/*Cooks Printing*/
-		+ "Cooks: " + std::to_string(Cooks_num)			+ "	[Norm:" + std::to_string(count_n)
-		+ ", Veg:" + std::to_string(count_v)
-		+ ", VIP:" + std::to_string(count_n)
+		+ "Cooks: " + std::to_string(Cooks_num)
+		+ "	[Norm:" + std::to_string(Cooks_num_Normal)
+		+ ", Veg:" + std::to_string(Cooks_num_Vegan)
+		+ ", VIP:" + std::to_string(Cooks_num_VIP)
 		+ "]" + "\n"
 
 		/*Average Time Printing*/
@@ -558,3 +615,18 @@ int Restaurant::get_m()
 {
 	return m;
 };
+
+int Restaurant::get_Cooks_num_Normal() const
+{
+	return Cooks_num_Normal;
+}
+
+int Restaurant::get_Cooks_num_Vegan() const
+{
+	return Cooks_num_Vegan;
+}
+
+int Restaurant::get_Cooks_num_VIP() const
+{
+	return Cooks_num_VIP;
+}

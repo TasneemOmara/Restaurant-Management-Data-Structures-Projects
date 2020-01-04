@@ -16,6 +16,6 @@ public:
 	virtual void Execute(Restaurant *pRest);	//override execute function
 	virtual void setDishes(int size);
 	virtual void setMoney(double money);
-
+	static int get_arrival_count();
 
 };

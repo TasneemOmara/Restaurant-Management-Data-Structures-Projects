@@ -1,10 +1,13 @@
 #include "ArrivalEvent.h"
 #include "../Rest/Restaurant.h"
 
+static int arrival_count = 0;
+
 ArrivalEvent::ArrivalEvent(){};
 ArrivalEvent::ArrivalEvent(int eTime, int oID, ORD_TYPE oType):Event(eTime, oID)
 {
 	OrdType = oType;
+	arrival_count++;
 }
 
 void ArrivalEvent::Execute(Restaurant* pRest)
@@ -45,4 +48,9 @@ void ArrivalEvent::setDishes(int size)
 void ArrivalEvent::setMoney(double money)
 {
 	OrdMoney = money;
+}
+
+int ArrivalEvent::get_arrival_count()
+{
+	return arrival_count;
 }

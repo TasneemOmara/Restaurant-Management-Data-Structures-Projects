@@ -56,10 +56,25 @@ Order& Cook::getAssignedOrder()
 
 void Cook::RemoveOrder()
 {
-	Order* p = &cooking;
+/*	Order* p = & (this -> cooking);
 
 	//Set p to hold NULL
 	p = NULL;
+*/	
+
+	//this->cooking.~Order();
+	
+	
+	Order deleto;
+	deleto.setStatus(DONE);
+	this->cooking = deleto;
+	deleto.~Order();
+	
+
+//	this -> cooking = *p;
+/*	Order* p = & this -> cooking;
+	Order O();
+*/
 }
 
 void Cook::setMaxCooksNum(int max)
@@ -76,7 +91,7 @@ void Cook::global_time(int i)
 
 bool Cook::ToDone(Cook Arr_done[])
 {
-	if (current_time == cooking.get_SV() + (cooking.GetDishes() / speed))
+	if (current_time >= cooking.get_SV() + (cooking.GetDishes() / speed) )
 	{
 		Arr_done[ID] = *this;
 		return true;

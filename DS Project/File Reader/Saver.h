@@ -41,5 +41,8 @@ void Save(Restaurant* pRest)
 		savedfile << d[i].get_ST();
 		savedfile << "\n";
 	}
+
+
+	savedfile << "\n";
 	
 };
