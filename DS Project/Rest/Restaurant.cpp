@@ -93,6 +93,7 @@ void Restaurant::RunSimulation()
 		}
 		
 		//save
+		Save(this);
 		break;
 
 
@@ -110,7 +111,7 @@ void Restaurant::RunSimulation()
 			FillDrawingList(steps);
 			pGUI->sleep(50); //Updates the loop each 1000 milliseconds.
 			
-			if (All_Done.getcounter() > ArrivalEvent::get_arrival_count())
+			if (All_Done.getcounter() == ArrivalEvent::get_arrival_count())
 			{
 				pGUI->sleep(10000); //holds GUI.
 				break;
@@ -556,7 +557,7 @@ void Restaurant::FillDrawingList(int steps)
 	}
 
 	//Done Printing
-	for (int i = 0 ; i < ArrivalEvent::get_arrival_count() ; i++)
+	for (int i = 0 ; i < m ; i++)
 	{
 		{
 			if ( d[i].getStatus() == DONE )
@@ -571,7 +572,7 @@ void Restaurant::FillDrawingList(int steps)
 
 
 
-	for (int i = 0; i < ArrivalEvent::get_arrival_count() ; i++)
+	for (int i = 0; i < m ; i++)
 	{
 		ST_tot	= ST_tot + d[i].get_ST();
 		WT_tot	= WT_tot + d[i].get_WT();
