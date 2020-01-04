@@ -43,6 +43,52 @@ void Save(Restaurant* pRest)
 	}
 
 
-	savedfile << "\n";
+	//Printing Statistics
+	int count_ord_all = pRest -> get_All_Done().getcounter();		//Orders
+	int count_n = 0;												//Norm Ord
+	int count_g = 0;												//Vegan Ord
+	int count_v = 0;												//VIP Ord
+
+	//For calculating Averages
+	double ST_tot = 0;
+	double WT_tot = 0;
+	double AVG_ST = 0;
+	double AVG_WT = 0;
+
+	int k = ArrivalEvent::get_arrival_count();
+
+	Order o;
+
+	while ( pRest->get_All_Done().dequeue(o) )
+	{
+		switch (o.GetType())
+
+		{
+		case TYPE_NRM:
+			count_n++;
+			break;
+		case TYPE_VEG:
+			count_g++;
+			break;
+		case TYPE_VIP:
+			count_v++;
+			break;
+		}
+	}
 	
+	
+	for (int i = 0; i < k ; i++)
+	{
+		ST_tot = ST_tot + pRest->get_All_Done().toArray(k)[i].get_ST();
+		WT_tot = WT_tot + pRest->get_All_Done().toArray(k)[i].get_WT();
+	}
+
+	if (count_ord_all != 0)
+	{
+		AVG_ST = ST_tot / count_ord_all;
+		AVG_WT = WT_tot / count_ord_all;
+	}
+
+
+
 };

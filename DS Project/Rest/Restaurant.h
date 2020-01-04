@@ -59,6 +59,9 @@ public:
 	void AssignVegan(int steps);
 	void AssignNormal(int steps);
 	int get_m();
+	int get_Cooks_num_Normal() const;
+	int get_Cooks_num_Vegan() const;
+	int get_Cooks_num_VIP() const;
 	void moveCookToBreak(Cook &c, int step);
 	void moveCookToQueue(Cook &c);
 	void moveCook(Cook& c, int step);
