@@ -87,9 +87,21 @@ void Restaurant::RunSimulation()
 			FillDrawingList(steps);
 			pGUI->waitForClick(); //Wait for user click to enter the loop again.
 
-			if(All_Done.getcounter() == ArrivalEvent::get_arrival_count())
-			{ 
-				pGUI->sleep(3000); //holds GUI.
+			string flag = "zero";
+			while (All_Done.getcounter() == ArrivalEvent::get_arrival_count())
+			{
+				if (flag == "one")
+				{
+					pGUI->updateInterface();
+					pGUI->handleSimGUIEvents();
+					FillDrawingList(steps);
+					pGUI->sleep(3200); //holds GUI.
+					break;
+				}
+				flag = "one";
+			}
+			if (flag == "one")
+			{
 				break;
 			}
 		}
@@ -119,9 +131,21 @@ void Restaurant::RunSimulation()
 			cout << "-------------------" << endl;
 			*/
 
-			if (All_Done.getcounter() == ArrivalEvent::get_arrival_count())
+			string flag = "zero";
+			while (All_Done.getcounter() == ArrivalEvent::get_arrival_count())
 			{
-				pGUI->sleep(3000); //holds GUI.
+				if (flag == "one")
+				{
+					pGUI->updateInterface();
+					pGUI->handleSimGUIEvents();
+					FillDrawingList(steps);
+					pGUI->sleep(3200); //holds GUI.
+					break;
+				}
+				flag = "one";
+			}
+			if (flag == "one")
+			{
 				break;
 			}
 		}
@@ -343,8 +367,8 @@ void Restaurant::updateServiceDone(int steps)
 		{
 			Inservice[i].global_time(steps);	//setting current time-stamp to cook
 			done = Inservice[i].ToDone(Done);	//check if an order is done by checking if it took enough required time
-			cout << Inservice[i].getAssignedOrder().GetID() << "<-- ID" << endl;
-			cout << Inservice[i].getAssignedOrder().getStatus() << "<-- Status Before" << endl;
+			//cout << Inservice[i].getAssignedOrder().GetID() << "<-- ID" << endl;
+			//cout << Inservice[i].getAssignedOrder().getStatus() << "<-- Status Before" << endl;
 
 			if (done)
 			{
@@ -356,7 +380,7 @@ void Restaurant::updateServiceDone(int steps)
 				moveCook(Done[i], steps);
 				Inservice[i].RemoveOrder();
 
-				cout << Inservice[i].getAssignedOrder().getStatus() << "<-- Status After" << endl;
+				//cout << Inservice[i].getAssignedOrder().getStatus() << "<-- Status After" << endl;
 			}
 		}
 	}
@@ -577,7 +601,20 @@ void Restaurant::FillDrawingList(int steps)
 	{
 		if ( Inservice[i].getAssignedOrder() != 0 /*&& Inservice[i].getAssignedOrder().getStatus() == SRV*/ )
 		{
-			pGUI->addGUIDrawable(new NormalGUIElement(Inservice[i].getAssignedOrder().GetID(), GUI_REGION::SRV_REG));
+			if (Inservice[i].getAssignedOrder().GetType() == TYPE_NRM)
+			{
+				pGUI->addGUIDrawable(new NormalGUIElement(Inservice[i].getAssignedOrder().GetID(), GUI_REGION::SRV_REG));
+			}
+
+			else if (Inservice[i].getAssignedOrder().GetType() == TYPE_VEG)
+			{
+				pGUI->addGUIDrawable(new VeganGUIElement(Inservice[i].getAssignedOrder().GetID(), GUI_REGION::SRV_REG));
+			}
+
+			else
+			{
+				pGUI->addGUIDrawable(new VIPGUIElement(Inservice[i].getAssignedOrder().GetID(), GUI_REGION::SRV_REG));
+			}
 		}
 	}
 
@@ -587,7 +624,22 @@ void Restaurant::FillDrawingList(int steps)
 		{
 			if ( d[i].getStatus() == DONE )
 			{
-				pGUI->addGUIDrawable(new NormalGUIElement(d[i].GetID(), GUI_REGION::DONE_REG));
+				if (d[i].GetType() == TYPE_NRM)
+				{
+					pGUI->addGUIDrawable(new NormalGUIElement(d[i].GetID(), GUI_REGION::DONE_REG));
+				}
+
+				else if (d[i].GetType() == TYPE_VEG)
+				{
+					pGUI->addGUIDrawable(new VeganGUIElement(d[i].GetID(), GUI_REGION::DONE_REG));
+				}
+
+				else
+				{
+					pGUI->addGUIDrawable(new VIPGUIElement(d[i].GetID(), GUI_REGION::DONE_REG));
+				}
+
+				//pGUI->addGUIDrawable(new NormalGUIElement(d[i].GetID(), GUI_REGION::DONE_REG));
 				//cout << Done[i].getAssignedOrder().GetID() << " " << Done[i].getAssignedOrder().get_WT() << endl;
 			}
 		}
