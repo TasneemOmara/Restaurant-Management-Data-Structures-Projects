@@ -30,30 +30,13 @@ void Save(Restaurant* pRest)
 	double AVG_WT = 0;
 
 	int k = pRest->count_for_arrivals;
-	cout << "this is K" << k << endl;
-	Order o;
-
-	while ( pRest->get_All_Done().dequeue(o) )
-	{
-		switch (o.GetType())
-
-		{
-		case TYPE_NRM:
-			count_n++;
-			break;
-		case TYPE_VEG:
-			count_g++;
-			break;
-		case TYPE_VIP:
-			count_v++;
-			break;
-		}
-	}
+	//cout << "this is K" << k << endl;
+	
 	Order *Q = pRest->get_All_Done().toArray(k);
 	Queue<Order> All_Done;
 	pRest->get_All_Done().PrintQueue(All_Done);
-	cout << "K = " << k << endl;
-	cout << "count_ord_all = " << count_ord_all << endl;
+	//cout << "K = " << k << endl;
+	//cout << "count_ord_all = " << count_ord_all << endl;
 	
 
 	for (int i = 0; i < k ; i++)
@@ -67,6 +50,7 @@ void Save(Restaurant* pRest)
 		AVG_ST = ST_tot / count_ord_all;
 		AVG_WT = WT_tot / count_ord_all;
 	}
+
 
 	ofstream savedfile("Output.txt");
 	savedfile << "FT";
@@ -94,6 +78,26 @@ void Save(Restaurant* pRest)
 		savedfile << d[i].get_ST();
 		savedfile << "\n";
 	}
+
+	Order o;
+
+	while (pRest->get_All_Done().dequeue(o))
+	{
+		switch (o.GetType())
+
+		{
+		case TYPE_NRM:
+			count_n++;
+			break;
+		case TYPE_VEG:
+			count_g++;
+			break;
+		case TYPE_VIP:
+			count_v++;
+			break;
+		}
+	}
+
 	savedfile << "..................................................\n";
 	savedfile << "..................................................\n";
 	savedfile << "Orders: " << count_ord_all << " [Norm:" << count_n++ << ", Veg: " << count_g << ", VIP: " << count_v << " ]\n";

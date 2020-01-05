@@ -19,6 +19,8 @@ protected:
 public:
 	Event();
 	Event(int eTime, int ordID);
+	static int get_arrival_count();
+	static int arrival_count;
 	int getEventTime();
 	int getOrderID();
 	virtual ~Event();

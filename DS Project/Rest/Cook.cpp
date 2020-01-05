@@ -45,8 +45,8 @@ int Cook::getDishesServed() const
 
 void Cook::AssignOrder(Order &O)
 {
-	cooking=O;
-	dishes_served=dishes_served+cooking.GetDishes();
+	cooking = O;
+	dishes_served = dishes_served + cooking.GetDishes();
 }
 
 Order& Cook::getAssignedOrder()

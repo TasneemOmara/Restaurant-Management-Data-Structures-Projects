@@ -13,12 +13,10 @@ private:
 	double OrdMoney;	//Total order money
 	//int arrival_count;
 public:
-	static int arrival_count;
     ArrivalEvent();
 	ArrivalEvent(int eTime, int oID, ORD_TYPE oType);	
 	virtual void Execute(Restaurant *pRest);	//override execute function
 	virtual void setDishes(int size);
 	virtual void setMoney(double money);
-	static int get_arrival_count();
 
 };

@@ -99,6 +99,7 @@ void Read_File2(char** Events, int** Event_Data, int M)
 	{
 		char Event_Type;
 		myfile >> Event_Type;
+		cout << "Event Type " << Event_Type << endl;
 		if (Event_Type == 'R')
 		{
 			Events[i] = new char[2];
@@ -113,23 +114,47 @@ void Read_File2(char** Events, int** Event_Data, int M)
 		}
 		else if (Event_Type == 'X')
 		{
-			Events[i] = new char[1];
+			/*Events[i] = new char[1];
 			Events[i][0] = Event_Type;
 			Event_Data[i] = new int[2];
 			myfile >> Event_Data[i][0];
 			myfile >> Event_Data[i][1];
+			cout << "This --> " << Event_Data[i][0] << endl;
+			//Event_Type == 'Z';*/
+			
+			Events[i] = new char[2];
+			Event_Data[i] = new int[4];
+			Events[i][0] = Event_Type;
+			myfile >> Event_Data[i][0];
+			myfile >> Events[i][1];
+			for (int j = 1; j <= 3; j++)
+			{
+				myfile >> Event_Data[i][j];
+			}
+
 		}
 		else if (Event_Type == 'P')
 		{
-			Events[i] = new char[1];
+			/*Events[i] = new char[1];
 			Events[i][0] = Event_Type;
 			Event_Data[i] = new int[3];
 			for (int j = 0; j <= 2; j++)
 			{
 				myfile >> Event_Data[i][j];
+			}*/
+
+			Events[i] = new char[2];
+			Event_Data[i] = new int[4];
+			Events[i][0] = Event_Type;
+			myfile >> Event_Data[i][0];
+			myfile >> Events[i][1];
+			for (int j = 1; j <= 3; j++)
+			{
+				myfile >> Event_Data[i][j];
 			}
 		}
 	}
+
 
 	myfile.close();
 	/*
@@ -208,7 +233,7 @@ void ArrayEnqueuer(Event** Array, char** Events, int** Event_Data, int M)
 		}
 		else if (R == 'X')
 		{
-			cout << "Cancellation deteced" << endl;
+			cout << "Cancellation deteced" << " of ID "<< endl;
 			CancellationEvent* E = new CancellationEvent(Event_Data[i][0], Event_Data[i][1]);
 			Array[i] = E;
 			//EventsQueue.enqueue(E);

@@ -3,6 +3,8 @@
 
 Event::Event(){};
 
+int Event::arrival_count = 0;
+
 Event::Event(int eTime, int ordID)
 {
 	EventTime = eTime;
@@ -19,6 +21,10 @@ int Event::getOrderID()
 	return OrderID;
 }
 
+int Event::get_arrival_count()
+{
+	return arrival_count;
+}
 
 Event::~Event()
 {
