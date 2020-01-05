@@ -8,8 +8,8 @@ class Cook
 private:
 	int ID;
 	ORD_TYPE type;	              //for each order type there is a corresponding type (VIP, Normal, Vegan)
-	int speed;		              //dishes it can prepare in one clock tick (in one timestep)
-	int dishes_before_break;      //dishes he make before the cooks takes break
+	double speed;		              //dishes it can prepare in one clock tick (in one timestep)
+	double dishes_before_break;      //dishes he make before the cooks takes break
 	Order cooking;                //the order he cooks now
 	int max_cooks_num;            //the maximum number of cooks for a specific type
 	int current_time;             //universal time stamp
@@ -19,7 +19,7 @@ private:
 
 public:
 	Cook();
-	Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val, int break_duration_val, int current_time = 0);
+	Cook(int id_val, ORD_TYPE type_val, double speed_val, double dishes_before_break_val, int break_duration_val, int current_time = 0);
 	~Cook();
 	int GetID() const;
 	ORD_TYPE GetType() const;
@@ -32,7 +32,7 @@ public:
 	void global_time(int i);
 	bool ToDone(Cook Arr_done[]);
 	bool break_time() const;
-	int getDishesServed() const;
+	double getDishesServed() const;
 	void ResetDishesServed();
 	void set_breakDuration(int n);
 	void set_timeEnteredBreak(int steps);

@@ -3,7 +3,7 @@
 Cook::Cook(){
 };
 
-Cook::Cook(int id_val, ORD_TYPE type_val, int speed_val, int dishes_before_break_val, int break_duration_val, int current_time_val) : ID{ id_val }, type{ type_val }, speed{ speed_val }, dishes_before_break{ dishes_before_break_val }, break_duration{ break_duration_val }, current_time{ current_time_val }
+Cook::Cook(int id_val, ORD_TYPE type_val, double speed_val, double dishes_before_break_val, int break_duration_val, int current_time_val) : ID{ id_val }, type{ type_val }, speed{ speed_val }, dishes_before_break{ dishes_before_break_val }, break_duration{ break_duration_val }, current_time{ current_time_val }
 {
 	dishes_served = 0;
 	timeEnteredBreak = 0;
@@ -37,7 +37,7 @@ void Cook::setType(ORD_TYPE t)
 	type = t;
 }
 
-int Cook::getDishesServed() const
+double Cook::getDishesServed() const
 {
 	return dishes_served;
 }
@@ -93,6 +93,7 @@ bool Cook::ToDone(Cook Arr_done[])
 {
 	if (current_time >= cooking.get_SV() + (cooking.GetDishes() / speed) )
 	{
+		cout << "Noooo" << (cooking.GetDishes() / speed) <<endl;
 		Arr_done[ID] = *this;
 		return true;
 	}
